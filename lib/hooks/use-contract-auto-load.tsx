@@ -1,19 +1,19 @@
-import { useNetwork } from 'wagmi'
+import { useNetwork } from "wagmi";
 
 export function useContractAutoLoad(contract: string, chainId?: number): any {
-  const { chain } = useNetwork()
+  const { chain } = useNetwork();
   switch (chainId || chain?.id) {
     case 1:
       switch (contract) {
-        case 'Contract':
+        case "Contract":
           return {
-            address: '',
+            address: "",
             abi: [],
-          }
+          };
         default:
-          throw new Error(`Unknown contract ${contract}`)
+          throw new Error(`Unknown contract ${contract}`);
       }
     default:
-      throw new Error(`Unknown network ${chain?.id}`)
+      throw new Error(`Unknown network ${chain?.id}`);
   }
 }

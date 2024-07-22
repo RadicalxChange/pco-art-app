@@ -1,16 +1,16 @@
-import "@/styles/app.css"
-import "@/styles/gradient.css"
-import "@/styles/periphery.css"
-import { Raleway } from "next/font/google"
-import { Inter as FontSans } from "next/font/google"
-import localFont from "next/font/local"
+import "@/styles/app.css";
+import "@/styles/gradient.css";
+import "@/styles/periphery.css";
+import { Raleway } from "next/font/google";
+import { Inter as FontSans } from "next/font/google";
+import localFont from "next/font/local";
 
-import RootProvider from "@/components/providers/root-provider"
-import { siteConfig } from "@/config/site"
-import { env } from "@/env.mjs"
-import { cn } from "@/lib/utils"
+import RootProvider from "@/components/providers/root-provider";
+import { siteConfig } from "@/config/site";
+import { env } from "@/env.mjs";
+import { cn } from "@/lib/utils";
 
-const url = env.SITE_URL || "http://localhost:3000"
+const url = env.SITE_URL || "http://localhost:3000";
 
 export const metadata = {
   title: `${siteConfig.name} - ${siteConfig.description}`,
@@ -30,23 +30,23 @@ export const metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
   },
-}
+};
 
 const sfPro = localFont({
   src: "../assets/fonts/SF-Pro-Display-Medium.otf",
   variable: "--sfPro-font",
-})
+});
 
 const raleway = Raleway({
   subsets: ["latin"],
   weight: ["100", "200", "400", "500", "600", "700", "800", "900"],
   variable: "--raleway-font",
-})
+});
 
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
-})
+});
 
 export default function RootLayout({ children }: any) {
   return (
@@ -66,5 +66,5 @@ export default function RootLayout({ children }: any) {
         </body>
       </html>
     </>
-  )
+  );
 }

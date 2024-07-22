@@ -1,166 +1,209 @@
-'use client'
-import { useEffect, useState } from 'react'
+"use client";
+import { useEffect, useState } from "react";
 
-import { useForm } from 'react-hook-form'
-import { Address, useContractReads } from 'wagmi'
-import { waitForTransaction, writeContract } from 'wagmi/actions'
+import { useForm } from "react-hook-form";
+import { Address, useContractReads } from "wagmi";
+import { waitForTransaction, writeContract } from "wagmi/actions";
 
-import { WalletConnect } from '@/components/blockchain/wallet-connect'
-import { BranchIsWalletConnected } from '@/components/shared/branch-is-wallet-connected'
-import { allowlistFacetABI, nativeStewardLicenseFacetABI } from '@/lib/blockchain'
-import { truncateStr } from '@/lib/utils'
+import { WalletConnect } from "@/components/blockchain/wallet-connect";
+import { BranchIsWalletConnected } from "@/components/shared/branch-is-wallet-connected";
+import {
+  allowlistFacetABI,
+  nativeStewardLicenseFacetABI,
+} from "@/lib/blockchain";
+import { truncateStr } from "@/lib/utils";
 
-export default function UpdateEligibilityPage({ params }: { params: { 'token-address': string } }) {
-  const [isSaving, setIsSaving] = useState<boolean>(false)
+export default function UpdateEligibilityPage({
+  params,
+}: {
+  params: { "token-address": string };
+}) {
+  const [isSaving, setIsSaving] = useState<boolean>(false);
 
-  const tokenAddress = params['token-address'] as Address
+  const tokenAddress = params["token-address"] as Address;
 
   const { data } = useContractReads({
     contracts: [
       {
         address: tokenAddress,
         abi: nativeStewardLicenseFacetABI,
-        functionName: 'name',
+        functionName: "name",
       },
       {
         address: tokenAddress,
         abi: nativeStewardLicenseFacetABI,
-        functionName: 'ownerOf',
+        functionName: "ownerOf",
         args: [BigInt(0)],
       },
       {
         address: tokenAddress,
         abi: allowlistFacetABI,
-        functionName: 'getAllowlist',
+        functionName: "getAllowlist",
       },
       {
         address: tokenAddress,
         abi: allowlistFacetABI,
-        functionName: 'getAllowAny',
+        functionName: "getAllowAny",
       },
     ],
-  })
-  const { register, setValue, getValues, watch } = useForm()
+  });
+  const { register, setValue, getValues, watch } = useForm();
 
-  const tokenName = data && data[0].status === 'success' ? data[0].result : null
-  const owner = data && data[1].status === 'success' ? data[1].result : null
-  const currentAllowList = data && data[2].status === 'success' ? data[2].result : null
-  const isAllowAny = data && data[3].status === 'success' ? data[3].result : null
+  const tokenName =
+    data && data[0].status === "success" ? data[0].result : null;
+  const owner = data && data[1].status === "success" ? data[1].result : null;
+  const currentAllowList =
+    data && data[2].status === "success" ? data[2].result : null;
+  const isAllowAny =
+    data && data[3].status === "success" ? data[3].result : null;
 
-  const watchAllowAny = watch('allowlist.allow-any')
-  const watchAddresses = watch(`allowlist.addresses`)
+  const watchAllowAny = watch("allowlist.allow-any");
+  const watchAddresses = watch(`allowlist.addresses`);
 
   useEffect(() => {
     if (!currentAllowList) {
-      return
+      return;
     }
 
-    setValue('allowlist.allow-any', isAllowAny ? 'true' : 'false')
-    setValue('allowlist.addresses', currentAllowList)
-  }, [currentAllowList, isAllowAny])
+    setValue("allowlist.allow-any", isAllowAny ? "true" : "false");
+    setValue("allowlist.addresses", currentAllowList);
+  }, [currentAllowList, isAllowAny]);
 
   const handleSave = async () => {
-    setIsSaving(true)
+    setIsSaving(true);
 
     try {
-      let hash
-      const { allowlist } = getValues()
-      const allowAny = allowlist['allow-any'] === 'true'
-      const newAllowList = allowlist.addresses.filter(String)
-      const removeAddresses = currentAllowList ? currentAllowList.filter((address: Address) => !newAllowList.includes(address)) : []
-      const addAddresses = currentAllowList ? newAllowList.filter((address: Address) => !currentAllowList.includes(address)) : []
+      let hash;
+      const { allowlist } = getValues();
+      const allowAny = allowlist["allow-any"] === "true";
+      const newAllowList = allowlist.addresses.filter(String);
+      const removeAddresses = currentAllowList
+        ? currentAllowList.filter(
+            (address: Address) => !newAllowList.includes(address)
+          )
+        : [];
+      const addAddresses = currentAllowList
+        ? newAllowList.filter(
+            (address: Address) => !currentAllowList.includes(address)
+          )
+        : [];
 
       if (allowAny) {
-        hash = await setAllowAny()
+        hash = await setAllowAny();
       } else if (removeAddresses.length > 0 && addAddresses.length > 0) {
-        hash = await batchUpdateAllowlist(removeAddresses, addAddresses)
+        hash = await batchUpdateAllowlist(removeAddresses, addAddresses);
       } else if (removeAddresses.length > 0) {
-        hash = await batchRemoveFromAllowlist(removeAddresses)
+        hash = await batchRemoveFromAllowlist(removeAddresses);
       } else {
-        hash = await batchAddToAllowlist(addAddresses)
+        hash = await batchAddToAllowlist(addAddresses);
       }
 
       if (hash) {
-        await waitForTransaction({ hash })
+        await waitForTransaction({ hash });
       }
 
-      setIsSaving(false)
+      setIsSaving(false);
     } catch (err) {
-      console.error(err)
-      setIsSaving(false)
+      console.error(err);
+      setIsSaving(false);
     }
-  }
+  };
 
   const setAllowAny = async () => {
     const { hash } = await writeContract({
       address: tokenAddress,
       abi: allowlistFacetABI,
-      functionName: 'setAllowAny',
+      functionName: "setAllowAny",
       args: [true],
-    })
+    });
 
-    return hash
-  }
+    return hash;
+  };
 
-  const batchAddToAllowlist = async (addresses: Address[], allowAny?: boolean) => {
+  const batchAddToAllowlist = async (
+    addresses: Address[],
+    allowAny?: boolean
+  ) => {
     const { hash } = await writeContract({
       address: tokenAddress,
       abi: allowlistFacetABI,
-      functionName: 'batchAddToAllowlist',
+      functionName: "batchAddToAllowlist",
       args: [addresses, false],
-    })
+    });
 
-    return hash
-  }
+    return hash;
+  };
 
-  const batchRemoveFromAllowlist = async (addresses: Address[], allowAny?: boolean) => {
+  const batchRemoveFromAllowlist = async (
+    addresses: Address[],
+    allowAny?: boolean
+  ) => {
     const { hash } = await writeContract({
       address: tokenAddress,
       abi: allowlistFacetABI,
-      functionName: 'batchRemoveFromAllowlist',
+      functionName: "batchRemoveFromAllowlist",
       args: [addresses, allowAny ?? false],
-    })
+    });
 
-    return hash
-  }
+    return hash;
+  };
 
-  const batchUpdateAllowlist = async (removeAddresses: Address[], addAddresses: Address[], allowAny?: boolean) => {
+  const batchUpdateAllowlist = async (
+    removeAddresses: Address[],
+    addAddresses: Address[],
+    allowAny?: boolean
+  ) => {
     const { hash } = await writeContract({
       address: tokenAddress,
       abi: allowlistFacetABI,
-      functionName: 'batchUpdateAllowlist',
+      functionName: "batchUpdateAllowlist",
       args: [removeAddresses, addAddresses, allowAny ?? false],
-    })
+    });
 
-    return hash
-  }
+    return hash;
+  };
 
   return (
     <div className="m-auto w-2/4">
       <h1 className="text-4xl font-bold text-blue-500">
         {tokenName} ({truncateStr(tokenAddress, 12)})
       </h1>
-      <h2 className="text-medium mt-5 text-2xl font-bold">Edit Auction Eligibility</h2>
+      <h2 className="text-medium mt-5 text-2xl font-bold">
+        Edit Auction Eligibility
+      </h2>
       <div className="mb-6 mt-12">
-        <label htmlFor="allowlist.allow-any" className="mb-2 block font-medium text-gray-900 dark:text-white">
+        <label
+          htmlFor="allowlist.allow-any"
+          className="mb-2 block font-medium text-gray-900 dark:text-white"
+        >
           Criteria
         </label>
-        <label htmlFor="allowlist.allow-any" className="mb-2 block font-medium text-gray-900 dark:text-white">
+        <label
+          htmlFor="allowlist.allow-any"
+          className="mb-2 block font-medium text-gray-900 dark:text-white"
+        >
           Set who can participate in this token&apos;s Auction Pitches.
         </label>
         <select
-          {...register('allowlist.allow-any')}
-          className="grow rounded-lg border border-gray-300 bg-gray-50 dark:border-gray-600 dark:bg-gray-700">
+          {...register("allowlist.allow-any")}
+          className="grow rounded-lg border border-gray-300 bg-gray-50 dark:border-gray-600 dark:bg-gray-700"
+        >
           <option value="true">Open Participation</option>
           <option value="false">Allowlist</option>
         </select>
       </div>
-      {watchAllowAny === 'false' && (
+      {watchAllowAny === "false" && (
         <div className="mb-6">
-          <label htmlFor="allowlist.addresses" className="mb-2 block font-medium text-gray-900 dark:text-white">
+          <label
+            htmlFor="allowlist.addresses"
+            className="mb-2 block font-medium text-gray-900 dark:text-white"
+          >
             Allowlist
           </label>
-          <label htmlFor="allowlist.addresses" className="mb-2 block font-medium text-gray-900 dark:text-white">
+          <label
+            htmlFor="allowlist.addresses"
+            className="mb-2 block font-medium text-gray-900 dark:text-white"
+          >
             Provide the eligibile Ethereum addresses.
           </label>
           {watchAddresses?.map((_: any, index: number) => (
@@ -170,8 +213,12 @@ export default function UpdateEligibilityPage({ params }: { params: { 'token-add
                   className="btn btn-sm mx-5 bg-gradient-to-r from-red-500 to-red-400 text-white"
                   onClick={() => {
                     // Remove item from watchAddresses
-                    setValue(`allowlist.addresses`, watchAddresses?.toSpliced(index, 1))
-                  }}>
+                    setValue(
+                      `allowlist.addresses`,
+                      watchAddresses?.toSpliced(index, 1)
+                    );
+                  }}
+                >
                   -
                 </button>
               )}
@@ -190,21 +237,28 @@ export default function UpdateEligibilityPage({ params }: { params: { 'token-add
             <button
               className="btn btn-sm mx-1 grow bg-gradient-to-r from-emerald-500 to-emerald-400 text-white"
               onClick={() => {
-                setValue(`allowlist.addresses.${watchAddresses?.length ?? 0 + 1}`, '')
-              }}>
+                setValue(
+                  `allowlist.addresses.${watchAddresses?.length ?? 0 + 1}`,
+                  ""
+                );
+              }}
+            >
               + Add another address
             </button>
           </div>
         </div>
       )}
       <BranchIsWalletConnected>
-        <button className="float-right w-full rounded-full bg-blue-500 px-8 py-4 text-xl font-bold lg:w-40" onClick={handleSave}>
-          {isSaving ? <span className="lds-dual-ring" /> : 'Save'}
+        <button
+          className="float-right w-full rounded-full bg-blue-500 px-8 py-4 text-xl font-bold lg:w-40"
+          onClick={handleSave}
+        >
+          {isSaving ? <span className="lds-dual-ring" /> : "Save"}
         </button>
         <div className="float-right">
           <WalletConnect />
         </div>
       </BranchIsWalletConnected>
     </div>
-  )
+  );
 }

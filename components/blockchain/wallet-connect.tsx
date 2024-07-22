@@ -1,10 +1,10 @@
-'use client'
-import * as React from 'react'
+"use client";
+import * as React from "react";
 
-import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 interface WalletConnectProps {
-  className?: string
+  className?: string;
 }
 
 export const WalletConnect = ({ className }: WalletConnectProps) => {
@@ -13,14 +13,14 @@ export const WalletConnect = ({ className }: WalletConnectProps) => {
       <ConnectButton
         showBalance={false}
         accountStatus={{
-          smallScreen: 'avatar',
-          largeScreen: 'avatar',
+          smallScreen: "avatar",
+          largeScreen: "avatar",
         }}
         chainStatus={{
-          smallScreen: 'icon',
-          largeScreen: 'icon',
+          smallScreen: "icon",
+          largeScreen: "icon",
         }}
       />
     </span>
-  )
-}
+  );
+};

@@ -1,28 +1,28 @@
-'use client'
-import { useState } from 'react'
+"use client";
+import { useState } from "react";
 
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion";
 
-import { WalletConnect } from '@/components/blockchain/wallet-connect'
-import ConfigStewardLicenseFacet from '@/components/create/001-steward-license'
-import ConfigPCOSettingsFacet from '@/components/create/002-pco-settings'
-import ConfigBeneficiaryFacet from '@/components/create/003-beneficiary'
-import ConfigAuctionFacet from '@/components/create/004-auction'
-import ConfigAllowlistFacet from '@/components/create/005-allowlist'
-import ConfigPermissions from '@/components/create/006-permissions'
-import CreateReview from '@/components/create/007-review'
-import { BranchIsWalletConnected } from '@/components/shared/branch-is-wallet-connected'
-import { FADE_DOWN_ANIMATION_VARIANTS } from '@/config/design'
+import { WalletConnect } from "@/components/blockchain/wallet-connect";
+import ConfigStewardLicenseFacet from "@/components/create/001-steward-license";
+import ConfigPCOSettingsFacet from "@/components/create/002-pco-settings";
+import ConfigBeneficiaryFacet from "@/components/create/003-beneficiary";
+import ConfigAuctionFacet from "@/components/create/004-auction";
+import ConfigAllowlistFacet from "@/components/create/005-allowlist";
+import ConfigPermissions from "@/components/create/006-permissions";
+import CreateReview from "@/components/create/007-review";
+import { BranchIsWalletConnected } from "@/components/shared/branch-is-wallet-connected";
+import { FADE_DOWN_ANIMATION_VARIANTS } from "@/config/design";
 
 export default function CreatePage() {
-  const [step, setStep] = useState(1)
+  const [step, setStep] = useState(1);
 
   function nextStep() {
-    setStep(step + 1)
+    setStep(step + 1);
   }
 
   function prevStep() {
-    setStep(step - 1)
+    setStep(step - 1);
   }
 
   return (
@@ -42,10 +42,12 @@ export default function CreatePage() {
                   staggerChildren: 0.15,
                 },
               },
-            }}>
+            }}
+          >
             <motion.h1
               className="text-gradient-primary text-center text-3xl font-bold tracking-[-0.02em] drop-shadow-sm md:text-4xl md:leading-[8rem]"
-              variants={FADE_DOWN_ANIMATION_VARIANTS}>
+              variants={FADE_DOWN_ANIMATION_VARIANTS}
+            >
               Mint Stewardship License
             </motion.h1>
             <div className="mt-8 flex min-w-fit items-center justify-center">
@@ -53,13 +55,22 @@ export default function CreatePage() {
                 {step === 1 ? (
                   <ConfigStewardLicenseFacet nextStep={nextStep} />
                 ) : step === 2 ? (
-                  <ConfigPCOSettingsFacet nextStep={nextStep} prevStep={prevStep} />
+                  <ConfigPCOSettingsFacet
+                    nextStep={nextStep}
+                    prevStep={prevStep}
+                  />
                 ) : step === 3 ? (
-                  <ConfigBeneficiaryFacet nextStep={nextStep} prevStep={prevStep} />
+                  <ConfigBeneficiaryFacet
+                    nextStep={nextStep}
+                    prevStep={prevStep}
+                  />
                 ) : step === 4 ? (
                   <ConfigAuctionFacet nextStep={nextStep} prevStep={prevStep} />
                 ) : step === 5 ? (
-                  <ConfigAllowlistFacet nextStep={nextStep} prevStep={prevStep} />
+                  <ConfigAllowlistFacet
+                    nextStep={nextStep}
+                    prevStep={prevStep}
+                  />
                 ) : step === 6 ? (
                   <ConfigPermissions nextStep={nextStep} prevStep={prevStep} />
                 ) : step === 7 ? (
@@ -74,5 +85,5 @@ export default function CreatePage() {
         </div>
       </div>
     </>
-  )
+  );
 }

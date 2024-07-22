@@ -1,22 +1,24 @@
-import { UseFormRegister, useFormContext } from 'react-hook-form'
+import { UseFormRegister, useFormContext } from "react-hook-form";
 
 export default function CreatorCircleAllocationEntry({
   index,
   register,
   totalUnits,
 }: {
-  index: number
-  register: UseFormRegister<any>
-  totalUnits: number
+  index: number;
+  register: UseFormRegister<any>;
+  totalUnits: number;
 }) {
-  const { watch, setValue } = useFormContext()
-  const watchAllocation = watch(`beneficiary.allocation`)
-  const percentageNum = watchAllocation ? (watchAllocation[index].units * 100) / totalUnits : undefined
-  let percentage: string
+  const { watch, setValue } = useFormContext();
+  const watchAllocation = watch(`beneficiary.allocation`);
+  const percentageNum = watchAllocation
+    ? (watchAllocation[index].units * 100) / totalUnits
+    : undefined;
+  let percentage: string;
   if (percentageNum === undefined || isNaN(percentageNum)) {
-    percentage = ''
+    percentage = "";
   } else {
-    percentage = `${percentageNum.toFixed(0)}`
+    percentage = `${percentageNum.toFixed(0)}`;
   }
 
   return (
@@ -26,8 +28,12 @@ export default function CreatorCircleAllocationEntry({
           className="btn btn-sm mx-5 bg-gradient-to-r from-red-500 to-red-400 text-white"
           onClick={() => {
             // Remove item from watchAllocation
-            setValue(`beneficiary.allocation`, watchAllocation?.toSpliced(index, 1))
-          }}>
+            setValue(
+              `beneficiary.allocation`,
+              watchAllocation?.toSpliced(index, 1)
+            );
+          }}
+        >
           -
         </button>
       )}
@@ -41,7 +47,9 @@ export default function CreatorCircleAllocationEntry({
         pattern="^(0x)?[0-9a-fA-F]{40}$"
       />
       <input
-        {...register(`beneficiary.allocation.${index}.units`, { valueAsNumber: true })}
+        {...register(`beneficiary.allocation.${index}.units`, {
+          valueAsNumber: true,
+        })}
         type="number"
         id="name"
         className="mx-1 w-20 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
@@ -55,5 +63,5 @@ export default function CreatorCircleAllocationEntry({
         value={`${percentage}%`}
       />
     </div>
-  )
+  );
 }

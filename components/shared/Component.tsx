@@ -4,38 +4,58 @@ It might be a good idea to move this to a separate package or remove it complete
 */
 
 // @ts-nocheck
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from "react";
 
 export function isClassComponent(component: unknown) {
-  return typeof component === 'function' && !!component.prototype && component.prototype.isReactComponent
+  return (
+    typeof component === "function" &&
+    !!component.prototype &&
+    component.prototype.isReactComponent
+  );
 }
 
 export function isFunctionComponent(component: any) {
-  return typeof component === 'function' && String(component).includes('return React.createElement')
+  return (
+    typeof component === "function" &&
+    String(component).includes("return React.createElement")
+  );
 }
 
 export function isInlineFunctionComponent(component: any) {
-  return typeof component === 'function'
+  return typeof component === "function";
 }
 
 export function isReactComponent(component: any) {
-  return !!(isClassComponent(component) || isFunctionComponent(component) || isInlineFunctionComponent(component))
+  return !!(
+    isClassComponent(component) ||
+    isFunctionComponent(component) ||
+    isInlineFunctionComponent(component)
+  );
 }
 
 export function isElement(element) {
-  return React.isValidElement(element)
+  return React.isValidElement(element);
 }
 
 export function isDOMTypeElement(element) {
-  return isElement(element) && typeof element.type === 'string'
+  return isElement(element) && typeof element.type === "string";
 }
 
 export function isCompositeTypeElement(element) {
-  return isElement(element) && typeof element.type === 'export function'
+  return isElement(element) && typeof element.type === "export function";
 }
 
-export const Component = (component: ReactElement | ReactNode, props: any): React.ReactNode => {
-  return isReactComponent(component) ? React.createElement(component, props) : isElement(component) ? React.cloneElement(component, props) : <></>
-}
+export const Component = (
+  component: ReactElement | ReactNode,
+  props: any
+): React.ReactNode => {
+  return isReactComponent(component) ? (
+    React.createElement(component, props)
+  ) : isElement(component) ? (
+    React.cloneElement(component, props)
+  ) : (
+    <></>
+  );
+};
 
-export default Component
+export default Component;

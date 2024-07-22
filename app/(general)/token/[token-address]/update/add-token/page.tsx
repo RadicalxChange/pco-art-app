@@ -1,28 +1,36 @@
-'use client'
-import { motion } from 'framer-motion'
-import Link from 'next/link'
-import { useForm } from 'react-hook-form'
-import { Address, useContractRead, useContractWrite, useWaitForTransaction } from 'wagmi'
+"use client";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import {
+  Address,
+  useContractRead,
+  useContractWrite,
+  useWaitForTransaction,
+} from "wagmi";
 
-import { WalletConnect } from '@/components/blockchain/wallet-connect'
-import { BranchIsWalletConnected } from '@/components/shared/branch-is-wallet-connected'
-import { FADE_DOWN_ANIMATION_VARIANTS } from '@/config/design'
-import { nativeStewardLicenseFacetABI } from '@/lib/blockchain'
-import { fromUnitsToSeconds } from '@/lib/utils'
+import { WalletConnect } from "@/components/blockchain/wallet-connect";
+import { BranchIsWalletConnected } from "@/components/shared/branch-is-wallet-connected";
+import { FADE_DOWN_ANIMATION_VARIANTS } from "@/config/design";
+import { nativeStewardLicenseFacetABI } from "@/lib/blockchain";
+import { fromUnitsToSeconds } from "@/lib/utils";
 
-function AddToCollection({ params }: { params: { 'token-address': Address } }) {
-  const tokenAddress = params['token-address']
+function AddToCollection({ params }: { params: { "token-address": Address } }) {
+  const tokenAddress = params["token-address"];
 
-  const { register, handleSubmit, watch } = useForm()
+  const { register, handleSubmit, watch } = useForm();
 
-  const initialStartTime = watch('initial-start-time')
-  const initialStartTimeOffset = fromUnitsToSeconds(watch('initial-start-time-offset'), watch('initial-start-time-offset-type'))
+  const initialStartTime = watch("initial-start-time");
+  const initialStartTimeOffset = fromUnitsToSeconds(
+    watch("initial-start-time-offset"),
+    watch("initial-start-time-offset-type")
+  );
 
   const { data: prevMaxTokenCount } = useContractRead({
     address: tokenAddress,
-    functionName: 'maxTokenCount',
+    functionName: "maxTokenCount",
     abi: nativeStewardLicenseFacetABI,
-  })
+  });
 
   const {
     write,
@@ -31,62 +39,76 @@ function AddToCollection({ params }: { params: { 'token-address': Address } }) {
   } = useContractWrite({
     abi: nativeStewardLicenseFacetABI,
     address: tokenAddress,
-    functionName: 'addTokensWithBaseURIToCollection',
+    functionName: "addTokensWithBaseURIToCollection",
     args: [
-      watch('token-count'),
-      initialStartTime ? BigInt(Date.parse(initialStartTime) / 1000) : BigInt(0),
+      watch("token-count"),
+      initialStartTime
+        ? BigInt(Date.parse(initialStartTime) / 1000)
+        : BigInt(0),
       initialStartTimeOffset ? BigInt(initialStartTimeOffset) : BigInt(0),
-      watch('media-uri') + '/metadata/',
-      watch('should-mint'),
+      watch("media-uri") + "/metadata/",
+      watch("should-mint"),
     ],
-  })
+  });
 
-  const { isLoading, isSuccess, isError, isFetched, isFetching } = useWaitForTransaction({
-    hash: data?.hash,
-  })
+  const { isLoading, isSuccess, isError, isFetched, isFetching } =
+    useWaitForTransaction({
+      hash: data?.hash,
+    });
 
   const onSubmit = () => {
-    write?.()
-  }
+    write?.();
+  };
 
   if (!isLoading && isFetched && isSuccess) {
     return (
       <div className="min-w-full rounded-md bg-neutral-100 p-4 text-center dark:bg-neutral-800">
         <h3 className="mb-2 text-3xl font-bold">Done!</h3>
         <p className="mb-2 text-lg font-medium">
-          <Link href={`/token/${tokenAddress}/${prevMaxTokenCount}`} className="mt-2 underline">
+          <Link
+            href={`/token/${tokenAddress}/${prevMaxTokenCount}`}
+            className="mt-2 underline"
+          >
             View Token Page
           </Link>
         </p>
       </div>
-    )
+    );
   } else if (!isLoading && isFetched && isError) {
     return (
       <div className="min-w-full rounded-md bg-neutral-100 p-4 text-center dark:bg-neutral-800">
         <h3 className="mb-2 text-3xl font-bold">Error!</h3>
       </div>
-    )
+    );
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="min-w-full rounded-md bg-neutral-100 p-4 dark:bg-neutral-800">
         <div className="mb-6">
-          <label htmlFor="media" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+          <label
+            htmlFor="media"
+            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+          >
             URI (Metadata)
           </label>
-          <label htmlFor="cycle" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-            Each token requires its own metadata.{' '}
+          <label
+            htmlFor="cycle"
+            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Each token requires its own metadata.{" "}
             <a
               className="text-cyan-400 underline"
               target="_blank"
-              href="https://nftstorage.link/ipfs/bafybeidxfej5cokgom5ticchwgdwge3sibxdk73ua7s3tlmrxcydhhktjy?filename=metadata.zip">
+              href="https://nftstorage.link/ipfs/bafybeidxfej5cokgom5ticchwgdwge3sibxdk73ua7s3tlmrxcydhhktjy?filename=metadata.zip"
+            >
               Download this folder template
             </a>
-            , add media & a JSON doc for each token, upload it wit NFTUp, & add the resulting CID here.
+            , add media & a JSON doc for each token, upload it wit NFTUp, & add
+            the resulting CID here.
           </label>
           <input
-            {...register('media-uri')}
+            {...register("media-uri")}
             type="text"
             id="media-uri"
             className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
@@ -95,11 +117,14 @@ function AddToCollection({ params }: { params: { 'token-address': Address } }) {
           />
         </div>
         <div className="mb-6">
-          <label htmlFor="media" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+          <label
+            htmlFor="media"
+            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+          >
             Number of Tokens You're Creating
           </label>
           <input
-            {...register('token-count')}
+            {...register("token-count")}
             type="number"
             id="token-count"
             className="w-40 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
@@ -109,36 +134,55 @@ function AddToCollection({ params }: { params: { 'token-address': Address } }) {
           />
         </div>
         <div className="mb-6">
-          <label htmlFor="initial-start-time" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+          <label
+            htmlFor="initial-start-time"
+            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+          >
             Initial Auction
           </label>
-          <label htmlFor="initial-start-time" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-            Set when the first on-chain Auction Pitch starts. Subsequent auctions will automatically be triggered at the end of each Stewardship
-            Cycle. You can set this date one cycle into the future and run an offline auction if you choose.
+          <label
+            htmlFor="initial-start-time"
+            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Set when the first on-chain Auction Pitch starts. Subsequent
+            auctions will automatically be triggered at the end of each
+            Stewardship Cycle. You can set this date one cycle into the future
+            and run an offline auction if you choose.
           </label>
           <div className="flex items-center">
             <input
-              {...register('initial-start-time')}
+              {...register("initial-start-time")}
               id="initial-start-time"
               type="datetime-local"
               className="mr-5 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               required
-              min={new Date(Date.now() - new Date().getTimezoneOffset() * 60 * 1000).toISOString().slice(0, 16)}
+              min={new Date(
+                Date.now() - new Date().getTimezoneOffset() * 60 * 1000
+              )
+                .toISOString()
+                .slice(0, 16)}
             />
             <label>{Intl.DateTimeFormat().resolvedOptions().timeZone}</label>
           </div>
         </div>
         <div className="mb-6">
-          <label htmlFor="initial-start-time-offset" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+          <label
+            htmlFor="initial-start-time-offset"
+            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+          >
             Collection Offset
           </label>
-          <label htmlFor="initial-start-time-offset" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-            Stagger the first auction for each token in your collection sequentially by fixed amount. 0 means the auctions will all start at the same
-            time.
+          <label
+            htmlFor="initial-start-time-offset"
+            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Stagger the first auction for each token in your collection
+            sequentially by fixed amount. 0 means the auctions will all start at
+            the same time.
           </label>
           <div className="flex">
             <input
-              {...register('initial-start-time-offset')}
+              {...register("initial-start-time-offset")}
               type="number"
               id="initial-start-time-offset"
               required
@@ -146,7 +190,10 @@ function AddToCollection({ params }: { params: { 'token-address': Address } }) {
               placeholder="0"
               className="mr-5 w-40 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
             />
-            <select {...register('initial-start-time-offset-type')} className="w-40 rounded-lg dark:border-gray-300 dark:bg-gray-700">
+            <select
+              {...register("initial-start-time-offset-type")}
+              className="w-40 rounded-lg dark:border-gray-300 dark:bg-gray-700"
+            >
               <option value="minutes">Minutes</option>
               <option value="hours">Hours</option>
               <option value="days">Days</option>
@@ -155,11 +202,14 @@ function AddToCollection({ params }: { params: { 'token-address': Address } }) {
           </div>
         </div>
         <div className="mb-6">
-          <label htmlFor="should-mint" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+          <label
+            htmlFor="should-mint"
+            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+          >
             Mint Tokens at Creation
           </label>
           <input
-            {...register('should-mint')}
+            {...register("should-mint")}
             type="checkbox"
             id="should-mint"
             className="rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
@@ -170,14 +220,22 @@ function AddToCollection({ params }: { params: { 'token-address': Address } }) {
             <span className="lds-dual-ring" />
           </button>
         ) : (
-          <input type="submit" className="btn bg-gradient-button btn-xl w-30" value="Add Art to Collection" />
+          <input
+            type="submit"
+            className="btn bg-gradient-button btn-xl w-30"
+            value="Add Art to Collection"
+          />
         )}
       </div>
     </form>
-  )
+  );
 }
 
-export default function TokenAddToCollectionPage({ params }: { params: { 'token-address': Address } }) {
+export default function TokenAddToCollectionPage({
+  params,
+}: {
+  params: { "token-address": Address };
+}) {
   return (
     <>
       <div className="relative flex flex-1">
@@ -195,10 +253,12 @@ export default function TokenAddToCollectionPage({ params }: { params: { 'token-
                   staggerChildren: 0.15,
                 },
               },
-            }}>
+            }}
+          >
             <motion.h1
               className="text-gradient-primary text-center text-3xl font-bold tracking-[-0.02em] drop-shadow-sm md:text-4xl md:leading-[8rem]"
-              variants={FADE_DOWN_ANIMATION_VARIANTS}>
+              variants={FADE_DOWN_ANIMATION_VARIANTS}
+            >
               Add Art to Collection
             </motion.h1>
             <div className="mt-8 flex min-w-fit items-center justify-center">
@@ -211,5 +271,5 @@ export default function TokenAddToCollectionPage({ params }: { params: { 'token-
         </div>
       </div>
     </>
-  )
+  );
 }

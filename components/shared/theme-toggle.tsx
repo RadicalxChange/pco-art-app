@@ -1,35 +1,44 @@
-import * as React from 'react'
+import * as React from "react";
 
-import { useTheme } from 'next-themes'
+import { useTheme } from "next-themes";
 
-import { BranchColorMode } from '@/components/shared/branch-color-mode'
-import { Icons } from '@/components/shared/icons'
-import { Button } from '@/components/ui/button'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { useColorMode } from '@/lib/state/color-mode'
+import { BranchColorMode } from "@/components/shared/branch-color-mode";
+import { Icons } from "@/components/shared/icons";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useColorMode } from "@/lib/state/color-mode";
 
 export function ThemeToggle() {
-  const { setTheme } = useTheme()
-  const [colorMode, toggleMode, setMode] = useColorMode()
+  const { setTheme } = useTheme();
+  const [colorMode, toggleMode, setMode] = useColorMode();
 
   const handleSetLightTheme = (_e: any) => {
-    setTheme('light')
-    setMode('light')
-  }
+    setTheme("light");
+    setMode("light");
+  };
 
   const handleSetDarkTheme = (_e: any) => {
-    setTheme('dark')
-    setMode('dark')
-  }
+    setTheme("dark");
+    setMode("dark");
+  };
 
   const handleSetSystemTheme = (_e: any) => {
-    setTheme('system')
-    setMode('system')
-  }
+    setTheme("system");
+    setMode("system");
+  };
 
   React.useEffect(() => {
-    colorMode === 'system' ? setTheme('system') : colorMode === 'dark' ? setTheme('dark') : setTheme('light')
-  }, [colorMode])
+    colorMode === "system"
+      ? setTheme("system")
+      : colorMode === "dark"
+      ? setTheme("dark")
+      : setTheme("light");
+  }, [colorMode]);
 
   return (
     <DropdownMenu>
@@ -57,5 +66,5 @@ export function ThemeToggle() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

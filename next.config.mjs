@@ -1,4 +1,4 @@
-import "./env.mjs"
+import "./env.mjs";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -22,16 +22,16 @@ const nextConfig = {
       issuer: /\.[jt]sx?$/,
       resourceQuery: /icon/,
       use: ["@svgr/webpack"],
-    })
+    });
     config.module.rules.push({
       test: /\.svg$/i,
       issuer: /\.[jt]sx?$/,
       resourceQuery: { not: [/icon/] },
       loader: "next-image-loader",
       options: { assetPrefix: "" },
-    })
-    return config
+    });
+    return config;
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;

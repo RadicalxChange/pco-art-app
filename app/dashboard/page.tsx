@@ -1,10 +1,14 @@
-'use client'
+"use client";
 
-import { WalletAddress, WalletBalance, WalletEnsName } from '@turbo-eth/core-wagmi'
-import { motion } from 'framer-motion'
+import {
+  WalletAddress,
+  WalletBalance,
+  WalletEnsName,
+} from "@turbo-eth/core-wagmi";
+import { motion } from "framer-motion";
 
-import { BranchIsWalletConnected } from '@/components/shared/branch-is-wallet-connected'
-import { FADE_DOWN_ANIMATION_VARIANTS } from '@/config/design'
+import { BranchIsWalletConnected } from "@/components/shared/branch-is-wallet-connected";
+import { FADE_DOWN_ANIMATION_VARIANTS } from "@/config/design";
 
 export default function PageDashboard() {
   return (
@@ -15,7 +19,8 @@ export default function PageDashboard() {
         initial="hidden"
         whileInView="show"
         animate="show"
-        viewport={{ once: true }}>
+        viewport={{ once: true }}
+      >
         <BranchIsWalletConnected>
           <div className="flex-center col-span-12 flex flex-col lg:col-span-9">
             <div className="text-center">
@@ -34,9 +39,11 @@ export default function PageDashboard() {
               </span>
             </div>
           </div>
-          <h3 className="text-lg font-normal">Connect Wallet to view your personalized dashboard.</h3>
+          <h3 className="text-lg font-normal">
+            Connect Wallet to view your personalized dashboard.
+          </h3>
         </BranchIsWalletConnected>
       </motion.div>
     </>
-  )
+  );
 }

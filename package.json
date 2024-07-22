@@ -8,7 +8,7 @@
     "export": "next export",
     "start": "next start",
     "lint": "next lint --fix",
-    "prettier": "prettier './src' --write",
+    "prettier": "prettier '**/*' --write --ignore-unknown",
     "prepare": "husky install ; prisma generate ; wagmi generate"
   },
   "husky": {

@@ -1,7 +1,7 @@
-import { useColorMode } from '@/lib/state/color-mode'
+import { useColorMode } from "@/lib/state/color-mode";
 
 export function BranchColorMode({ children }: any) {
-  const [colorMode] = useColorMode()
+  const [colorMode] = useColorMode();
 
-  return colorMode === 'light' ? children[0] : children[1]
+  return colorMode === "light" ? children[0] : children[1];
 }

@@ -1,13 +1,20 @@
-import { motion } from 'framer-motion'
-import { BinaryIcon, DatabaseIcon, LayoutDashboard, LogOutIcon } from 'lucide-react'
-import Link from 'next/link'
+import { motion } from "framer-motion";
+import { BinaryIcon, DatabaseIcon, LayoutDashboard } from "lucide-react";
+import Link from "next/link";
 
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { FADE_IN_ANIMATION_SETTINGS } from '@/config/design'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { FADE_IN_ANIMATION_SETTINGS } from "@/config/design";
 
 export function UserDropdown() {
   return (
-    <motion.div className="relative inline-block text-left text-neutral-700" {...FADE_IN_ANIMATION_SETTINGS}>
+    <motion.div
+      className="relative inline-block text-left text-neutral-700"
+      {...FADE_IN_ANIMATION_SETTINGS}
+    >
       <Popover>
         <PopoverTrigger>
           <button className="bg-card flex items-center justify-center overflow-hidden rounded-md p-2 px-4 transition-all duration-75 hover:bg-neutral-100 focus:outline-none active:scale-95 ">
@@ -32,5 +39,5 @@ export function UserDropdown() {
         </PopoverContent>
       </Popover>
     </motion.div>
-  )
+  );
 }

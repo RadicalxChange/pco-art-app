@@ -1,17 +1,17 @@
-import { WalletAddress } from "@turbo-eth/core-wagmi"
-import classNames from "clsx"
-import { CopyToClipboard } from "react-copy-to-clipboard"
-import { FaCopy } from "react-icons/fa"
-import { useAccount } from "wagmi"
+import { WalletAddress } from "@turbo-eth/core-wagmi";
+import classNames from "clsx";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { FaCopy } from "react-icons/fa";
+import { useAccount } from "wagmi";
 
-import { WalletConnect } from "@/components/blockchain/wallet-connect"
-import { BranchIsWalletConnected } from "@/components/shared/branch-is-wallet-connected"
-import { useToast } from "@/lib/hooks/use-toast"
+import { WalletConnect } from "@/components/blockchain/wallet-connect";
+import { BranchIsWalletConnected } from "@/components/shared/branch-is-wallet-connected";
+import { useToast } from "@/lib/hooks/use-toast";
 
-import { ThemeToggle } from "../shared/theme-toggle"
+import { ThemeToggle } from "../shared/theme-toggle";
 
 interface Props {
-  className?: string
+  className?: string;
 }
 
 export function DashboardHeader(props: Props) {
@@ -19,20 +19,20 @@ export function DashboardHeader(props: Props) {
     props.className,
     "Header",
     "px-6 lg:px-10 py-3 flex items-center w-full"
-  )
-  const { address } = useAccount()
-  const { toast, dismiss } = useToast()
+  );
+  const { address } = useAccount();
+  const { toast, dismiss } = useToast();
 
   const handleToast = () => {
     toast({
       title: "Addess Copied",
       description: "Your address has been copied to your clipboard.",
-    })
+    });
 
     setTimeout(() => {
-      dismiss()
-    }, 4200)
-  }
+      dismiss();
+    }, 4200);
+  };
 
   return (
     <header className={classes}>
@@ -64,5 +64,5 @@ export function DashboardHeader(props: Props) {
         <ThemeToggle />
       </div>
     </header>
-  )
+  );
 }
