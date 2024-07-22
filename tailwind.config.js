@@ -29,10 +29,9 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        default: ["var(--inter-font)", "system-ui", "sans-serif"],
-        primary: ["var(--raleway-font)", "system-ui", "sans-serif"],
-        raleway: ["var(--raleway-font)", "system-ui", "sans-serif"],
-        sfPro: ["var(--sfPro-font)", "system-ui", "sans-serif"],
+        sans: ["var(--font-suisse-intl)"],
+        serif: ["var(--font-inferi)"],
+        mono: ["var(--font-injurial)"],
       },
       fontSize: {
         "2xs": "0.65rem",
