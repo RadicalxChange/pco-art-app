@@ -32,7 +32,6 @@
     "@ipld/car": "^5.1.1",
     "@ipld/dag-cbor": "^9.0.3",
     "@next/bundle-analyzer": "^13.1.1",
-    "@next/font": "13.1.1",
     "@prisma/client": "^4.16.1",
     "@radix-ui/react-accessible-icon": "^1.0.1",
     "@radix-ui/react-accordion": "^1.1.0",
