@@ -1,0 +1,56 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "diamondAddress",
+        "type": "address"
+      }
+    ],
+    "name": "DiamondCreated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "target",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "initTarget",
+            "type": "address"
+          },
+          {
+            "internalType": "bytes",
+            "name": "initData",
+            "type": "bytes"
+          },
+          {
+            "internalType": "bytes4[]",
+            "name": "selectors",
+            "type": "bytes4[]"
+          }
+        ],
+        "internalType": "struct IDiamond.FacetInit[]",
+        "name": "facetInits",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "createDiamond",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
