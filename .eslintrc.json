@@ -8,12 +8,8 @@
     // Configuration for TypeScript files
     {
       "files": ["**/*.ts", "**/*.tsx"],
-      "plugins": ["unused-imports", "tailwindcss", "simple-import-sort"],
-      "extends": [
-        "plugin:tailwindcss/recommended",
-        "next/core-web-vitals",
-        "plugin:prettier/recommended"
-      ],
+      "plugins": ["unused-imports", "simple-import-sort"],
+      "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
       "parserOptions": {
         "project": "./tsconfig.json"
       },
@@ -29,38 +25,7 @@
         "import/prefer-default-export": "off", // Named export is easier to refactor automatically
         "unused-imports/no-unused-vars": "off",
         "react/no-unescaped-entities": "off",
-        "unused-imports/no-unused-imports-ts": "error",
-        "tailwindcss/classnames-order": [
-          "warn",
-          {
-            "officialSorting": true
-          }
-        ],
-        "sort-imports": [
-          1,
-          {
-            "ignoreDeclarationSort": true
-          }
-        ],
-        "import/order": [
-          1,
-          {
-            "groups": ["builtin", "external", "internal"],
-            "pathGroups": [
-              {
-                "pattern": "react",
-                "group": "external",
-                "position": "before"
-              }
-            ],
-            "pathGroupsExcludedImportTypes": [""],
-            "newlines-between": "always",
-            "alphabetize": {
-              "order": "asc",
-              "caseInsensitive": true
-            }
-          }
-        ]
+        "unused-imports/no-unused-imports-ts": "error"
       }
     }
   ]

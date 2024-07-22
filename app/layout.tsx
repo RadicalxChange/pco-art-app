@@ -36,7 +36,7 @@ const suisseIntlFont = localFont({
 });
 
 const inferiFont = localFont({
-  src: "../assets/fonts/Inferi-Trial-Regular.otf",
+  src: "../assets/fonts/Inferi-Trial-Light.otf",
   variable: "--font-inferi",
   display: "swap",
 });
@@ -54,7 +54,7 @@ export default function RootLayout({ children }: any) {
       suppressHydrationWarning
       className={`${suisseIntlFont.variable} ${inferiFont.variable} ${injurialFont.variable}`}
     >
-      <body className="min-h-screen bg-white font-sans text-slate-900 antialiased dark:bg-slate-900 dark:text-slate-50">
+      <body className="min-h-screen bg-off-white font-sans text-black antialiased">
         <RootProvider>{children}</RootProvider>
       </body>
     </html>

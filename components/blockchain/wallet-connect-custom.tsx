@@ -2,6 +2,7 @@
 import * as React from "react";
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import Image from "next/image";
 
 interface WalletConnectCustomProps {
   className?: string;
@@ -25,6 +26,7 @@ export const WalletConnectCustom = ({
       {({
         account,
         chain,
+        openAccountModal,
         openChainModal,
         openConnectModal,
         authenticationStatus,
@@ -40,6 +42,13 @@ export const WalletConnectCustom = ({
               if (!connected) {
                 return (
                   <>
+                    <Image
+                      src="/cross.svg"
+                      width={16}
+                      height={16}
+                      alt="cross"
+                      className="mb-1"
+                    />
                     <button
                       className={classNameConnect}
                       onClick={openConnectModal}
@@ -53,48 +62,42 @@ export const WalletConnectCustom = ({
 
               if (chain.unsupported) {
                 return (
-                  <button
-                    className={classNameWrongNetwork}
-                    onClick={openChainModal}
-                    type="button"
-                  >
+                  <button className="flex gap-1.5" onClick={openChainModal}>
+                    <Image
+                      src="/cross.svg"
+                      width={16}
+                      height={16}
+                      alt="cross"
+                      className="mb-1"
+                    />
                     {labelWrongNetwork}
                   </button>
                 );
               }
 
               return (
-                <div className="">
-                  <button
-                    className={classNameConnected}
-                    onClick={openChainModal}
-                    style={{ display: "flex", alignItems: "center" }}
-                    type="button"
-                  >
-                    {chain.hasIcon && (
-                      <div
-                        style={{
-                          background: chain.iconBackground,
-                          width: 18,
-                          height: 18,
-                          borderRadius: 999,
-                          overflow: "hidden",
-                          marginRight: 4,
-                        }}
-                      >
-                        {chain.iconUrl && (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
-                            alt={chain.name ?? "Chain icon"}
-                            src={chain.iconUrl}
-                            style={{ width: 18, height: 18 }}
-                          />
-                        )}
-                      </div>
-                    )}
-                    <span className="ml-1 text-lg lowercase">{chain.name}</span>
-                  </button>
-                </div>
+                <button onClick={openAccountModal} className="flex gap-7">
+                  <div className="flex gap-1.5">
+                    <Image
+                      src="/cross.svg"
+                      width={16}
+                      height={16}
+                      alt="cross"
+                      className="mb-1"
+                    />
+                    {account.displayBalance ? ` ${account.displayBalance}` : ""}
+                  </div>
+                  <div className="flex gap-1.5">
+                    <Image
+                      src="/cross.svg"
+                      width={16}
+                      height={16}
+                      alt="cross"
+                      className="mb-1"
+                    />
+                    {account.displayName}
+                  </div>
+                </button>
               );
             })()}
           </div>

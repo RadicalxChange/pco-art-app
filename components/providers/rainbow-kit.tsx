@@ -2,11 +2,7 @@
 import "@rainbow-me/rainbowkit/styles.css";
 import { ReactNode } from "react";
 
-import {
-  RainbowKitProvider,
-  darkTheme,
-  lightTheme,
-} from "@rainbow-me/rainbowkit";
+import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 import {
   coinbaseWallet,
@@ -53,10 +49,7 @@ export function RainbowKit(props: Props) {
   const [colorMode] = useColorMode();
   return (
     <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider
-        chains={chains}
-        theme={colorMode == "dark" ? darkTheme() : lightTheme()}
-      >
+      <RainbowKitProvider chains={chains} modalSize="compact">
         {props.children}
       </RainbowKitProvider>
     </WagmiConfig>

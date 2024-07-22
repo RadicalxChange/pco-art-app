@@ -1,82 +1,97 @@
-import React from "react";
+import { useState } from "react";
 
-import classNames from "clsx";
 import Image from "next/image";
+import Link from "next/link";
 
-import { siteConfig } from "@/config/site";
-import useScroll from "@/lib/hooks/use-scroll";
+import { WalletConnectCustom } from "@/components/blockchain/wallet-connect-custom";
 
-import { UserDropdown } from "./user-dropdown";
-import { BranchColorMode } from "../shared/branch-color-mode";
-import { LinkComponent } from "../shared/link-component";
 import { ResponsiveMobileAndDesktop } from "../shared/responsive-mobile-and-desktop";
-import { ThemeToggle } from "../shared/theme-toggle";
 
 interface Props {
   className?: string;
 }
 
-export function Header(props: Props) {
-  const scrolled = useScroll(50);
-  const classes = classNames(
-    props.className,
-    "Header",
-    "fixed top-0 w-full",
-    "px-6 lg:px-10 py-3 mb-8 flex items-center",
-    {
-      "border-b border-gray-200 bg-white/50 backdrop-blur-xl dark:bg-black/50 dark:border-gray-800":
-        scrolled,
-    },
-    "z-30 transition-all"
-  );
-  return (
-    <header className={classes}>
-      <ResponsiveMobileAndDesktop>
-        <>
-          <div className="flex w-full justify-between p-4">
-            <LinkComponent href="/" className="flex flex-1 items-center ">
-              <BranchColorMode>
-                <Image alt="Logo" src="/logo-dark.png" width={32} height={32} />
-                <Image
-                  alt="Logo"
-                  src="/logo-white.png"
-                  width={32}
-                  height={32}
-                />
-              </BranchColorMode>
-            </LinkComponent>
-            <div className="">
-              <UserDropdown />
-            </div>
-          </div>
-        </>
-        <>
-          <LinkComponent className="flex items-center" href="/">
-            <BranchColorMode>
-              <Image alt="Logo" src="/logo-dark.png" width={32} height={32} />
-              <Image alt="Logo" src="/logo-white.png" width={32} height={32} />
-            </BranchColorMode>
-            <h1 className="text-gradient-sand ml-2 text-2xl font-bold">
-              {siteConfig.name}
-            </h1>
-          </LinkComponent>
-          <div className="flex flex-1 justify-center lg:px-10"></div>
+const menu = (
+  <div className="flex flex-col gap-7 font-serif text-2xl font-thin lg:flex-row">
+    <Link
+      className="flex-start flex items-center gap-x-1.5 lg:justify-center"
+      href="/"
+    >
+      <Image
+        src="/cross.svg"
+        width={16}
+        height={16}
+        alt="cross"
+        className="mb-1"
+      />
+      <span>PCO Art</span>
+    </Link>
+    <Link
+      className="flex-start flex items-center gap-x-1.5 lg:justify-center"
+      href="/create"
+    >
+      <Image
+        src="/cross.svg"
+        width={16}
+        height={16}
+        alt="cross"
+        className="mb-1"
+      />
+      <span>Create</span>
+    </Link>
+    <Link
+      className="flex-start flex items-center gap-x-1.5 lg:justify-center"
+      href="https://www.radicalxchange.org/wiki/pco-art"
+    >
+      <Image
+        src="/cross.svg"
+        width={16}
+        height={16}
+        alt="cross"
+        className="mb-1"
+      />
+      <span>About</span>
+    </Link>
+    <Link
+      className="flex-start flex items-center gap-x-1.5 lg:justify-center"
+      href="https://pco-art-docs.vercel.app"
+    >
+      <Image
+        src="/cross.svg"
+        width={16}
+        height={16}
+        alt="cross"
+        className="mb-1"
+      />
+      <span>Docs</span>
+    </Link>
+  </div>
+);
 
-          <div className="flex items-center gap-4">
-            <LinkComponent className="flex items-center" href="/dashboard">
-              <button className="btn btn-pill bg-gradient-button hover:scale-105 hover:shadow-lg">
-                <span className="px-2">Dashboard</span>
-              </button>
-            </LinkComponent>
-            <LinkComponent className="flex items-center" href="/create">
-              <button className="btn btn-pill bg-gradient-button hover:scale-105 hover:shadow-lg">
-                <span className="px-2">Create</span>
-              </button>
-            </LinkComponent>
-            <ThemeToggle />
-          </div>
-        </>
-      </ResponsiveMobileAndDesktop>
-    </header>
+export function Header(props: Props) {
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+
+  return (
+    <>
+      <header className="flex justify-between bg-neon-green px-4 pt-2 pb-1">
+        <ResponsiveMobileAndDesktop>
+          <button
+            className="mb-1 bg-transparent"
+            onClick={() => setShowMobileMenu(!showMobileMenu)}
+          >
+            <Image src="/menu.svg" width={32} height={32} alt="menu" />
+          </button>
+          {menu}
+        </ResponsiveMobileAndDesktop>
+        <WalletConnectCustom
+          className="flex items-center font-serif text-2xl"
+          classNameConnect="ml-1.5 bg-neon-green"
+          labelConnect="Connect"
+        />
+      </header>
+      {showMobileMenu && (
+        <div className="w-screen bg-neon-green px-5 py-4">{menu}</div>
+      )}
+    </>
   );
 }

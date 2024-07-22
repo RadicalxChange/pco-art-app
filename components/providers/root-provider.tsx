@@ -1,15 +1,14 @@
 "use client";
 
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StateMachineProvider, createStore } from "little-state-machine";
 import { ThemeProvider } from "next-themes";
 import { ModalProvider } from "react-modal-hook";
 import { Provider as RWBProvider } from "react-wrap-balancer";
 import { SWRConfig } from "swr";
-import { useNetwork } from "wagmi";
 
 import { RainbowKit } from "@/components/providers/rainbow-kit";
+import { Apollo } from "@/components/providers/apollo";
 import { useIsMounted } from "@/lib/hooks/use-is-mounted";
 import fetchJson from "@/lib/utils/fetch-json";
 
@@ -20,20 +19,8 @@ interface RootProviderProps {
 
 createStore({});
 
-const SUBGRAPH_URLS: { [key: string]: string } = {
-  100: "https://subgraph-endpoints.superfluid.dev/xdai-mainnet/protocol-v1",
-};
-
 export default function RootProvider({ children }: RootProviderProps) {
   const isMounted = useIsMounted();
-  const network = useNetwork();
-
-  const apolloClient = new ApolloClient({
-    uri: network?.chain?.id
-      ? SUBGRAPH_URLS[network.chain.id]
-      : SUBGRAPH_URLS["100"],
-    cache: new InMemoryCache(),
-  });
 
   return (
     <SWRConfig
@@ -50,9 +37,9 @@ export default function RootProvider({ children }: RootProviderProps) {
             <RWBProvider>
               <ModalProvider>
                 <RainbowKit>
-                  <ApolloProvider client={apolloClient}>
+                  <Apollo>
                     <StateMachineProvider>{children}</StateMachineProvider>
-                  </ApolloProvider>
+                  </Apollo>
                 </RainbowKit>
               </ModalProvider>
             </RWBProvider>
