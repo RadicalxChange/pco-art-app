@@ -1,43 +1,22 @@
-import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useMediaQuery } from "react-responsive";
 
-import classNames from "clsx";
-import { FaGithub, FaTwitter } from "react-icons/fa";
-
-import { siteConfig } from "@/config/site";
-
-import { LinkComponent } from "../shared/link-component";
-
-interface Props {
-  className?: string;
-}
-
-export function Footer(props: Props) {
-  const classes = classNames(
-    props.className,
-    "Footer",
-    "px-4 py-6 flex flex-col justify-center items-center"
-  );
+export function Footer() {
+  const isMobileOrTablet = useMediaQuery({ query: "(max-width: 1280px)" });
 
   return (
-    <footer className={classes}>
-      <h3>{siteConfig.title}</h3>
-      <a
-        className="link my-2 text-xs"
-        target={"_blank"}
-        href="https://districtlabs.com/"
-        rel="noreferrer"
-      >
-        TurboETH template Built by District Labs
-      </a>
-      <div className="mt-2 flex items-center">
-        <LinkComponent href={`${siteConfig.links.github}`}>
-          <FaGithub />
-        </LinkComponent>
-        <div className="mx-2" />
-        <LinkComponent href={`${siteConfig.links.twitter}`}>
-          <FaTwitter />
-        </LinkComponent>
-      </div>
+    <footer className="flex flex-col xl:flex-row items-center xl:items-end justify-center md:justify-between gap-10 sm:gap-20 xl:gap-0 px-5">
+      <Image
+        src="/serpentine.png"
+        alt="Serpentine"
+        width={isMobileOrTablet ? 100 : 148}
+        height={isMobileOrTablet ? 32 : 50}
+      />
+      <Link href="/" className="font-bold text-sm md:text-base">
+        Terms & Conditions
+      </Link>
+      <p className="font-bold text-sm md:text-base">&#169; Serpentine 2024</p>
     </footer>
   );
 }

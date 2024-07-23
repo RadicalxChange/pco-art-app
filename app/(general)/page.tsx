@@ -1,89 +1,70 @@
 "use client";
-
-import { motion } from "framer-motion";
-import { FaGithub } from "react-icons/fa";
-import Balancer from "react-wrap-balancer";
-
-import { LinkComponent } from "@/components/shared/link-component";
-import { FADE_DOWN_ANIMATION_VARIANTS } from "@/config/design";
+import Image from "next/image";
+import CrossIcon from "@/components/shared/cross-icon";
+import { useMediaQuery } from "react-responsive";
 
 export default function Home() {
+  const isMobile = useMediaQuery({ query: "(max-width: 640px)" });
+  const isTablet = useMediaQuery({ query: "(max-width: 1280px)" });
+  const isMediumScreen = useMediaQuery({
+    query: "(min-width: 2000px)",
+  });
+
   return (
     <>
-      <div className="relative flex flex-1">
-        <div className="flex-center flex h-full flex-1 flex-col items-center justify-center text-center">
-          <motion.div
-            className="max-w-3xl px-5 xl:px-0"
-            initial="hidden"
-            whileInView="show"
-            animate="show"
-            viewport={{ once: true }}
-            variants={{
-              hidden: {},
-              show: {
-                transition: {
-                  staggerChildren: 0.15,
-                },
-              },
+      <div className="flex justify-between mt-32 xl:mt-20 2xl:mt-32 min-[2000px]:mt-32 min-[3000px]:mt-44 mb-12 md:mb-24 2xl:mb-24 min-[2000px]:mb-[170px] px-5">
+        <CrossIcon />
+        <CrossIcon />
+      </div>
+      <div className="flex justify-between">
+        <div className="flex flex-col gap-12 md:gap-24 2xl:gap-24 min-[2000px]:gap-[170px] ml-5">
+          <CrossIcon />
+          <CrossIcon />
+          <CrossIcon />
+        </div>
+        <div className="flex flex-col items-center">
+          <div
+            className="flex justify-between"
+            style={{
+              width: isMobile ? 232 : isMediumScreen ? 690 : 418,
             }}
           >
-            <img
-              src="/logo-fill.png"
-              alt="Turbo ETH"
-              className="mx-auto mb-10 h-20 w-20"
-            />
-            <motion.h1
-              className="text-gradient-sand text-center text-6xl font-bold tracking-[-0.02em] drop-shadow-sm md:text-8xl md:leading-[6rem]"
-              variants={FADE_DOWN_ANIMATION_VARIANTS}
-            >
-              <Balancer>Get Started</Balancer>
-            </motion.h1>
-            <motion.p
-              className="mt-6 text-center text-gray-500 dark:text-gray-200 md:text-xl"
-              variants={FADE_DOWN_ANIMATION_VARIANTS}
-            >
-              <Balancer className="text-xl font-semibold">
-                Start building next generation Web3 apps today
-              </Balancer>
-            </motion.p>
-            <motion.div
-              className="mx-auto mt-6 flex items-center justify-center space-x-5"
-              variants={FADE_DOWN_ANIMATION_VARIANTS}
-            >
-              <a
-                className="group flex max-w-fit items-center justify-center space-x-2 rounded-full border border-black bg-black px-5 py-2 text-sm text-white transition-colors hover:bg-white hover:text-black"
-                href={"https://docs.turboeth.xyz/"}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="text-xl">⚡️</span>
-                <span className="font-bold">TurboETH Documentation</span>
-              </a>
-              <a
-                className="flex max-w-fit items-center justify-center space-x-2 rounded-full border border-gray-300 bg-white px-5 py-2 text-sm text-gray-600 shadow-md transition-colors hover:border-gray-800"
-                href="https://github.com/turbo-eth/template-web3-app"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaGithub />
-                <p>Star on GitHub</p>
-              </a>
-            </motion.div>
-            <motion.p
-              className="mt-6 text-center text-sm"
-              variants={FADE_DOWN_ANIMATION_VARIANTS}
-            >
-              <LinkComponent
-                className="link"
-                href="https://github.com/turbo-eth/template-web3-app/tree/integrations"
-              >
-                Click here to view the{" "}
-                <span className="font-bold">integrations branch</span> for more
-                examples.
-              </LinkComponent>
-            </motion.p>
-          </motion.div>
+            <CrossIcon />
+            <CrossIcon />
+            <CrossIcon />
+            <CrossIcon />
+          </div>
+          <Image
+            src="/hero.svg"
+            alt="Hero"
+            width={isMobile ? 212 : isMediumScreen ? 656 : 395}
+            height={isMobile ? 109 : isMediumScreen ? 336 : 202}
+          />
+          <div
+            className="flex justify-between"
+            style={{
+              width: isMobile ? 232 : isMediumScreen ? 690 : 418,
+            }}
+          >
+            <CrossIcon />
+            <CrossIcon />
+            <CrossIcon />
+            <CrossIcon />
+          </div>
         </div>
+        <div className="flex flex-col gap-12 md:gap-24 2xl:gap-24 min-[2000px]:gap-[170px] mr-5">
+          <CrossIcon />
+          <CrossIcon />
+          <CrossIcon />
+        </div>
+      </div>
+      <div className="flex justify-between gap-12 my-12 md:my-24 2xl:my-24 min-[2000px]:my-[170px] px-5">
+        <CrossIcon />
+        <CrossIcon />
+      </div>
+      <div className="flex justify-between mt-12 md:mt-24 2xl:mt-24 min-[2000px]:mt-[170px] mb-32 xl:mb-16 2xl:mb-32 min-[2000px]:mb-28 min-[3000px]:mb-40 px-5">
+        <CrossIcon />
+        <CrossIcon />
       </div>
     </>
   );

@@ -80,8 +80,8 @@ export const WalletConnectCustom = ({
                   <div className="flex gap-1.5">
                     <Image
                       src="/cross.svg"
-                      width={16}
-                      height={16}
+                      width={9}
+                      height={9}
                       alt="cross"
                       className="mb-1"
                     />
@@ -90,8 +90,8 @@ export const WalletConnectCustom = ({
                   <div className="flex gap-1.5">
                     <Image
                       src="/cross.svg"
-                      width={16}
-                      height={16}
+                      width={9}
+                      height={9}
                       alt="cross"
                       className="mb-1"
                     />

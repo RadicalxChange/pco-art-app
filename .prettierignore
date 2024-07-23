@@ -1,3 +1,4 @@
 .next
 .vscode
 pnpm-lock.yaml
+lib/blockchain.ts
