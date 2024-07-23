@@ -16,6 +16,7 @@ const menu = (
     <Link
       className="flex-start flex items-center gap-x-1.5 lg:justify-center"
       href="/"
+      prefetch
     >
       <Image
         src="/cross.svg"
@@ -29,6 +30,7 @@ const menu = (
     <Link
       className="flex-start flex items-center gap-x-1.5 lg:justify-center"
       href="/create"
+      prefetch
     >
       <Image
         src="/cross.svg"
