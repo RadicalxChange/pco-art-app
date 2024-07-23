@@ -12,6 +12,8 @@ export const env = createEnv({
     NEXT_PUBLIC_USE_HARDHAT_PROVIDER: z
       .enum(["true", "false"])
       .default("false"),
+    NEXT_PUBLIC_ALCHEMY_API_KEY: z.string().min(1).optional(),
+    NEXT_PUBLIC_INFURA_API_KEY: z.string().min(1).optional(),
     NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: z.string().min(1).optional(),
   },
   runtimeEnv: {

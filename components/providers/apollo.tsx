@@ -9,6 +9,8 @@ interface Props {
 
 const SUBGRAPH_URLS: { [key: string]: string } = {
   100: "https://subgraph-endpoints.superfluid.dev/xdai-mainnet/protocol-v1",
+  11155420:
+    "https://subgraph-endpoints.superfluid.dev/optimism-sepolia/protocol-v1",
 };
 
 export function Apollo(props: Props) {

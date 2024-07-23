@@ -14,7 +14,7 @@ export const contentType = "image/png";
 
 const getFont = async () => {
   const res = await fetch(
-    new URL("../assets/fonts/SF-Pro-Display-Medium.otf", import.meta.url)
+    new URL("../assets/fonts/SuisseIntl-Regular.ttf", import.meta.url)
   );
   return await res.arrayBuffer();
 };
@@ -36,14 +36,14 @@ export default async function Image() {
         }}
       >
         <img
-          src={new URL("../public/logo-fill.png", import.meta.url).toString()}
-          alt="TurboETH Logo"
+          src={new URL("../public/serpentine.png", import.meta.url).toString()}
+          alt="Logo"
           tw="w-20 h-20 mb-4 opacity-95"
         />
         <h1
           style={{
             fontSize: "100px",
-            fontFamily: "SF Pro",
+            fontFamily: "SuisseIntl",
             fontWeight: 900,
             background:
               "linear-gradient(to bottom right, #000000 21.66%, #78716c 86.47%)",
@@ -58,7 +58,7 @@ export default async function Image() {
         <h3
           style={{
             fontSize: "22px",
-            fontFamily: "SF Pro",
+            fontFamily: "SuisseIntl",
             background:
               "linear-gradient(to bottom right, #000000 21.66%, #78716c 86.47%)",
             backgroundClip: "text",
@@ -74,7 +74,7 @@ export default async function Image() {
     {
       fonts: [
         {
-          name: "SF Pro",
+          name: "SuisseIntl",
           data: await getFont(),
         },
       ],

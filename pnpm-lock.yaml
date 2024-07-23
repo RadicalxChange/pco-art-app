@@ -138,8 +138,8 @@ importers:
         specifier: ^0.1.6
         version: 0.1.11(react@18.2.0)
       '@wagmi/chains':
-        specifier: ^0.2.13
-        version: 0.2.13(typescript@4.9.4)
+        specifier: ^1.8.0
+        version: 1.8.0(typescript@4.9.4)
       class-variance-authority:
         specifier: ^0.4.0
         version: 0.4.0(typescript@4.9.4)
@@ -3004,14 +3004,6 @@ packages:
     peerDependencies:
       react: ^16.8||^17||^18
 
-  '@wagmi/chains@0.2.13':
-    resolution: {integrity: sha512-36b+eqYwkhSHVyauIWMa9EkgNf08VOEXUA+UETIfsaJrseSJSnH5j+N15CUGYs6lMEcD08w/In5VvKv/L4EF1w==}
-    peerDependencies:
-      typescript: '>=4.9.4'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
   '@wagmi/chains@1.0.0':
     resolution: {integrity: sha512-eNbqRWyHbivcMNq5tbXJks4NaOzVLHnNQauHPeE/EDT9AlpqzcrMc+v2T1/2Iw8zN4zgqB86NCsxeJHJs7+xng==}
     peerDependencies:
@@ -3022,6 +3014,14 @@ packages:
 
   '@wagmi/chains@1.1.0':
     resolution: {integrity: sha512-pWZlxBk0Ql8E7DV8DwqlbBpOyUdaG9UDlQPBxJNALuEK1I0tbQ3AVvSDnlsEIt06UPmPo5o27gzs3hwPQ/A+UA==}
+    peerDependencies:
+      typescript: '>=5.0.4'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
+  '@wagmi/chains@1.8.0':
+    resolution: {integrity: sha512-UXo0GF0Cl0+neKC2KAmVAahv8L/5rACbFRRqkDvHMefzY6Fh7yzJd8F4GaGNNG3w4hj8eUB/E3+dEpaTYDN62w==}
     peerDependencies:
       typescript: '>=5.0.4'
     peerDependenciesMeta:
@@ -14674,15 +14674,15 @@ snapshots:
     dependencies:
       react: 18.2.0
 
-  '@wagmi/chains@0.2.13(typescript@4.9.4)':
-    optionalDependencies:
-      typescript: 4.9.4
-
   '@wagmi/chains@1.0.0(typescript@4.9.4)':
     optionalDependencies:
       typescript: 4.9.4
 
   '@wagmi/chains@1.1.0(typescript@4.9.4)':
+    optionalDependencies:
+      typescript: 4.9.4
+
+  '@wagmi/chains@1.8.0(typescript@4.9.4)':
     optionalDependencies:
       typescript: 4.9.4
 
