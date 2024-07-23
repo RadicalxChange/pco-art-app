@@ -48,7 +48,7 @@ export default function ConfigPCOSettingsFacet({
   nextStep: () => void;
   prevStep: () => void;
 }) {
-  const account = useAccount();
+  const { address } = useAccount();
 
   const { actions, state } = useStateMachine({ updateAction });
 
@@ -69,8 +69,8 @@ export default function ConfigPCOSettingsFacet({
       : undefined;
 
   useEffect(() => {
-    setValue("pco-settings.owner", account.address);
-  }, [account]);
+    setValue("pco-settings.owner", address);
+  }, [address]);
 
   const onSubmit = (data: any) => {
     actions.updateAction(data);
