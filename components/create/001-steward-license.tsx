@@ -45,8 +45,10 @@ function updateAction(
 
 export default function ConfigStewardLicenseFacet({
   nextStep,
+  prevStep,
 }: {
   nextStep: () => void;
+  prevStep: () => void;
 }) {
   const { actions, state } = useStateMachine({ updateAction });
   const { register, handleSubmit, setValue } = useForm({
