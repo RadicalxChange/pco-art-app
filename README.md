@@ -12,16 +12,22 @@ pnpm install
 cp .env.example .env
 ```
 
+Add WalletConnect Project ID
+
+```bash
+NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=
+```
+
 Add the API key of the RPC node provider in `.env`
 
 ```bash
-`NEXT_PUBLIC_ALCHEMY_API_KEY=`
+NEXT_PUBLIC_ALCHEMY_API_KEY=
 ```
 
 or
 
 ```bash
-`NEXT_PUBLIC_INFURA_API_KEY=`
+NEXT_PUBLIC_INFURA_API_KEY=
 ```
 
 #### Development
