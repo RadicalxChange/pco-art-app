@@ -20,7 +20,7 @@ const menu = (
       prefetch
     >
       <CrossIcon />
-      <span className="mt-1">PCO Art</span>
+      <span>PCO Art</span>
     </Link>
     <Link
       className="flex-start flex items-center gap-x-1.5 lg:justify-center"
@@ -28,21 +28,23 @@ const menu = (
       prefetch
     >
       <CrossIcon />
-      <span className="mt-1">Create</span>
+      <span>Create</span>
     </Link>
     <Link
       className="flex-start flex items-center gap-x-1.5 lg:justify-center"
       href="https://www.radicalxchange.org/wiki/pco-art"
+      target="_blank"
     >
       <CrossIcon />
-      <span className="mt-1">About</span>
+      <span>About</span>
     </Link>
     <Link
       className="flex-start flex items-center gap-x-1.5 lg:justify-center"
-      href="https://pco-art-docs.vercel.app"
+      href="https://docs.pco.art"
+      target="_blank"
     >
       <CrossIcon />
-      <span className="mt-1">Docs</span>
+      <span>Docs</span>
     </Link>
   </div>
 );

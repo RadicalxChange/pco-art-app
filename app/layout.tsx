@@ -30,7 +30,7 @@ export const metadata = {
 };
 
 const suisseIntlFont = localFont({
-  src: "../assets/fonts/SuisseIntl-Regular.ttf",
+  src: "../assets/fonts/SuisseIntl-Medium.ttf",
   variable: "--font-suisse-intl",
   display: "swap",
 });
