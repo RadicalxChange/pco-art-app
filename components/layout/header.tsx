@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { WalletConnectCustom } from "@/components/blockchain/wallet-connect-custom";
-import CrossIcon from "@/components/shared/cross-icon";
 
 import { ResponsiveMobileAndDesktop } from "../shared/responsive-mobile-and-desktop";
 
@@ -14,37 +13,17 @@ interface Props {
 
 const menu = (
   <div className="flex flex-col gap-7 font-serif text-xl min-[2000px]:text-2xl font-thin lg:flex-row">
-    <Link
-      className="flex-start flex items-center gap-x-1.5 lg:justify-center"
-      href="/"
-      prefetch
-    >
-      <CrossIcon />
-      <span>PCO Art</span>
+    <Link href="/" prefetch>
+      PCO Art
     </Link>
-    <Link
-      className="flex-start flex items-center gap-x-1.5 lg:justify-center"
-      href="/create"
-      prefetch
-    >
-      <CrossIcon />
-      <span>Create</span>
+    <Link href="/create" prefetch>
+      Create
     </Link>
-    <Link
-      className="flex-start flex items-center gap-x-1.5 lg:justify-center"
-      href="https://www.radicalxchange.org/wiki/pco-art"
-      target="_blank"
-    >
-      <CrossIcon />
-      <span>About</span>
+    <Link href="https://www.radicalxchange.org/wiki/pco-art" target="_blank">
+      About
     </Link>
-    <Link
-      className="flex-start flex items-center gap-x-1.5 lg:justify-center"
-      href="https://docs.pco.art"
-      target="_blank"
-    >
-      <CrossIcon />
-      <span>Docs</span>
+    <Link href="https://docs.pco.art" target="_blank">
+      Docs
     </Link>
   </div>
 );

@@ -2,8 +2,6 @@
 import * as React from "react";
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import Image from "next/image";
-import CrossIcon from "@/components/shared/cross-icon";
 
 interface WalletConnectCustomProps {
   className?: string;
@@ -43,7 +41,6 @@ export const WalletConnectCustom = ({
               if (!connected) {
                 return (
                   <>
-                    <CrossIcon />
                     <button
                       className={classNameConnect}
                       onClick={openConnectModal}
@@ -58,7 +55,6 @@ export const WalletConnectCustom = ({
               if (chain.unsupported) {
                 return (
                   <button className="flex gap-1.5" onClick={openChainModal}>
-                    <CrossIcon />
                     {labelWrongNetwork}
                   </button>
                 );
@@ -67,13 +63,9 @@ export const WalletConnectCustom = ({
               return (
                 <button onClick={openAccountModal} className="flex gap-7">
                   <div className="flex gap-1.5">
-                    <CrossIcon />
                     {account.displayBalance ? ` ${account.displayBalance}` : ""}
                   </div>
-                  <div className="flex gap-1.5">
-                    <CrossIcon />
-                    {account.displayName}
-                  </div>
+                  <div className="flex gap-1.5">{account.displayName}</div>
                 </button>
               );
             })()}
