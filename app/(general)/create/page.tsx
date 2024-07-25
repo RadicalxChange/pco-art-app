@@ -22,7 +22,7 @@ export default function CreatePage() {
   }
 
   return (
-    <div className="flex flex-center">
+    <>
       {step === 0 ? (
         <Intro nextStep={nextStep} />
       ) : step === 1 ? (
@@ -42,6 +42,6 @@ export default function CreatePage() {
       ) : (
         <></>
       )}
-    </div>
+    </>
   );
 }
