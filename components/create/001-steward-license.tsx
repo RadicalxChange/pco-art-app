@@ -1,11 +1,11 @@
-import { useEffect } from "react";
+import { useState, useRef, useEffect, useLayoutEffect } from "react";
+import Image from "next/image";
 
-import { motion } from "framer-motion";
 import { GlobalState, useStateMachine } from "little-state-machine";
 import { useForm } from "react-hook-form";
 import { useAccount } from "wagmi";
+import { useMediaQuery } from "react-responsive";
 
-import { FADE_DOWN_ANIMATION_VARIANTS } from "@/config/design";
 import { NativeStewardLicenseInit } from "@/lib/hooks/use-facet-init";
 
 enum MintType {
@@ -50,14 +50,17 @@ export default function ConfigStewardLicenseFacet({
   nextStep: () => void;
   prevStep: () => void;
 }) {
+  const [offset, setOffset] = useState<number | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
+
   const { actions, state } = useStateMachine({ updateAction });
   const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
       "steward-license": (state as any).stewardLicenseInput,
     },
   });
-
   const account = useAccount();
+  const isMobile = useMediaQuery({ query: "(max-width: 640px)" });
 
   useEffect(() => {
     setValue("steward-license.minter", account.address);
@@ -68,148 +71,153 @@ export default function ConfigStewardLicenseFacet({
     nextStep();
   };
 
+  useLayoutEffect(() => {
+    const updateOffset = () => setOffset(ref?.current?.offsetLeft ?? null);
+
+    updateOffset();
+    window.addEventListener("resize", () => updateOffset());
+
+    return () => window.removeEventListener("resize", updateOffset);
+  }, [ref, isMobile]);
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="min-w-full rounded-md bg-neutral-100 p-4 dark:bg-neutral-800">
-        <motion.h2
-          className="text-gradient-primary text-center text-3xl font-bold tracking-[-0.02em] drop-shadow-sm md:text-4xl md:leading-[8rem]"
-          variants={FADE_DOWN_ANIMATION_VARIANTS}
-        >
-          1. The Art
-        </motion.h2>
-        <div className="mb-6">
-          <label
-            htmlFor="mint-type"
-            className="mb-3 block text-sm font-medium text-gray-900 dark:text-white"
+    <>
+      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24">
+        1.
+        <br />
+        The Art
+      </h1>
+      <form onSubmit={handleSubmit(onSubmit)} className="relative">
+        <div className="flex flex-col items-center max-w-[300px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
+          <div
+            ref={ref}
+            className="w-[300px] sm:w-[500px] xl:w-[750px] 2xl:w-[850px] my-10 sm:mt-16 xl:mt20 2x:xl:mt-24"
           >
-            Mint Type
-          </label>
-          <input
-            {...register("steward-license.mint-type")}
-            type="radio"
-            id="mint-type-new"
-            className="border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            value={MintType.New}
-            checked
-          />
-          <label htmlFor="mint-type-new" className="mx-2">
-            Create New Stewardship Token
-          </label>
-          <input
-            {...register("steward-license.mint-type")}
-            type="radio"
-            id="mint-type-wrapped"
-            className="border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            value={MintType.Wrapped}
-            disabled
-          />
-          <label htmlFor="mint-type-wrapped" className="mx-2 text-gray-500">
-            Wrap Existing Token
-          </label>
+            <div className="flex">
+              <label htmlFor="mint-type" className="w-1/3">
+                Mint Type
+              </label>
+              <div className="w-2/3">
+                <input
+                  {...register("steward-license.mint-type")}
+                  type="radio"
+                  id="mint-type-new"
+                  className="mr-2"
+                  value={MintType.New}
+                  checked
+                />
+                <label htmlFor="mint-type-new" className="">
+                  Create New Stewardship Token
+                </label>
+              </div>
+            </div>
+            <div className="flex items-center mt-10">
+              <label htmlFor="name" className="w-1/3">
+                Name
+              </label>
+              <input
+                {...register("steward-license.name")}
+                type="text"
+                id="name"
+                placeholder="Name your token"
+                className="w-2/3 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                required
+                maxLength={32}
+              />
+            </div>
+            <div className="flex items-center mt-10">
+              <label htmlFor="symbol" className="w-1/3">
+                Symbol
+              </label>
+              <input
+                {...register("steward-license.symbol")}
+                type="text"
+                id="symbol"
+                className="w-2/3 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                placeholder="An abbreviation for your token"
+                required
+                maxLength={10}
+              />
+            </div>
+            <div className="flex items-center mt-10">
+              <label htmlFor="media" className="self-start w-1/3 pt-3">
+                URI (Metadata)
+              </label>
+              <div className="flex flex-col gap-2 w-2/3">
+                <input
+                  {...register("steward-license.media-uri")}
+                  type="text"
+                  id="media"
+                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                  placeholder="ipfs://"
+                  required
+                />
+                <span className="text-xs">
+                  Download{" "}
+                  <a
+                    className="underline"
+                    target="_blank"
+                    href="https://nftstorage.link/ipfs/bafybeidxfej5cokgom5ticchwgdwge3sibxdk73ua7s3tlmrxcydhhktjy?filename=metadata.zip"
+                  >
+                    this
+                  </a>{" "}
+                  JSON template , define your token metadata, upload it to
+                  NFT.Storage, & add the resulting CID here
+                </span>
+              </div>
+            </div>
+            <div className="flex items-center mt-10">
+              <label htmlFor="media" className="w-1/3">
+                Number of Tokens
+              </label>
+              <input
+                {...register("steward-license.max-token-count")}
+                type="number"
+                id="max-token-count"
+                className="w-2/3 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                placeholder="12"
+                required
+                min={1}
+              />
+            </div>
+            <div className="flex items-center mt-10 pt-3">
+              <label htmlFor="should-mint" className="w-1/3">
+                Mint Tokens at Creation
+              </label>
+              <input
+                {...register("steward-license.should-mint")}
+                type="checkbox"
+                className="rounded-full text-black border-black focus:ring-0 focus:ring-offset-0 focus:outline-none"
+                id="should-mint"
+              />
+            </div>
+          </div>
         </div>
-        <div className="mb-6">
-          <label
-            htmlFor="name"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Name (Max 32 Characters)
-          </label>
-          <input
-            {...register("steward-license.name")}
-            type="text"
-            id="name"
-            className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            placeholder="Name your token"
-            required
-            maxLength={32}
-          />
-        </div>
-        <div className="mb-6">
-          <label
-            htmlFor="symbol"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Symbol (Max 10 Characters)
-          </label>
-          <input
-            {...register("steward-license.symbol")}
-            type="text"
-            id="symbol"
-            className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            placeholder="An abbreviation for your token"
-            required
-            maxLength={10}
-          />
-        </div>
-        <div className="mb-6">
-          <label
-            htmlFor="media"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            URI (Metadata)
-          </label>
-          <label
-            htmlFor="cycle"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            <a
-              className="text-cyan-400 underline"
-              target="_blank"
-              href="https://nftstorage.link/ipfs/bafybeidxfej5cokgom5ticchwgdwge3sibxdk73ua7s3tlmrxcydhhktjy?filename=metadata.zip"
+        <div className="flex items-center mt-10 mb-24">
+          <button className="absolute flex gap-2 sm:gap-3 bg-neon-green px-2 sm:px-4 py-1 font-serif text-2xl">
+            <Image src="/back-arrow.svg" alt="Back" width={18} height={18} />
+            Back
+          </button>
+          {offset && (
+            <button
+              type="submit"
+              className="flex gap-2 sm:gap-3 bg-neon-green px-2 py-1 font-serif text-2xl absolute w-[250px] sm:w-full"
+              style={{
+                right: isMobile ? 0 : "",
+                left: isMobile ? "" : offset,
+              }}
             >
-              Download this JSON template
-            </a>
-            , define your token metadata, upload it to NFT.Storage, & add the
-            resulting CID here.
-          </label>
-          <input
-            {...register("steward-license.media-uri")}
-            type="text"
-            id="media"
-            className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            placeholder="ipfs://"
-            required
-          />
+              <Image
+                src="/forward-arrow.svg"
+                alt="Forward"
+                width={18}
+                height={18}
+              />
+              2. PCO Settings
+            </button>
+          )}
         </div>
-        <div className="mb-6">
-          <label
-            htmlFor="media"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Number of Tokens You're Creating
-          </label>
-          <input
-            {...register("steward-license.max-token-count")}
-            type="number"
-            id="max-token-count"
-            className="w-40 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            placeholder=""
-            required
-            min={1}
-          />
-        </div>
-        <div className="mb-6">
-          <label
-            htmlFor="should-mint"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Mint Tokens at Creation
-          </label>
-          <input
-            {...register("steward-license.should-mint")}
-            type="checkbox"
-            id="should-mint"
-            className="rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-          />
-        </div>
-        <div className="flex items-center justify-center">
-          <input
-            type="submit"
-            className="btn bg-gradient-button btn-xl"
-            value="Next"
-          ></input>
-        </div>
-      </div>
-    </form>
+      </form>
+    </>
   );
 }
