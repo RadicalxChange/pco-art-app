@@ -10,7 +10,6 @@ export default function Home() {
 
   return (
     <div className="flex flex-center relative h-[calc(100vh-215px)] md:h-[calc(100vh-106px)] min-[2000px]:h-[calc(100vh-111px)]">
-      <Image src="/butterfly.png" alt="Background" fill />
       <Image
         src="/hero.svg"
         alt="Hero"
