@@ -42,7 +42,7 @@ const inferiFont = localFont({
 });
 
 const injurialFont = localFont({
-  src: "../assets/fonts/InjurialTrial-Regular.otf",
+  src: "../assets/fonts/Injurial-Regular.otf",
   variable: "--font-injurial",
   display: "swap",
 });
