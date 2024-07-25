@@ -30,13 +30,13 @@ export const metadata = {
 };
 
 const suisseIntlFont = localFont({
-  src: "../assets/fonts/SuisseIntl-Medium.ttf",
+  src: "../assets/fonts/SuisseIntl-Medium.otf",
   variable: "--font-suisse-intl",
   display: "swap",
 });
 
 const inferiFont = localFont({
-  src: "../assets/fonts/Inferi-Trial-Light.otf",
+  src: "../assets/fonts/Inferi-Light.otf",
   variable: "--font-inferi",
   display: "swap",
 });

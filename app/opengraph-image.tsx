@@ -14,7 +14,7 @@ export const contentType = "image/png";
 
 const getFont = async () => {
   const res = await fetch(
-    new URL("../assets/fonts/SuisseIntl-Medium.ttf", import.meta.url)
+    new URL("../assets/fonts/SuisseIntl-Medium.otf", import.meta.url)
   );
   return await res.arrayBuffer();
 };
