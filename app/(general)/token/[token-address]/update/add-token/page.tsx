@@ -144,10 +144,10 @@ function AddToCollection({ params }: { params: { "token-address": Address } }) {
             htmlFor="initial-start-time"
             className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
           >
-            Set when the first on-chain Auction Pitch starts. Subsequent
-            auctions will automatically be triggered at the end of each
-            Stewardship Cycle. You can set this date one cycle into the future
-            and run an offline auction if you choose.
+            Set when the first on-chain Stewardship Inauguration starts.
+            Subsequent auctions will automatically be triggered at the end of
+            each Stewardship Cycle. You can set this date one cycle into the
+            future and run an offline auction if you choose.
           </label>
           <div className="flex items-center">
             <input

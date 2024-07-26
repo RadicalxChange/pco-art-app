@@ -100,8 +100,8 @@ export default function ConfigPCOSettingsFacet({
               </label>
               <div className="flex flex-col w-2/3">
                 <label htmlFor="cycle">
-                  The duration between auction pitches. Weeks, months, and years
-                  are converted to seconds based on 7, 30, & 365 days
+                  The duration between Stewardship Inaugurations. Weeks, months,
+                  and years are converted to seconds based on 7, 30, & 365 days
                   respectively.
                 </label>
                 <input
@@ -132,8 +132,8 @@ export default function ConfigPCOSettingsFacet({
               </label>
               <div className="flex flex-col w-2/3">
                 <label htmlFor="rate">
-                  The percent of a winning Auction Pitch bid that is contributed
-                  to the Creator Circle in each Stewardship Cycle.
+                  The percent of a winning Stewardship Inauguration bid that is
+                  contributed to the Creator Circle in each Stewardship Cycle.
                 </label>
                 <input
                   {...register("pco-settings.rate")}
@@ -145,7 +145,7 @@ export default function ConfigPCOSettingsFacet({
                   min={0.01}
                   step={0.01}
                 />
-                <div className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl text-[#ADADAD] p-1">
+                <div className="bg-transparent border-solid border-0 border-b border-black p-0 font-serif text-2xl text-[#ADADAD] p-1">
                   = an Annualized Rate of{" "}
                   {annualizedRate
                     ? `${parseFloat(annualizedRate.toFixed(2))}%`

@@ -169,7 +169,7 @@ export default function UpdateEligibilityPage({
         {tokenName} ({truncateStr(tokenAddress, 12)})
       </h1>
       <h2 className="text-medium mt-5 text-2xl font-bold">
-        Edit Auction Eligibility
+        Edit Inauguration Eligibility
       </h2>
       <div className="mb-6 mt-12">
         <label
@@ -182,7 +182,8 @@ export default function UpdateEligibilityPage({
           htmlFor="allowlist.allow-any"
           className="mb-2 block font-medium text-gray-900 dark:text-white"
         >
-          Set who can participate in this token&apos;s Auction Pitches.
+          Set who can participate in this token&apos;s Stewardship
+          Inaugurations.
         </label>
         <select
           {...register("allowlist.allow-any")}

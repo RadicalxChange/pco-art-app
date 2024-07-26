@@ -704,7 +704,7 @@ export default function TokenPage({
               {hasAuctionRole ? (
                 <Link href={`/token/${tokenAddress}/update/auction-pitch`}>
                   <button className="w-40 rounded-full bg-sky-500 px-4 py-2 hover:bg-sky-600">
-                    Auction Pitch
+                    Stewardship Inauguration
                   </button>
                 </Link>
               ) : null}
@@ -734,7 +734,7 @@ export default function TokenPage({
       <div className="flex flex-col items-center">
         {isAuctionPeriod && isAuctionFinished ? (
           <div className="flex flex-col items-center">
-            <span className="text-2xl font-bold">Auction Pitch</span>
+            <span className="text-2xl font-bold">Stewardship Inauguration</span>
             <span className="mt-1 text-2xl">
               {calculateTimeString(Number(auctionEndTime) * 1000 - Date.now())}
             </span>
@@ -782,7 +782,7 @@ export default function TokenPage({
           </div>
         ) : isAuctionPeriod && isAuctionStarted ? (
           <div className="flex flex-col items-center">
-            <span className="text-2xl font-bold">Auction Pitch</span>
+            <span className="text-2xl font-bold">Stewardship Inauguration</span>
             <div className="flex items-center gap-2">
               <span className="mt-1 text-2xl">{auctionCountdown}</span>
               {bidExtensionWindowLengthSeconds && bidExtensionSeconds ? (
@@ -943,7 +943,9 @@ export default function TokenPage({
           </div>
         ) : (
           <>
-            <span className="mt-5 text-2xl font-bold">Next Auction Pitch</span>
+            <span className="mt-5 text-2xl font-bold">
+              Next Stewardship Inauguration
+            </span>
             <span className="mt-5 text-lg">English Auction (Extending)</span>
             <div>
               <span className="text-lg">

@@ -383,7 +383,7 @@ export default function UpdatePCOSettingsPage({
             htmlFor="cycle"
             className="mb-2 block font-medium text-gray-900 dark:text-white"
           >
-            Auction Pitch
+            Stewardship Inauguration
           </label>
           <input
             {...register("permissions.auction")}
@@ -402,7 +402,7 @@ export default function UpdatePCOSettingsPage({
             htmlFor="cycle"
             className="mb-2 block font-medium text-gray-900 dark:text-white"
           >
-            Auction Pitch Eligibility
+            Inauguration Eligibility
           </label>
           <input
             {...register("permissions.allowlist")}

@@ -152,7 +152,7 @@ export default function UpdateAuctionPitchPage({
         {tokenName} ({truncateStr(tokenAddress, 12)})
       </h1>
       <h2 className="text-medium mt-5 text-2xl font-bold">
-        Edit Auction Pitch
+        Edit Stewardship Inauguration
       </h2>
       <div className="mb-6 mt-2">
         <span className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">

@@ -224,7 +224,7 @@ export default function ConfigPermissions({
               htmlFor="auction.owner"
               className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
             >
-              Auction Pitch
+              Stewardship Inauguration
             </label>
             <input
               {...register(`auction.owner`)}
@@ -241,7 +241,7 @@ export default function ConfigPermissions({
               htmlFor="allowlist.owner"
               className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
             >
-              Auction Pitch Eligibility
+              Inauguration Eligibility
             </label>
             <input
               {...register(`allowlist.owner`)}

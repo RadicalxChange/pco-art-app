@@ -144,8 +144,9 @@ export default function UpdatePCOSettingsPage({
             htmlFor="cycle"
             className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
           >
-            The duration between auction pitches. Weeks, months, and years are
-            converted to seconds based on 7, 30, & 365 days respectively.
+            The duration between Stewardship Inaugurations. Weeks, months, and
+            years are converted to seconds based on 7, 30, & 365 days
+            respectively.
           </label>
           <div className="flex flex-col gap-2 lg:flex-row">
             <input
@@ -179,8 +180,8 @@ export default function UpdatePCOSettingsPage({
             htmlFor="rate"
             className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
           >
-            The percent of a winning Auction Pitch bid that is contributed to
-            the Creator Circle in each Stewardship Cycle.
+            The percent of a winning Stewardship Inauguration bid that is
+            contributed to the Creator Circle in each Stewardship Cycle.
           </label>
           <div className="flex flex-col gap-2 text-center lg:flex-row">
             <input

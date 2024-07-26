@@ -32,7 +32,7 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
               <br />
               4. Auction Configuration
               <br />
-              5. Auction Eligibility
+              5. Inauguration Eligibility
               <br />
               6. Permissions
               <br />

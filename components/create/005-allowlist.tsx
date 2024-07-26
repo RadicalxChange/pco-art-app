@@ -89,7 +89,8 @@ export default function ConfigAllowlistFacet({
             htmlFor="allowlist.allow-any"
             className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
           >
-            Set who can participate in this token&apos;s Auction Pitches.
+            Set who can participate in this token&apos;s Stewardship
+            Inaugurations.
           </label>
           <select
             {...register("allowlist.allow-any")}
