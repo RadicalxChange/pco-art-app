@@ -8,7 +8,7 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
 
   return (
     <>
-      <div className="flex flex-col items-center max-w-[300px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto my-10 sm:mt-16 xl:mt20 2x:xl:mt-24">
+      <div className="flex flex-col items-center max-w-[300px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto my-10 sm:mt-16 xl:mt20 2x:xl:mt-24 min-[2000px]:mt-32">
         <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none">
           Mint Stewardship License
         </h1>
@@ -42,10 +42,10 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
         </div>
       </div>
       <button
-        className="w-full mb-12 sm:mb-24 px-2 py-1 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] font-serif text-2xl"
+        className="w-full mb-24 xl:mb-32 px-2 py-1 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] font-serif text-2xl"
         onClick={address ? nextStep : openConnectModal}
       >
-        <div className="flex gap-3 w-[300px] sm:w-[500px] xl:w-[750px] 2xl:w-[850px] m-auto">
+        <div className="flex items-center gap-3 w-[300px] sm:w-[500px] xl:w-[750px] 2xl:w-[850px] m-auto">
           <Image
             src="/forward-arrow.svg"
             alt="Forward"

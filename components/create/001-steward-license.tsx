@@ -52,8 +52,8 @@ export default function ConfigStewardLicenseFacet({
   prevStep: () => void;
 }) {
   const formContainerRef = useRef<HTMLDivElement>(null);
-  const formContainerOffset = useElementOffset(formContainerRef);
 
+  const formContainerOffset = useElementOffset(formContainerRef);
   const { actions, state } = useStateMachine({ updateAction });
   const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
@@ -74,7 +74,7 @@ export default function ConfigStewardLicenseFacet({
 
   return (
     <>
-      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24">
+      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
         1.
         <br />
         The Art
@@ -98,7 +98,7 @@ export default function ConfigStewardLicenseFacet({
                   value={MintType.New}
                   checked
                 />
-                <label htmlFor="mint-type-new" className="">
+                <label htmlFor="mint-type-new">
                   Create New Stewardship Token
                 </label>
               </div>
@@ -185,9 +185,9 @@ export default function ConfigStewardLicenseFacet({
             </div>
           </div>
         </div>
-        <div className="flex items-center mt-10 mb-24">
+        <div className="flex items-center mt-10 mb-24 xl:mb-32">
           <button
-            className="absolute flex gap-2 sm:gap-3 bg-neon-green px-2 sm:px-4 py-1 font-serif text-2xl"
+            className="absolute left-0 flex items-center gap-2 sm:gap-3 bg-neon-green px-2 sm:px-4 py-1 font-serif text-2xl"
             onClick={() => prevStep()}
           >
             <Image src="/back-arrow.svg" alt="Back" width={18} height={18} />
@@ -196,10 +196,14 @@ export default function ConfigStewardLicenseFacet({
           {formContainerOffset && (
             <button
               type="submit"
-              className="flex gap-2 sm:gap-3 bg-neon-green px-2 py-1 font-serif text-2xl absolute w-[250px] sm:w-full"
+              className="flex items-center gap-2 sm:gap-3 bg-neon-green px-2 py-1 font-serif text-2xl absolute w-[250px]"
               style={{
                 right: isMobile ? 0 : "",
                 left: isMobile ? "" : formContainerOffset.left,
+                width: isMobile
+                  ? ""
+                  : document.documentElement.clientWidth -
+                    formContainerOffset.left,
               }}
             >
               <Image

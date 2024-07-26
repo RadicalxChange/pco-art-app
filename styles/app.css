@@ -119,6 +119,13 @@ body {
   }
 }
 
+select {
+  background-image: url("../public/down-arrow.svg");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 18px 18px;
+}
+
 input[type="radio"] {
   outline: none !important;
   box-shadow: none !important;
