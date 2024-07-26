@@ -10,6 +10,7 @@ import {
 } from "wagmi";
 
 import { WalletConnect } from "@/components/blockchain/wallet-connect";
+import { useMediaQuery } from "react-responsive";
 import { BranchIsWalletConnected } from "@/components/shared/branch-is-wallet-connected";
 import { FADE_DOWN_ANIMATION_VARIANTS } from "@/config/design";
 import { nativeStewardLicenseFacetABI } from "@/lib/blockchain";
@@ -19,7 +20,9 @@ function AddToCollection({ params }: { params: { "token-address": Address } }) {
   const tokenAddress = params["token-address"];
 
   const { register, handleSubmit, watch } = useForm();
+  const isMobile = useMediaQuery({ query: "(max-width: 640px)" });
 
+  const initialStartDate = watch("initial-start-date");
   const initialStartTime = watch("initial-start-time");
   const initialStartTimeOffset = fromUnitsToSeconds(
     watch("initial-start-time-offset"),
@@ -42,8 +45,8 @@ function AddToCollection({ params }: { params: { "token-address": Address } }) {
     functionName: "addTokensWithBaseURIToCollection",
     args: [
       watch("token-count"),
-      initialStartTime
-        ? BigInt(Date.parse(initialStartTime) / 1000)
+      initialStartDate && initialStartTime
+        ? BigInt(Date.parse(`${initialStartDate}T${initialStartTime}`) / 1000)
         : BigInt(0),
       initialStartTimeOffset ? BigInt(initialStartTimeOffset) : BigInt(0),
       watch("media-uri") + "/metadata/",
@@ -149,20 +152,34 @@ function AddToCollection({ params }: { params: { "token-address": Address } }) {
             each Stewardship Cycle. You can set this date one cycle into the
             future and run an offline auction if you choose.
           </label>
-          <div className="flex items-center">
+          <div className="flex mt-2">
             <input
-              {...register("initial-start-time")}
-              id="initial-start-time"
-              type="datetime-local"
-              className="mr-5 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              {...register("auction.initial-start-date")}
+              id="auction.initial-start-date"
+              type="date"
               required
-              min={new Date(
-                Date.now() - new Date().getTimezoneOffset() * 60 * 1000
-              )
-                .toISOString()
-                .slice(0, 16)}
+              className="w-2/4 bg-transparent border-solid border-0 border-b border-black focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mr-5 p-0 py-1"
             />
-            <label>{Intl.DateTimeFormat().resolvedOptions().timeZone}</label>
+            <div className="flex w-2/4 border-solid border-0 border-b border-black">
+              <input
+                {...register("auction.initial-start-time")}
+                id="auction.initial-start-time"
+                type="time"
+                required
+                className="bg-transparent border-0 p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] p-0 py-1"
+              />
+              {!isMobile && (
+                <span className="flex items-center font-serif text-2xl pl-2">
+                  {
+                    new Date()
+                      .toLocaleTimeString("default", {
+                        timeZoneName: "short",
+                      })
+                      .split(" ")[2]
+                  }
+                </span>
+              )}
+            </div>
           </div>
         </div>
         <div className="mb-6">

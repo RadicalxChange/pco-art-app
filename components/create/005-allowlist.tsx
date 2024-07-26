@@ -48,6 +48,7 @@ export default function ConfigAllowlistFacet({
   const account = useAccount();
 
   const { actions, state } = useStateMachine({ updateAction });
+  console.log(state);
 
   const methods = useForm({
     defaultValues: {

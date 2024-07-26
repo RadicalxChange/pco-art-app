@@ -233,7 +233,9 @@ export default function ConfigReview({
             variants={FADE_DOWN_ANIMATION_VARIANTS}
           >
             Initial Auction:{" "}
-            {(state as any).auctionInput?.["initial-start-time"]}
+            {new Date(
+              (state as any).auctionInitData?.initialPeriodStartTime * 1000
+            ).toLocaleString()}
           </motion.p>
           <motion.p
             className="text-md md:leading-[2rem]"

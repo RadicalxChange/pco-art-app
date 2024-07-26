@@ -12,7 +12,7 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
         <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none">
           Mint Stewardship License
         </h1>
-        <div className="w-[320px] sm:w-[500px] xl:w-[750px] 2xl:w-[850px] mt-10 sm:mt-16 xl:mt-20 2xl:mt-24">
+        <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] mt-10 sm:mt-16 xl:mt-20 2xl:mt-24">
           <div className="flex">
             <p className="w-1/3 sm:text-xl">Intro</p>
             <p className="w-2/3 sm:text-xl text-neon-pink">
@@ -45,7 +45,7 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
         className="w-full mb-24 xl:mb-32 px-2 py-1 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] font-serif text-2xl"
         onClick={address ? nextStep : openConnectModal}
       >
-        <div className="flex items-center gap-3 w-[320px] sm:w-[500px] xl:w-[750px] 2xl:w-[850px] m-auto">
+        <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] m-auto">
           <Image
             src="/forward-arrow.svg"
             alt="Forward"
