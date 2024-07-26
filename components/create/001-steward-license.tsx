@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useLayoutEffect } from "react";
+import { useRef, useEffect } from "react";
 import Image from "next/image";
 
 import { GlobalState, useStateMachine } from "little-state-machine";
@@ -7,6 +7,7 @@ import { useAccount } from "wagmi";
 import { useMediaQuery } from "react-responsive";
 
 import { NativeStewardLicenseInit } from "@/lib/hooks/use-facet-init";
+import useElementOffset from "@/lib/hooks/use-element-offset";
 
 enum MintType {
   New = "new",
@@ -50,8 +51,8 @@ export default function ConfigStewardLicenseFacet({
   nextStep: () => void;
   prevStep: () => void;
 }) {
-  const [offset, setOffset] = useState<number | null>(null);
-  const ref = useRef<HTMLDivElement>(null);
+  const formContainerRef = useRef<HTMLDivElement>(null);
+  const formContainerOffset = useElementOffset(formContainerRef);
 
   const { actions, state } = useStateMachine({ updateAction });
   const { register, handleSubmit, setValue } = useForm({
@@ -71,15 +72,6 @@ export default function ConfigStewardLicenseFacet({
     nextStep();
   };
 
-  useLayoutEffect(() => {
-    const updateOffset = () => setOffset(ref?.current?.offsetLeft ?? null);
-
-    updateOffset();
-    window.addEventListener("resize", () => updateOffset());
-
-    return () => window.removeEventListener("resize", updateOffset);
-  }, [ref, isMobile]);
-
   return (
     <>
       <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24">
@@ -90,7 +82,7 @@ export default function ConfigStewardLicenseFacet({
       <form onSubmit={handleSubmit(onSubmit)} className="relative">
         <div className="flex flex-col items-center max-w-[300px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
           <div
-            ref={ref}
+            ref={formContainerRef}
             className="w-[300px] sm:w-[500px] xl:w-[750px] 2xl:w-[850px] my-10 sm:mt-16 xl:mt20 2x:xl:mt-24"
           >
             <div className="flex">
@@ -194,17 +186,20 @@ export default function ConfigStewardLicenseFacet({
           </div>
         </div>
         <div className="flex items-center mt-10 mb-24">
-          <button className="absolute flex gap-2 sm:gap-3 bg-neon-green px-2 sm:px-4 py-1 font-serif text-2xl">
+          <button
+            className="absolute flex gap-2 sm:gap-3 bg-neon-green px-2 sm:px-4 py-1 font-serif text-2xl"
+            onClick={() => prevStep()}
+          >
             <Image src="/back-arrow.svg" alt="Back" width={18} height={18} />
             Back
           </button>
-          {offset && (
+          {formContainerOffset && (
             <button
               type="submit"
               className="flex gap-2 sm:gap-3 bg-neon-green px-2 py-1 font-serif text-2xl absolute w-[250px] sm:w-full"
               style={{
                 right: isMobile ? 0 : "",
-                left: isMobile ? "" : offset,
+                left: isMobile ? "" : formContainerOffset.left,
               }}
             >
               <Image
