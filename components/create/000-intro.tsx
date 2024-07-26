@@ -1,6 +1,11 @@
 import Image from "next/image";
+import { useAccount } from "wagmi";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 export default function Intro({ nextStep }: { nextStep: () => void }) {
+  const { address } = useAccount();
+  const { openConnectModal } = useConnectModal();
+
   return (
     <>
       <div className="flex flex-col items-center max-w-[300px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto my-10 sm:mt-16 xl:mt20 2x:xl:mt-24">
@@ -38,7 +43,7 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
       </div>
       <button
         className="w-full mb-12 sm:mb-24 px-2 py-1 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] font-serif text-2xl"
-        onClick={() => nextStep()}
+        onClick={address ? nextStep : openConnectModal}
       >
         <div className="flex gap-3 w-[300px] sm:w-[500px] xl:w-[750px] 2xl:w-[850px] m-auto">
           <Image
@@ -47,7 +52,7 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
             width={18}
             height={18}
           />{" "}
-          GET STARTED
+          {address ? "GET STARTED" : "Connect"}
         </div>
       </button>
     </>
