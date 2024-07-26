@@ -64,6 +64,7 @@ module.exports = {
       },
       colors: {
         "neon-green": "#05ff00",
+        "neon-red": "#FF5E5E",
         "neon-pink": "#fa00ff",
         "off-white": "#dddddd",
         gray: {

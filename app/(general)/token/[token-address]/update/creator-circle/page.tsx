@@ -161,8 +161,12 @@ export default function UpdateCreatorCirclePage({
           className="mb-5 block text-sm font-medium text-gray-900 dark:text-white"
         >
           Enter the addresses and allocation units to define your Creator
-          Circle. You can enter a single Ethereum address if you have other
-          mechanisms planned for allocation.
+          Circle. Always use the smallest number of units required to achieve
+          your desired Honorarium split.
+          <br />
+          <br />
+          You can enter a single Ethereum address (e.g. a DAO treasury) if you
+          have other mechanisms planned for allocation.
         </label>
         <FormProvider {...form}>
           {watcher?.map((_, index) => (

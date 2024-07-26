@@ -80,10 +80,10 @@ export default function ConfigStewardLicenseFacet({
         The Art
       </h1>
       <form onSubmit={handleSubmit(onSubmit)} className="relative">
-        <div className="flex flex-col items-center max-w-[300px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
+        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
           <div
             ref={formContainerRef}
-            className="w-[300px] sm:w-[500px] xl:w-[750px] 2xl:w-[850px] my-10 sm:mt-16 xl:mt20 2x:xl:mt-24"
+            className="w-[320px] sm:w-[500px] xl:w-[750px] 2xl:w-[850px] my-10 sm:mt-16 xl:mt20 2x:xl:mt-24"
           >
             <div className="flex">
               <label htmlFor="mint-type" className="w-1/3">
