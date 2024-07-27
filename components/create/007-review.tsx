@@ -1,12 +1,15 @@
-import { useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
-import { motion } from "framer-motion";
+import { useMediaQuery } from "react-responsive";
 import { useStateMachine } from "little-state-machine";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useWaitForTransaction } from "wagmi";
 
-import { FADE_DOWN_ANIMATION_VARIANTS } from "@/config/design";
+import fetchJson from "@/lib/utils/fetch-json";
+import { truncateStr } from "@/lib/utils";
+import useElementOffset from "@/lib/hooks/use-element-offset";
 import { useOwnableDiamondFactoryAbiCreateDiamond } from "@/lib/blockchain";
 import {
   FacetInit,
@@ -22,12 +25,27 @@ function updateAction() {
   return {};
 }
 
+type Metadata = {
+  name: string;
+  description: string;
+  image: string;
+  external_link?: string;
+  properties?: { legal_license?: string };
+};
+
 export default function ConfigReview({
   prevStep,
+  setStep,
 }: {
   prevStep: () => void;
   setStep: (step: number) => void;
 }) {
+  const [metadata, setMetadata] = useState<Metadata>();
+
+  const formContainerRef = useRef<HTMLDivElement>(null);
+
+  const isMobileOrIsTablet = useMediaQuery({ query: "(max-width: 1240px)" });
+  const formContainerOffset = useElementOffset(formContainerRef);
   const { state, actions } = useStateMachine({ updateAction });
   const { handleSubmit } = useForm();
   const stewardLicenseInitData = useNativeStewardLicenseInit(
@@ -80,6 +98,20 @@ export default function ConfigReview({
   };
 
   useEffect(() => {
+    (async () => {
+      const metadata = await fetchJson(
+        `https://w3s.link/ipfs/${(state as any).stewardLicenseInput[
+          "media-uri"
+        ].replace("ipfs://", "")}/metadata/0`
+      );
+
+      if (metadata) {
+        setMetadata(metadata as Metadata);
+      }
+    })();
+  }, [state]);
+
+  useEffect(() => {
     if (isSuccess) {
       actions.updateAction();
     }
@@ -93,9 +125,9 @@ export default function ConfigReview({
       : "";
 
     return (
-      <div className="min-w-full rounded-md bg-neutral-100 p-4 text-center dark:bg-neutral-800">
-        <h3 className="mb-2 text-3xl font-bold">Contracts Deployed!</h3>
-        <p className="mb-2 text-lg font-medium">
+      <div className="flex flex-col flex-center mt-32">
+        <h3 className="mb-2 text-9xl font-bold">Contracts Deployed!</h3>
+        <p className="mb-2 text-2xl">
           <Link href={`/token/${tokenAddress}/0`} className="mt-2 underline">
             View Token Page
           </Link>
@@ -104,8 +136,8 @@ export default function ConfigReview({
     );
   } else if (!isLoading && isFetched && isError) {
     return (
-      <div className="min-w-full rounded-md bg-neutral-100 p-4 text-center dark:bg-neutral-800">
-        <h3 className="mb-2 text-3xl font-bold">Error minting asset!</h3>
+      <div className="flex flex-col flex-center mt-32">
+        <h3 className="mb-2 text-9xl font-bold">Error minting asset!</h3>
       </div>
     );
   }
@@ -118,263 +150,345 @@ export default function ConfigReview({
     !pcoSettingsInitData
   ) {
     return (
-      <div className="min-w-full rounded-md bg-neutral-100 p-4 text-center dark:bg-neutral-800">
-        <h3 className="mb-2 text-3xl font-bold">Something went wrong</h3>
+      <div className="flex flex-col flex-center mt-32">
+        <h3 className="mb-2 text-9xl font-bold">Something went wrong</h3>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="min-w-full rounded-md bg-neutral-100 p-4 dark:bg-neutral-800">
-        <motion.h2
-          className="text-gradient-primary text-center text-3xl font-bold tracking-[-0.02em] drop-shadow-sm md:text-4xl md:leading-[8rem]"
-          variants={FADE_DOWN_ANIMATION_VARIANTS}
-        >
-          7. Review
-        </motion.h2>
-        <div className="mb-6">
-          <motion.h3
-            className="text-2xl font-bold tracking-[-0.02em] drop-shadow-sm md:leading-[8rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
+    <>
+      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
+        7.
+        <br />
+        Review
+      </h1>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
+          <div
+            ref={formContainerRef}
+            className="w-[320px] sm:w-[600px] xl:w-[800px] 2xl:w-[850px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-xl"
           >
-            The Art
-          </motion.h3>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Mint Type:{" "}
-            {(state as any).stewardLicenseInput["mint-type"] === "new"
-              ? "New Token"
-              : "Wrapped Token"}
-          </motion.p>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Name: {(state as any).stewardLicenseInput.name}
-          </motion.p>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Symbol: {(state as any).stewardLicenseInput.symbol}
-          </motion.p>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            URI (Metadata): {(state as any).stewardLicenseInput["media-uri"]}
-          </motion.p>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Number of Tokens:{" "}
-            {(state as any).stewardLicenseInput["max-token-count"]}
-          </motion.p>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Mint Tokens Now:{" "}
-            {(state as any).stewardLicenseInput["should-mint"] === true
-              ? "Yes"
-              : "No"}
-          </motion.p>
+            <div className="flex flex-col sm:flex-row">
+              <div className="flex items-center self-start w-full sm:w-1/3">
+                The Art [
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setStep(1);
+                  }}
+                >
+                  <Image src="/edit.svg" alt="Edit" width={16} height={16} />
+                </button>
+                ]
+              </div>
+              <div className="flex flex-col w-full sm:w-2/3">
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">Mint Type: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap ">
+                    {(state as any).stewardLicenseInput["mint-type"] === "new"
+                      ? "New Token"
+                      : "Wrapped Token"}
+                  </p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">Legal License: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap ">
+                    {metadata?.properties?.legal_license ?? ""}
+                  </p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">Name: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap ">
+                    {(state as any).stewardLicenseInput.name}
+                  </p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">Symbol: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap ">
+                    {(state as any).stewardLicenseInput.symbol}
+                  </p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">External Link: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap ">
+                    {metadata?.external_link ?? ""}
+                  </p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">Description: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap ">
+                    {metadata?.description ?? ""}
+                  </p>
+                </div>
+                <img
+                  src={
+                    metadata
+                      ? `https://w3s.link/ipfs/${metadata.image.replace(
+                          "ipfs://",
+                          ""
+                        )}`
+                      : ""
+                  }
+                  alt="Image"
+                  className="mt-5 self-center sm:self-start"
+                  style={{
+                    width: 320,
+                    height: 320,
+                  }}
+                />
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row mt-10">
+              <div className="flex items-center self-start w-full sm:w-1/3">
+                PCO Settings [
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setStep(2);
+                  }}
+                >
+                  <Image src="/edit.svg" alt="Edit" width={16} height={16} />
+                </button>
+                ]
+              </div>
+              <div className="flex flex-col w-full sm:w-2/3">
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">Stewardship Cycle: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                    {`${(state as any).pcoSettingsInput?.cycle} ${
+                      (state as any).pcoSettingsInput?.["cycle-type"]
+                    }`}
+                  </p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">Honorarium Rate: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                    {`${(state as any).pcoSettingsInput?.rate}`}%
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row mt-10">
+              <div className="flex items-center w-full sm:w-1/3">
+                Creator Circle [
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setStep(3);
+                  }}
+                >
+                  <Image src="/edit.svg" alt="Edit" width={16} height={16} />
+                </button>
+                ]
+              </div>
+              <div className="flex flex-col w-full sm:w-2/3">
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">Type: </span>
+                  <p
+                    className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap underline decoration-2 cursor-pointer"
+                    onClick={() => setStep(3)}
+                  >
+                    Allocation Table
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row mt-10">
+              <div className="flex items-center self-start w-full sm:w-1/3">
+                English Auction [
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setStep(4);
+                  }}
+                >
+                  <Image src="/edit.svg" alt="Edit" width={16} height={16} />
+                </button>
+                ]
+              </div>
+              <div className="flex flex-col w-full sm:w-2/3">
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">Initial Auction: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                    {new Date(
+                      (state as any).auctionInitData?.initialPeriodStartTime *
+                        1000
+                    ).toLocaleString()}
+                  </p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">Offset: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                    {Number(
+                      (state as any).auctionInput?.["initial-start-time-offset"]
+                    ) > 0
+                      ? `${
+                          (state as any).auctionInput?.[
+                            "initial-start-time-offset"
+                          ]
+                        } ${
+                          (state as any).auctionInput?.[
+                            "initial-start-time-offset-type"
+                          ]
+                        }`
+                      : 0}
+                  </p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">Duration: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                    {`${(state as any).auctionInput?.["duration"]} ${
+                      (state as any).auctionInput?.["duration-type"]
+                    }`}
+                  </p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">Starting Bid: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                    {(state as any).auctionInput?.["starting-bid"]} ETH
+                  </p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">Minimum Bid Increase: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                    {(state as any).auctionInput?.["min-bid-increase"]} ETH
+                  </p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">Extension Window: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                    {(state as any).auctionInput?.["extension-window"]} minutes
+                  </p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">Extension Length: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                    {(state as any).auctionInput?.["extension-length"]} minutes
+                  </p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">Eligibility: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                    {(state as any).allowlistInput?.["allow-any"] === "true"
+                      ? "Open"
+                      : "Allowlist"}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row mt-10">
+              <div className="flex items-center self-start w-full sm:w-1/3">
+                Permissions [
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setStep(6);
+                  }}
+                >
+                  <Image src="/edit.svg" alt="Edit" width={16} height={16} />
+                </button>
+                ]
+              </div>
+              <div className="flex flex-col w-full sm:w-2/3">
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">Token Admin: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                    {truncateStr(
+                      (state as any).permissionsInput?.["token-admin"] ?? "",
+                      12
+                    ) ?? "N/A"}
+                  </p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">PCO Configuration: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                    {truncateStr(
+                      (state as any).pcoSettingsInput?.["owner"] ?? "",
+                      12
+                    ) ?? "N/A"}
+                  </p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">Auction Configuration: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                    {truncateStr(
+                      (state as any).auctionInput?.["owner"] ?? "",
+                      12
+                    ) ?? "N/A"}
+                  </p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">Eligibility Configuration: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                    {truncateStr(
+                      (state as any).allowlistInput?.["owner"] ?? "",
+                      12
+                    ) ?? "N/A"}
+                  </p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">Creator Circle Configuration: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                    {truncateStr(
+                      (state as any).beneficiaryInput?.["owner"] ?? "",
+                      12
+                    ) ?? "N/A"}
+                  </p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="mt-1">Additional Token Minter: </span>
+                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                    {truncateStr(
+                      (state as any).stewardLicenseInput?.["minter"] ?? "",
+                      12
+                    ) ?? "N/A"}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center mt-20 mb-24 xl:mb-32">
+              <button
+                className="absolute left-0 flex items-center gap-2 sm:gap-3 bg-neon-green px-2 sm:px-4 py-1 font-serif text-2xl"
+                onClick={() => prevStep()}
+              >
+                <Image
+                  src="/back-arrow.svg"
+                  alt="Back"
+                  width={18}
+                  height={18}
+                />
+                Back
+              </button>
+              {formContainerOffset && (
+                <button
+                  type="submit"
+                  disabled={isLoading || isFetching || isTxnLoading}
+                  className="absolute flex gap-2 items-center sm:gap-3 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] px-2 py-1 font-serif text-2xl w-[250px] sm:w-3/4"
+                  style={{
+                    right: isMobileOrIsTablet ? 0 : "",
+                    left: isMobileOrIsTablet ? "" : formContainerOffset.left,
+                    width: isMobileOrIsTablet
+                      ? ""
+                      : document.documentElement.clientWidth -
+                        formContainerOffset.left,
+                  }}
+                >
+                  <Image
+                    src="/forward-arrow.svg"
+                    alt="Forward"
+                    width={18}
+                    height={18}
+                  />
+                  {isLoading || isFetching || isTxnLoading
+                    ? "MINTING..."
+                    : "MINT PCO TOKEN"}
+                </button>
+              )}
+            </div>
+          </div>
         </div>
-        <div className="mb-6">
-          <motion.h3
-            className="text-2xl font-bold tracking-[-0.02em] drop-shadow-sm md:leading-[8rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            PCO Settings
-          </motion.h3>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Stewardship Cycle:{" "}
-            {`${(state as any).pcoSettingsInput?.cycle} ${
-              (state as any).pcoSettingsInput?.["cycle-type"]
-            }`}
-          </motion.p>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Honorarium Rate: {`${(state as any).pcoSettingsInput?.rate}`}%
-          </motion.p>
-        </div>
-        <div className="mb-6">
-          <motion.h3
-            className="text-2xl font-bold tracking-[-0.02em] drop-shadow-sm md:leading-[8rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Creator Circle
-          </motion.h3>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Type: Allocation Table
-          </motion.p>
-        </div>
-        <div className="mb-6">
-          <motion.h3
-            className="text-2xl font-bold tracking-[-0.02em] drop-shadow-sm md:leading-[8rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            English Auction
-          </motion.h3>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Initial Auction:{" "}
-            {new Date(
-              (state as any).auctionInitData?.initialPeriodStartTime * 1000
-            ).toLocaleString()}
-          </motion.p>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Offset:{" "}
-            {Number(
-              (state as any).auctionInput?.["initial-start-time-offset"]
-            ) > 0
-              ? `${
-                  (state as any).auctionInput?.["initial-start-time-offset"]
-                } ${
-                  (state as any).auctionInput?.[
-                    "initial-start-time-offset-type"
-                  ]
-                }`
-              : 0}
-          </motion.p>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Duration:{" "}
-            {`${(state as any).auctionInput?.["duration"]} ${
-              (state as any).auctionInput?.["duration-type"]
-            }`}
-          </motion.p>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Starting Bid: {(state as any).auctionInput?.["starting-bid"]} ETH
-          </motion.p>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Minimum Bid Increase:{" "}
-            {(state as any).auctionInput?.["min-bid-increase"]} ETH
-          </motion.p>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Extension Window:{" "}
-            {(state as any).auctionInput?.["extension-window"]} minutes
-          </motion.p>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Extension Length:{" "}
-            {(state as any).auctionInput?.["extension-length"]} minutes
-          </motion.p>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Eligibility:{" "}
-            {(state as any).allowlistInput?.["allow-any"] === "true"
-              ? "Open"
-              : "Allowlist"}
-          </motion.p>
-        </div>
-        <div className="mb-6">
-          <motion.h3
-            className="text-2xl font-bold tracking-[-0.02em] drop-shadow-sm md:leading-[8rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Permissions
-          </motion.h3>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Token Admin: {(state as any).permissionsInput?.["token-admin"]}
-          </motion.p>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Role Admin: {(state as any).permissionsInput?.["role-admin"]}
-          </motion.p>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            PCO Configuration: {(state as any).pcoSettingsInput?.owner}
-          </motion.p>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Auction Configuration: {(state as any).auctionInput?.owner}
-          </motion.p>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Eligibility Configuration: {(state as any).allowlistInput?.owner}
-          </motion.p>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Creator Circle Configuration:{" "}
-            {(state as any).beneficiaryInput?.owner}
-          </motion.p>
-          <motion.p
-            className="text-md md:leading-[2rem]"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Additional Token Minter:{" "}
-            {(state as any).stewardLicenseInput?.minter}
-          </motion.p>
-        </div>
-        <div className="flex items-center justify-center">
-          <button
-            className="btn bg-gradient-button btn-xl w-30"
-            onClick={() => {
-              prevStep();
-            }}
-          >
-            Back
-          </button>
-          <div className="grow" />
-          {isLoading || isFetching || isTxnLoading ? (
-            <button className="btn bg-gradient-button btn-xl" disabled>
-              <span className="lds-dual-ring" />
-            </button>
-          ) : (
-            <input
-              type="submit"
-              className="btn bg-gradient-button btn-xl w-30"
-              value="Mint PCO Token"
-            />
-          )}
-        </div>
-      </div>
-    </form>
+      </form>
+    </>
   );
 }

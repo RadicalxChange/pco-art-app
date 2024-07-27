@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 
-import { motion } from "framer-motion";
 import { GlobalState, useStateMachine } from "little-state-machine";
 import { useForm } from "react-hook-form";
 import { Address, useAccount } from "wagmi";

@@ -18,7 +18,7 @@ export default function useElementOffset(
     window.addEventListener("resize", () => updateOffset());
 
     return () => window.removeEventListener("resize", updateOffset);
-  }, [ref]);
+  }, [ref?.current]);
 
   return offset;
 }
