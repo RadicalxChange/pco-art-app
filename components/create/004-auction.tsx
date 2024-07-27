@@ -232,7 +232,7 @@ export default function ConfigAuctionFacet({
                   id="auction.starting-bid"
                   required
                   min={0.000000000000000001}
-                  step={0.001}
+                  step="any"
                   placeholder={"0 ETH"}
                   className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
                 />
@@ -253,7 +253,7 @@ export default function ConfigAuctionFacet({
                     id="auction.min-bid-increase"
                     required
                     min={0.000000000000000001}
-                    step={0.001}
+                    step="any"
                     placeholder={"0.001 ETH"}
                     className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
                   />

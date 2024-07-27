@@ -1,11 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import Image from "next/image";
 
 import { motion } from "framer-motion";
 import { GlobalState, useStateMachine } from "little-state-machine";
 import { useForm } from "react-hook-form";
 import { Address, useAccount } from "wagmi";
+import { useMediaQuery } from "react-responsive";
 
-import { FADE_DOWN_ANIMATION_VARIANTS } from "@/config/design";
+import useElementOffset from "@/lib/hooks/use-element-offset";
 import { AccessControlInit } from "@/lib/hooks/use-facet-init";
 
 function updateAction(
@@ -105,10 +107,12 @@ export default function ConfigPermissions({
   nextStep: () => void;
   prevStep: () => void;
 }) {
+  const formContainerRef = useRef<HTMLDivElement>(null);
+
+  const isMobileOrIsTablet = useMediaQuery({ query: "(max-width: 1240px)" });
+  const formContainerOffset = useElementOffset(formContainerRef);
   const account = useAccount();
-
   const { actions, state } = useStateMachine({ updateAction });
-
   const { register, handleSubmit, getValues, setValue } = useForm({
     defaultValues: {
       permissions: (state as any).permissionsInput,
@@ -131,181 +135,170 @@ export default function ConfigPermissions({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="min-w-full rounded-md bg-neutral-100 p-4 dark:bg-neutral-800">
-        <motion.h2
-          className="text-gradient-primary text-center text-3xl font-bold tracking-[-0.02em] drop-shadow-sm md:text-4xl md:leading-[8rem]"
-          variants={FADE_DOWN_ANIMATION_VARIANTS}
-        >
-          6. Permissions
-        </motion.h2>
-        <div className="mb-6">
-          <label>
-            Certain aspects of your Stewardship License can be configured to
-            allow for updates. Carefully consider the expectations of your
-            future Stewards & Creator Circle. There are social and security
-            trade-offs with upgradability vs. immutability. You can forgo,
-            maintain, or allocate these permissions. We&apos;ve set suggested
-            defaults. Make sure secure access to the selected addresses can be
-            maintained. We cannot change these values for you.
-          </label>
-          <label
-            htmlFor="permissions.token-admin"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+    <>
+      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
+        6.
+        <br />
+        Permissions
+      </h1>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
+          <div
+            ref={formContainerRef}
+            className="w-[320px] sm:w-[600px] xl:w-[800px] 2xl:w-[850px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24"
           >
-            Token Admin
-          </label>
-          <label
-            htmlFor="permissions.token-admin"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            This role mimics the permissions that you are exercising now at
-            minting (with technical limitations around backward compatibility).
-            This address can change a token&apos;s PCO settings,
-            implementation/configuration of core components, and reassign the
-            roles below. Set to 0x0 if/when you don&apos;t want an admin.
-          </label>
-          <div className="flex">
-            <input
-              {...register(`permissions.token-admin`)}
-              type="string"
-              id={`permissions.token-admin`}
-              className="mx-1 grow rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              placeholder="0x"
-              required
-              pattern="^(0x)?[0-9a-fA-F]{40}$"
-            />
+            <div className="flex">
+              <span className="w-1/3">Intro</span>
+              <span className="w-2/3">
+                Certain aspects of your Stewardship License can be configured to
+                allow for updates. Carefully consider the expectations of your
+                future Stewards & Creator Circle. There are social and security
+                trade-offs with upgradability vs. immutability. You can forgo,
+                maintain, or allocate these permissions. We&apos;ve set
+                suggested defaults. Make sure secure access to the selected
+                addresses can be maintained. We cannot change these values for
+                you.
+              </span>
+            </div>
+            <div className="flex mt-10">
+              <label htmlFor="permissions.token-admin" className="w-1/3">
+                Token Admin
+              </label>
+              <div className="flex flex-col w-2/3">
+                <label htmlFor="permissions.token-admin">
+                  This role mimics the permissions that you are exercising now
+                  at minting (with technical limitations around backward
+                  compatibility). This address can change a token&apos;s PCO
+                  settings, implementation/configuration of core components, and
+                  reassign the roles below. Set to 0x0 if/when you don&apos;t
+                  want an admin.
+                </label>
+                <input
+                  {...register(`permissions.token-admin`)}
+                  type="string"
+                  id={`permissions.token-admin`}
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  placeholder="0x"
+                  required
+                  pattern="^(0x)?[0-9a-fA-F]{40}$"
+                />
+              </div>
+            </div>
+            <div className="flex mt-10">
+              <label className="w-1/3">Component Configuration</label>
+              <div className="flex flex-col w-2/3">
+                <label>
+                  Assign the ability to configure the details of each core
+                  component. Token Admins can reassign these roles at any time.
+                </label>
+                <label htmlFor="permissions.role-admin" className="mt-6">
+                  Role Admin
+                </label>
+                <input
+                  {...register(`permissions.role-admin`)}
+                  type="string"
+                  id={`permissions.role-admin`}
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  placeholder="0x"
+                  required
+                  pattern="^(0x)?[0-9a-fA-F]{40}$"
+                />
+                <label htmlFor="pco-settings.owner" className="mt-6">
+                  PCO Settings
+                </label>
+                <input
+                  {...register(`pco-settings.owner`)}
+                  type="string"
+                  id={`pco-settings.owner`}
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  placeholder="0x"
+                  required
+                  pattern="^(0x)?[0-9a-fA-F]{40}$"
+                />
+                <label htmlFor="auction.owner" className="mt-6">
+                  Stewardship Inauguration
+                </label>
+                <input
+                  {...register(`auction.owner`)}
+                  type="string"
+                  id={`auction.owner`}
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  placeholder="0x"
+                  required
+                  pattern="^(0x)?[0-9a-fA-F]{40}$"
+                />
+                <label htmlFor="allowlist.owner" className="mt-6">
+                  Inauguration Eligibility
+                </label>
+                <input
+                  {...register(`allowlist.owner`)}
+                  type="string"
+                  id={`allowlist.owner`}
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  placeholder="0x"
+                  required
+                  pattern="^(0x)?[0-9a-fA-F]{40}$"
+                />
+                <label htmlFor="beneficiary.owner" className="mt-6">
+                  Creator Circle
+                </label>
+                <input
+                  {...register(`beneficiary.owner`)}
+                  type="string"
+                  id={`beneficiary.owner`}
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  placeholder="0x"
+                  required
+                  pattern="^(0x)?[0-9a-fA-F]{40}$"
+                />
+                <label htmlFor="pco-settings.owner" className="mt-6">
+                  Mint Additional Tokens
+                </label>
+                <input
+                  {...register(`steward-license.minter`)}
+                  type="string"
+                  id={`steward-license.minter`}
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  placeholder="0x"
+                  required
+                  pattern="^(0x)?[0-9a-fA-F]{40}$"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center mt-10 mb-24 xl:mb-32">
+            <button
+              className="absolute left-0 flex items-center gap-2 sm:gap-3 bg-neon-green px-2 sm:px-4 py-1 font-serif text-2xl"
+              onClick={() => prevStep()}
+            >
+              <Image src="/back-arrow.svg" alt="Back" width={18} height={18} />
+              Back
+            </button>
+            {formContainerOffset && (
+              <button
+                type="submit"
+                className="absolute flex gap-2 items-center sm:gap-3 bg-neon-green px-2 py-1 font-serif text-2xl w-[250px] sm:w-3/4"
+                style={{
+                  right: isMobileOrIsTablet ? 0 : "",
+                  left: isMobileOrIsTablet ? "" : formContainerOffset.left,
+                  width: isMobileOrIsTablet
+                    ? ""
+                    : document.documentElement.clientWidth -
+                      formContainerOffset.left,
+                }}
+              >
+                <Image
+                  src="/forward-arrow.svg"
+                  alt="Forward"
+                  width={18}
+                  height={18}
+                />
+                7. Review
+              </button>
+            )}
           </div>
         </div>
-        <div className="mb-6">
-          <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-            Component Configuration
-          </label>
-          <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-            Assign the ability to configure the details of each core component.
-            Token Admins can reassign these roles at any time.
-          </label>
-          <div className="flex">
-            <label
-              htmlFor="permissions.role-admin"
-              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Role Admin
-            </label>
-            <input
-              {...register(`permissions.role-admin`)}
-              type="string"
-              id={`permissions.role-admin`}
-              className="mx-1 grow rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              placeholder="0x"
-              required
-              pattern="^(0x)?[0-9a-fA-F]{40}$"
-            />
-          </div>
-          <div className="flex">
-            <label
-              htmlFor="pco-settings.owner"
-              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-            >
-              PCO Settings
-            </label>
-            <input
-              {...register(`pco-settings.owner`)}
-              type="string"
-              id={`pco-settings.owner`}
-              className="mx-1 grow rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              placeholder="0x"
-              required
-              pattern="^(0x)?[0-9a-fA-F]{40}$"
-            />
-          </div>
-          <div className="flex">
-            <label
-              htmlFor="auction.owner"
-              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Stewardship Inauguration
-            </label>
-            <input
-              {...register(`auction.owner`)}
-              type="string"
-              id={`auction.owner`}
-              className="mx-1 grow rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              placeholder="0x"
-              required
-              pattern="^(0x)?[0-9a-fA-F]{40}$"
-            />
-          </div>
-          <div className="flex">
-            <label
-              htmlFor="allowlist.owner"
-              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Inauguration Eligibility
-            </label>
-            <input
-              {...register(`allowlist.owner`)}
-              type="string"
-              id={`allowlist.owner`}
-              className="mx-1 grow rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              placeholder="0x"
-              required
-              pattern="^(0x)?[0-9a-fA-F]{40}$"
-            />
-          </div>
-          <div className="flex">
-            <label
-              htmlFor="beneficiary.owner"
-              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Creator Circle
-            </label>
-            <input
-              {...register(`beneficiary.owner`)}
-              type="string"
-              id={`beneficiary.owner`}
-              className="mx-1 grow rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              placeholder="0x"
-              required
-              pattern="^(0x)?[0-9a-fA-F]{40}$"
-            />
-          </div>
-          <div className="flex">
-            <label
-              htmlFor="pco-settings.owner"
-              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Mint Additional Tokens
-            </label>
-            <input
-              {...register(`steward-license.minter`)}
-              type="string"
-              id={`steward-license.minter`}
-              className="mx-1 grow rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              placeholder="0x"
-              required
-              pattern="^(0x)?[0-9a-fA-F]{40}$"
-            />
-          </div>
-        </div>
-        <div className="flex items-center justify-center">
-          <button
-            className="btn bg-gradient-button btn-xl w-30"
-            onClick={() => {
-              onSubmit(getValues());
-              prevStep();
-            }}
-          >
-            Back
-          </button>
-          <div className="grow" />
-          <input
-            type="submit"
-            className="btn bg-gradient-button btn-xl w-30"
-            value="Next"
-          />
-        </div>
-      </div>
-    </form>
+      </form>
+    </>
   );
 }

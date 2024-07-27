@@ -214,7 +214,7 @@ export default function UpdateAuctionPitchPage({
               id="auction.starting-bid"
               required
               min={0.000000000000000001}
-              step={0.001}
+              step="any"
               placeholder={"0"}
               className="mr-5 w-40 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
             />
@@ -241,7 +241,7 @@ export default function UpdateAuctionPitchPage({
               id="auction.min-bid-increase"
               required
               min={0.000000000000000001}
-              step={0.001}
+              step="any"
               placeholder={"0.001"}
               className="mr-5 w-40 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
             />
