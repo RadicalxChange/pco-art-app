@@ -8,7 +8,7 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
 
   return (
     <>
-      <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto my-10 sm:mt-16 xl:mt20 2x:xl:mt-24 min-[2000px]:mt-32">
+      <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto my-10 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
         <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none">
           Mint Stewardship License
         </h1>

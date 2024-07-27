@@ -61,7 +61,7 @@ export default function ConfigStewardLicenseFacet({
     },
   });
   const account = useAccount();
-  const isMobile = useMediaQuery({ query: "(max-width: 640px)" });
+  const isMobileOrIsTablet = useMediaQuery({ query: "(max-width: 1240px)" });
 
   useEffect(() => {
     setValue("steward-license.minter", account.address);
@@ -83,7 +83,7 @@ export default function ConfigStewardLicenseFacet({
         <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
           <div
             ref={formContainerRef}
-            className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] my-10 sm:mt-16 xl:mt20 2x:xl:mt-24"
+            className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24"
           >
             <div className="flex">
               <label htmlFor="mint-type" className="w-1/3">
@@ -196,11 +196,11 @@ export default function ConfigStewardLicenseFacet({
           {formContainerOffset && (
             <button
               type="submit"
-              className="flex items-center gap-2 sm:gap-3 bg-neon-green px-2 py-1 font-serif text-2xl absolute w-[250px]"
+              className="flex items-center gap-2 sm:gap-3 bg-neon-green px-2 py-1 font-serif text-2xl absolute w-[250px] sm:w-3/4"
               style={{
-                right: isMobile ? 0 : "",
-                left: isMobile ? "" : formContainerOffset.left,
-                width: isMobile
+                right: isMobileOrIsTablet ? 0 : "",
+                left: isMobileOrIsTablet ? "" : formContainerOffset.left,
+                width: isMobileOrIsTablet
                   ? ""
                   : document.documentElement.clientWidth -
                     formContainerOffset.left,

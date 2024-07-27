@@ -52,6 +52,7 @@ export default function ConfigBeneficiaryFacet({
   const network = useNetwork();
   const account = useAccount();
   const isMobile = useMediaQuery({ query: "(max-width: 640px)" });
+  const isTablet = useMediaQuery({ query: "(max-width: 1240px)" });
   const formContainerOffset = useElementOffset(formContainerRef);
 
   const { actions, state } = useStateMachine({ updateAction });
@@ -104,7 +105,7 @@ export default function ConfigBeneficiaryFacet({
         <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
           <div
             ref={formContainerRef}
-            className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] my-10 sm:mt-16 xl:mt20 2x:xl:mt-24"
+            className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24"
           >
             <div className="flex">
               <span className="w-1/3">Intro</span>
@@ -250,14 +251,15 @@ export default function ConfigBeneficiaryFacet({
               {formContainerOffset && (
                 <button
                   type="submit"
-                  className="flex gap-2 items-center sm:gap-3 bg-neon-green px-2 py-1 font-serif text-2xl absolute w-[250px]"
+                  className="flex gap-2 items-center sm:gap-3 bg-neon-green px-2 py-1 font-serif text-2xl absolute w-[250px] sm:w-3/4"
                   style={{
-                    right: isMobile ? 0 : "",
-                    left: isMobile ? "" : formContainerOffset.left,
-                    width: isMobile
-                      ? ""
-                      : document.documentElement.clientWidth -
-                        formContainerOffset.left,
+                    right: isMobile || isTablet ? 0 : "",
+                    left: isMobile || isTablet ? "" : formContainerOffset.left,
+                    width:
+                      isMobile || isTablet
+                        ? ""
+                        : document.documentElement.clientWidth -
+                          formContainerOffset.left,
                   }}
                 >
                   <Image
