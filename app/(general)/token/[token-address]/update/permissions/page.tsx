@@ -1,12 +1,14 @@
 "use client";
+
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 import { useForm } from "react-hook-form";
 import { keccak256, toHex } from "viem";
 import { Address, useAccount, useContractReads } from "wagmi";
 import { waitForTransaction, writeContract } from "wagmi/actions";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 
-import { WalletConnect } from "@/components/blockchain/wallet-connect";
 import { BranchIsWalletConnected } from "@/components/shared/branch-is-wallet-connected";
 import {
   accessControlFacetABI,
@@ -17,7 +19,7 @@ import {
   useGetRoleMember,
   useHasRole,
 } from "@/lib/hooks/use-access-control-facet";
-import { ZERO_ADDRESS, truncateStr } from "@/lib/utils";
+import { ZERO_ADDRESS } from "@/lib/utils";
 
 const roles: { [key: string]: string } = {
   pcoParams: "PeriodicPCOParamsFacet.COMPONENT_ROLE",
@@ -99,6 +101,7 @@ export default function UpdatePCOSettingsPage({
 
   const tokenAddress = params["token-address"] as Address;
 
+  const { openConnectModal } = useConnectModal();
   const account = useAccount();
   const { data } = useContractReads({
     contracts: [
@@ -146,7 +149,7 @@ export default function UpdatePCOSettingsPage({
     data && data[2].status === "success" ? data[2].result : null;
   const isTransferPending = nomineeOwner && nomineeOwner !== ZERO_ADDRESS;
 
-  const { register, getValues, setValue, watch } = useForm();
+  const { register, getValues, setValue, watch, handleSubmit } = useForm();
   const watchPermissions = watch();
 
   useEffect(() => {
@@ -235,6 +238,7 @@ export default function UpdatePCOSettingsPage({
   const handleSave = async () => {
     const remainingActions = actions.slice();
 
+    console.log(actions);
     setIsSaving(true);
 
     try {
@@ -277,202 +281,217 @@ export default function UpdatePCOSettingsPage({
   };
 
   return (
-    <div className="m-auto w-2/4">
-      <h1 className="text-4xl font-bold text-blue-500">
-        {tokenName} ({truncateStr(tokenAddress, 12)})
+    <>
+      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
+        Edit
+        <br />
+        Permissions
       </h1>
-      <h2 className="text-medium mt-5 mb-2 text-2xl font-bold">
-        Edit Permissions
-      </h2>
-      <p>
-        Certain aspects of your Stewardship License can be configured to allow
-        for updates. Carefully consider the expectations of your future Stewards
-        & Creator Circle. There are social and security trade-offs with
-        upgradability vs. immutability.
-        <br />
-        <br />
-        You can forgo, maintain, or allocate these permissions. We've set
-        suggested defaults. Make sure secure access to the selected addresses
-        can be maintained. We cannot change these values for you.
-      </p>
-      <h3 className="mt-10 mb-2 text-lg font-bold">Collection Owner</h3>
-      <p>
-        This role mimics the permissions that you are exercising now at minting
-        (with technical limitations around backward compatibility). This address
-        can change a token's PCO settings, implementation/configuration of core
-        components, and reassign the roles below.
-      </p>
-      <div className="mt-5 flex flex-col gap-2 lg:flex-row lg:items-center">
-        <input
-          {...register("owner")}
-          type="text"
-          className="mr-5 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 lg:w-4/6"
-          style={{
-            pointerEvents:
-              account.address === collectionOwner ? "auto" : "none",
-            opacity: account.address === collectionOwner ? 1 : 0.6,
-          }}
-        />
-        {isTransferPending && nomineeOwner === account.address ? (
-          <button
-            className="rounded-full bg-blue-500 py-3 lg:w-60"
-            onClick={handleTransferAcceptance}
-          >
-            {isAcceptingOwnership ? (
-              <span className="lds-dual-ring" />
-            ) : (
-              <span className="font-bold">Accept Ownership</span>
-            )}
-          </button>
-        ) : isTransferPending ? (
-          <span className="font-bold">Pending Acceptance</span>
-        ) : null}
-      </div>
-      <h4 className="mt-10 mb-2 text-lg font-bold">Component Configuration</h4>
-      <p>
-        Assign the ability to configure the details of each core component.
-        Token Admins can reassign these roles at any time.
-      </p>
-      <form onSubmit={(e) => e.preventDefault()}>
-        <div
-          className="mb-6 mt-8 flex flex-col justify-between lg:flex-row lg:items-center"
-          style={{
-            pointerEvents: hasAdminRole ? "auto" : "none",
-            opacity: hasAdminRole ? 1 : 0.6,
-          }}
-        >
-          <label
-            htmlFor="cycle"
-            className="mb-2 block font-medium text-gray-900 dark:text-white"
-          >
-            Role Admin
-          </label>
-          <input
-            {...register("roleAdmin")}
-            type="text"
-            className="mr-5 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 lg:w-4/6"
-          />
-        </div>
-        <div
-          className="mb-6 mt-8 flex flex-col justify-between lg:flex-row lg:items-center"
-          style={{
-            pointerEvents: hasAdminRole ? "auto" : "none",
-            opacity: hasAdminRole ? 1 : 0.6,
-          }}
-        >
-          <label
-            htmlFor="cycle"
-            className="mb-2 block font-medium text-gray-900 dark:text-white"
-          >
-            PCO Settings
-          </label>
-          <input
-            {...register("permissions.pcoParams")}
-            type="text"
-            className="mr-5 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 lg:w-4/6"
-          />
-        </div>
-        <div
-          className="mb-6 mt-8 flex flex-col justify-between lg:flex-row lg:items-center"
-          style={{
-            pointerEvents: hasAdminRole ? "auto" : "none",
-            opacity: hasAdminRole ? 1 : 0.6,
-          }}
-        >
-          <label
-            htmlFor="cycle"
-            className="mb-2 block font-medium text-gray-900 dark:text-white"
-          >
-            Stewardship Inauguration
-          </label>
-          <input
-            {...register("permissions.auction")}
-            type="text"
-            className="mr-5 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 lg:w-4/6"
-          />
-        </div>
-        <div
-          className="mb-6 mt-8 flex flex-col justify-between lg:flex-row lg:items-center"
-          style={{
-            pointerEvents: hasAdminRole ? "auto" : "none",
-            opacity: hasAdminRole ? 1 : 0.6,
-          }}
-        >
-          <label
-            htmlFor="cycle"
-            className="mb-2 block font-medium text-gray-900 dark:text-white"
-          >
-            Inauguration Eligibility
-          </label>
-          <input
-            {...register("permissions.allowlist")}
-            type="text"
-            className="mr-5 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 lg:w-4/6"
-          />
-        </div>
-        <div
-          className="mb-6 mt-8 flex flex-col justify-between lg:flex-row lg:items-center"
-          style={{
-            pointerEvents: hasAdminRole ? "auto" : "none",
-            opacity: hasAdminRole ? 1 : 0.6,
-          }}
-        >
-          <label
-            htmlFor="cycle"
-            className="mb-2 block font-medium text-gray-900 dark:text-white"
-          >
-            Creator Circle
-          </label>
-          <input
-            {...register("permissions.beneficiary")}
-            type="text"
-            className="mr-5 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 lg:w-4/6"
-          />
-        </div>
-        <div
-          className="mb-6 mt-8 flex flex-col justify-between lg:flex-row lg:items-center"
-          style={{
-            pointerEvents: hasAdminRole ? "auto" : "none",
-            opacity: hasAdminRole ? 1 : 0.6,
-          }}
-        >
-          <label
-            htmlFor="cycle"
-            className="mb-2 block font-medium text-gray-900 dark:text-white"
-          >
-            Mint Additional Tokens
-          </label>
-          <input
-            {...register("permissions.addTokenToCollection")}
-            type="text"
-            className="mr-5 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 lg:w-4/6"
-          />
+      <form onSubmit={handleSubmit(handleSave)}>
+        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
+          <div className="w-[320px] sm:w-[600px] xl:w-[800px] 2xl:w-[850px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24">
+            <div className="flex">
+              <span className="w-1/3">Intro</span>
+              <span className="w-2/3">
+                Certain aspects of your Stewardship License can be configured to
+                allow for updates. Carefully consider the expectations of your
+                future Stewards & Creator Circle. There are social and security
+                trade-offs with upgradability vs. immutability. You can forgo,
+                maintain, or allocate these permissions. We&apos;ve set
+                suggested defaults. Make sure secure access to the selected
+                addresses can be maintained. We cannot change these values for
+                you.
+              </span>
+            </div>
+            <div className="flex mt-10">
+              <label htmlFor="owner" className="w-1/3">
+                Token Admin
+              </label>
+              <div className="flex flex-col w-2/3">
+                <label htmlFor="owner">
+                  This role mimics the permissions that you are exercising now
+                  at minting (with technical limitations around backward
+                  compatibility). This address can change a token&apos;s PCO
+                  settings, implementation/configuration of core components, and
+                  reassign the roles below. Set to 0x0 if/when you don&apos;t
+                  want an admin.
+                </label>
+                <div className="flex flex-col">
+                  <input
+                    {...register(`owner`)}
+                    type="text"
+                    className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                    placeholder="0x"
+                    required
+                    pattern="^(0x)?[0-9a-fA-F]{40}$"
+                    style={{
+                      pointerEvents:
+                        account.address === collectionOwner ? "auto" : "none",
+                      opacity: account.address === collectionOwner ? 1 : 0.4,
+                    }}
+                  />
+                </div>
+                {isTransferPending && nomineeOwner === account.address ? (
+                  <button
+                    className="w-full bg-neon-green font-serif text-2xl py-1"
+                    onClick={handleTransferAcceptance}
+                  >
+                    <span className="font-bold">
+                      {isAcceptingOwnership
+                        ? "Accepting..."
+                        : "Accept Ownership"}
+                    </span>
+                  </button>
+                ) : isTransferPending ? (
+                  <span className="pt-1">Pending Acceptance</span>
+                ) : null}
+              </div>
+            </div>
+            <div className="flex mt-10">
+              <label className="w-1/3">Component Configuration</label>
+              <div className="flex flex-col w-2/3">
+                <label>
+                  Assign the ability to configure the details of each core
+                  component. Token Admins can reassign these roles at any time.
+                </label>
+                <label htmlFor="roleAdmin" className="mt-6">
+                  Role Admin
+                </label>
+                <input
+                  {...register(`roleAdmin`)}
+                  type="text"
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  placeholder="0x"
+                  required
+                  pattern="^(0x)?[0-9a-fA-F]{40}$"
+                  style={{
+                    pointerEvents: hasAdminRole ? "auto" : "none",
+                    opacity: hasAdminRole ? 1 : 0.4,
+                  }}
+                />
+                <label htmlFor="permissions.pcoParams" className="mt-6">
+                  PCO Settings
+                </label>
+                <input
+                  {...register(`permissions.pcoParams`)}
+                  type="text"
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  placeholder="0x"
+                  required
+                  pattern="^(0x)?[0-9a-fA-F]{40}$"
+                  style={{
+                    pointerEvents: hasAdminRole ? "auto" : "none",
+                    opacity: hasAdminRole ? 1 : 0.4,
+                  }}
+                />
+                <label htmlFor="permissions.auction" className="mt-6">
+                  Stewardship Inauguration
+                </label>
+                <input
+                  {...register(`permissions.auction`)}
+                  type="text"
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  placeholder="0x"
+                  required
+                  pattern="^(0x)?[0-9a-fA-F]{40}$"
+                  style={{
+                    pointerEvents: hasAdminRole ? "auto" : "none",
+                    opacity: hasAdminRole ? 1 : 0.4,
+                  }}
+                />
+                <label htmlFor="permissions.allowlist" className="mt-6">
+                  Inauguration Eligibility
+                </label>
+                <input
+                  {...register(`permissions.allowlist`)}
+                  type="text"
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  placeholder="0x"
+                  required
+                  pattern="^(0x)?[0-9a-fA-F]{40}$"
+                  style={{
+                    pointerEvents: hasAdminRole ? "auto" : "none",
+                    opacity: hasAdminRole ? 1 : 0.4,
+                  }}
+                />
+                <label htmlFor="permissions.beneficiary" className="mt-6">
+                  Creator Circle
+                </label>
+                <input
+                  {...register(`permissions.beneficiary`)}
+                  type="text"
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  placeholder="0x"
+                  required
+                  pattern="^(0x)?[0-9a-fA-F]{40}$"
+                  style={{
+                    pointerEvents: hasAdminRole ? "auto" : "none",
+                    opacity: hasAdminRole ? 1 : 0.4,
+                  }}
+                />
+                <label
+                  htmlFor="permissions.addTokenToCollection"
+                  className="mt-6"
+                >
+                  Mint Additional Tokens
+                </label>
+                <input
+                  {...register("permissions.addTokenToCollection")}
+                  type="text"
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  placeholder="0x"
+                  required
+                  pattern="^(0x)?[0-9a-fA-F]{40}$"
+                  style={{
+                    pointerEvents: hasAdminRole ? "auto" : "none",
+                    opacity: hasAdminRole ? 1 : 0.4,
+                  }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
         <BranchIsWalletConnected>
           <button
-            className="float-right mr-2 w-full rounded-full bg-blue-500 px-8 py-4 text-xl font-bold lg:mr-4 lg:w-40"
-            onClick={handleSave}
-            style={{
-              pointerEvents: actions.length > 0 ? "auto" : "none",
-              opacity: actions.length > 0 ? 1 : 0.6,
+            className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] font-serif text-2xl"
+            disabled={isSaving || actions.length === 0}
+          >
+            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] m-auto">
+              <Image
+                src="/forward-arrow.svg"
+                alt="Forward"
+                width={18}
+                height={18}
+              />{" "}
+              {isSaving
+                ? `SAVING (${completedActions + 1}/${actions.length})`
+                : actions.length > 0
+                ? `SAVE (${actions.length})`
+                : "SAVE"}
+            </div>
+          </button>
+          <button
+            className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] font-serif text-2xl"
+            onClick={(e) => {
+              e.preventDefault();
+
+              if (openConnectModal) {
+                openConnectModal();
+              }
             }}
           >
-            {isSaving ? (
-              <>
-                <span className="lds-dual-ring" /> {completedActions + 1}/
-                {actions.length}
-              </>
-            ) : (
-              <span>
-                Save {actions.length > 0 ? `(${actions.length})` : null}
-              </span>
-            )}
+            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] m-auto">
+              <Image
+                src="/forward-arrow.svg"
+                alt="Forward"
+                width={18}
+                height={18}
+              />{" "}
+              CONNECT
+            </div>
           </button>
-          <div className="float-right">
-            <WalletConnect />
-          </div>
         </BranchIsWalletConnected>
       </form>
-    </div>
+    </>
   );
 }
