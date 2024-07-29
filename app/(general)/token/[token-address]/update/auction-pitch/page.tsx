@@ -1,22 +1,21 @@
 "use client";
+
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import { useForm } from "react-hook-form";
 import { formatEther, parseEther } from "viem";
 import { Address, useContractReads } from "wagmi";
 import { waitForTransaction, writeContract } from "wagmi/actions";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { useMediaQuery } from "react-responsive";
 
-import { WalletConnect } from "@/components/blockchain/wallet-connect";
 import { BranchIsWalletConnected } from "@/components/shared/branch-is-wallet-connected";
 import {
   englishPeriodicAuctionFacetABI,
   nativeStewardLicenseFacetABI,
 } from "@/lib/blockchain";
-import {
-  fromSecondsToUnits,
-  fromUnitsToSeconds,
-  truncateStr,
-} from "@/lib/utils";
+import { fromSecondsToUnits, fromUnitsToSeconds } from "@/lib/utils";
 
 export default function UpdateAuctionPitchPage({
   params,
@@ -31,6 +30,8 @@ export default function UpdateAuctionPitchPage({
     abi: englishPeriodicAuctionFacetABI,
   };
 
+  const isMobile = useMediaQuery({ query: "(max-width: 640px)" });
+  const { openConnectModal } = useConnectModal();
   const { data } = useContractReads({
     contracts: [
       {
@@ -69,7 +70,7 @@ export default function UpdateAuctionPitchPage({
   const repossessor =
     data && data[7].status === "success" ? data[7].result : null;
 
-  const { register, getValues, setValue } = useForm();
+  const { register, getValues, setValue, handleSubmit } = useForm();
 
   useEffect(() => {
     if (
@@ -147,173 +148,176 @@ export default function UpdateAuctionPitchPage({
   };
 
   return (
-    <div className="m-auto w-2/4">
-      <h1 className="text-4xl font-bold text-blue-500">
-        {tokenName} ({truncateStr(tokenAddress, 12)})
-      </h1>
-      <h2 className="text-medium mt-5 text-2xl font-bold">
+    <>
+      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
         Edit Stewardship Inauguration
-      </h2>
-      <div className="mb-6 mt-2">
-        <span className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-          This auction starts at a low/zero initial price and accepts ascending
-          bids until close.
-          <br />
-          You can configure an auction extension window to disincentivize
-          last-second bids.
-        </span>
-      </div>
-      <div className="min-w-full rounded-md">
-        <div className="mb-6">
-          <label
-            htmlFor="auction.duration"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Duration
-          </label>
-          <label
-            htmlFor="auction.duration"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Set the standard length of your auction. The start time of your
-            auction can shift each stewardship cycle, so don&apos;t
-            over-optimize for tight timezone windows.
-          </label>
-          <div className="flex">
-            <input
-              {...register("auction.duration")}
-              type="number"
-              id="auction.duration"
-              required
-              min={1}
-              placeholder={"24"}
-              className="mr-5 w-40 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            />
-            <select
-              {...register("auction.duration-type")}
-              className="w-40 rounded-lg border border-gray-300 bg-gray-50 dark:border-gray-600 dark:bg-gray-700"
-            >
-              <option value="minutes">Minutes</option>
-              <option value="hours">Hours</option>
-              <option value="days">Days</option>
-              <option value="weeks">Weeks</option>
-            </select>
+      </h1>
+      <form onSubmit={handleSubmit(handleSave)} className="relative">
+        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
+          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24">
+            <div className="flex">
+              <span className="w-1/3">Intro</span>
+              <span className="w-2/3">
+                This auction starts at a low/zero initial price and accepts
+                ascending bids until close. You can configure an auction
+                extension window to disincentivize last-second bids.
+              </span>
+            </div>
+            <div className="flex mt-10">
+              <label htmlFor="auction.duration" className="w-1/3">
+                Duration
+              </label>
+              <div className="flex flex-col w-2/3">
+                <label htmlFor="auction.duration">
+                  Set the standard length of your auction. The start time of
+                  your auction can shift each stewardship cycle, so don&apos;t
+                  over-optimize for tight timezone windows.
+                </label>
+                <div className="flex mt-2 gap-5">
+                  <input
+                    {...register("auction.duration")}
+                    type="number"
+                    id="auction.duration"
+                    required
+                    min={1}
+                    placeholder={"24"}
+                    className="w-2/4 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                  />
+                  <select
+                    {...register("auction.duration-type")}
+                    defaultValue="hours"
+                    className="w-2/4 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                  >
+                    <option value="minutes">Minutes</option>
+                    <option value="hours">Hours</option>
+                    <option value="days">Days</option>
+                    <option value="weeks">Weeks</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center mt-10">
+              <label htmlFor="auction.starting-bid" className="w-1/3">
+                Starting Bid
+              </label>
+              <div className="flex w-2/3">
+                <input
+                  {...register("auction.starting-bid")}
+                  type="number"
+                  id="auction.starting-bid"
+                  required
+                  min={0.000000000000000001}
+                  step="any"
+                  placeholder={"0 ETH"}
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                />
+              </div>
+            </div>
+            <div className="flex mt-10">
+              <label htmlFor="auction.min-bid-increase" className="w-1/3">
+                Minimum Bid Increase
+              </label>
+              <div className="flex flex-col w-2/3">
+                <label htmlFor="auction.min-bid-increase">
+                  Avoid infinitesimal increase bidding wars.
+                </label>
+                <div className="flex">
+                  <input
+                    {...register("auction.min-bid-increase")}
+                    type="number"
+                    id="auction.min-bid-increase"
+                    required
+                    min={0.000000000000000001}
+                    step="any"
+                    placeholder={"0.001 ETH"}
+                    className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="flex mt-10">
+              <label htmlFor="auction.extension-window" className="w-1/3">
+                Extension Window
+              </label>
+              <div className="flex flex-col w-2/3">
+                <label htmlFor="auction.extension-window">
+                  Bids placed during this window at the end of the auction will
+                  extend it. Set this to 0 if you want auction extensions.
+                </label>
+                <div className="flex">
+                  <input
+                    {...register("auction.extension-window")}
+                    type="number"
+                    id="auction.extension-window"
+                    required
+                    min={0}
+                    placeholder={"15 Minutes"}
+                    className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="flex mt-10">
+              <label htmlFor="auction.extension-length" className="w-1/3">
+                Extension Length
+              </label>
+              <div className="flex flex-col w-2/3">
+                <label htmlFor="auction.extension-length">
+                  How long each bid during the extension window will extend the
+                  auction.
+                </label>
+                <div className="flex">
+                  <input
+                    {...register("auction.extension-length")}
+                    type="number"
+                    id="auction.extension-length"
+                    required
+                    placeholder={"15 Minutes"}
+                    min={0}
+                    className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="mb-6">
-          <label
-            htmlFor="auction.starting-bid"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+        <BranchIsWalletConnected>
+          <button
+            className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] font-serif text-2xl"
+            disabled={isSaving}
           >
-            Starting Bid
-          </label>
-          <div className="flex">
-            <input
-              {...register("auction.starting-bid")}
-              type="number"
-              id="auction.starting-bid"
-              required
-              min={0.000000000000000001}
-              step="any"
-              placeholder={"0"}
-              className="mr-5 w-40 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            />
-            <p>ETH</p>
-          </div>
-        </div>
-        <div className="mb-6">
-          <label
-            htmlFor="auction.min-bid-increase"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] m-auto">
+              <Image
+                src="/forward-arrow.svg"
+                alt="Forward"
+                width={18}
+                height={18}
+              />{" "}
+              {isSaving ? "SAVING..." : "SAVE"}
+            </div>
+          </button>
+          <button
+            className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] font-serif text-2xl"
+            onClick={(e) => {
+              e.preventDefault();
+
+              if (openConnectModal) {
+                openConnectModal();
+              }
+            }}
           >
-            Minimum Bid Increase
-          </label>
-          <label
-            htmlFor="auction.min-bid-increase"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Avoid infinitesimal increase bidding wars.
-          </label>
-          <div className="flex">
-            <input
-              {...register("auction.min-bid-increase")}
-              type="number"
-              id="auction.min-bid-increase"
-              required
-              min={0.000000000000000001}
-              step="any"
-              placeholder={"0.001"}
-              className="mr-5 w-40 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            />
-            <p>ETH</p>
-          </div>
-        </div>
-        <div className="mb-6">
-          <label
-            htmlFor="auction.extension-window"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Extension Window
-          </label>
-          <label
-            htmlFor="auction.extension-window"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Bids placed during this window at the end of the auction will extend
-            it. Set this to 0 if you want auction extensions.
-          </label>
-          <div className="flex">
-            <input
-              {...register("auction.extension-window")}
-              type="number"
-              id="auction.extension-window"
-              required
-              min={0}
-              placeholder={"15"}
-              className="mr-5 w-40 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            />
-            <p>Minutes</p>
-          </div>
-        </div>
-        <div className="mb-6">
-          <label
-            htmlFor="auction.extension-length"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Extension Length
-          </label>
-          <label
-            htmlFor="auction.extension-length"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            How long each bid during the extension window will extend the
-            auction.
-          </label>
-          <div className="flex">
-            <input
-              {...register("auction.extension-length")}
-              type="number"
-              id="auction.extension-length"
-              required
-              placeholder={"15"}
-              min={0}
-              className="mr-5 w-40 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            />
-            <p>Minutes</p>
-          </div>
-        </div>
-      </div>
-      <BranchIsWalletConnected>
-        <button
-          className="float-right w-full rounded-full bg-blue-500 px-8 py-4 text-xl font-bold lg:w-40"
-          onClick={handleSave}
-        >
-          {isSaving ? <span className="lds-dual-ring" /> : "Save"}
-        </button>
-        <div className="float-right">
-          <WalletConnect />
-        </div>
-      </BranchIsWalletConnected>
-    </div>
+            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] m-auto">
+              <Image
+                src="/forward-arrow.svg"
+                alt="Forward"
+                width={18}
+                height={18}
+              />{" "}
+              CONNECT
+            </div>
+          </button>
+        </BranchIsWalletConnected>
+      </form>
+    </>
   );
 }
