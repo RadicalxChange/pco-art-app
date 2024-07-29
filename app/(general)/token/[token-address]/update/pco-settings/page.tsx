@@ -1,21 +1,18 @@
 "use client";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 import { useForm } from "react-hook-form";
 import { Address, useContractReads } from "wagmi";
 import { waitForTransaction, writeContract } from "wagmi/actions";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 
-import { WalletConnect } from "@/components/blockchain/wallet-connect";
 import { BranchIsWalletConnected } from "@/components/shared/branch-is-wallet-connected";
 import {
   nativeStewardLicenseFacetABI,
   periodicPcoParamsFacetABI,
 } from "@/lib/blockchain";
-import {
-  fromSecondsToUnits,
-  fromUnitsToSeconds,
-  truncateStr,
-} from "@/lib/utils";
+import { fromSecondsToUnits, fromUnitsToSeconds } from "@/lib/utils";
 
 export default function UpdatePCOSettingsPage({
   params,
@@ -25,6 +22,8 @@ export default function UpdatePCOSettingsPage({
   const [isSaving, setIsSaving] = useState<boolean>(false);
 
   const tokenAddress = params["token-address"] as Address;
+
+  const { openConnectModal } = useConnectModal();
 
   const { data } = useContractReads({
     contracts: [
@@ -60,7 +59,7 @@ export default function UpdatePCOSettingsPage({
   const feeDenominator =
     data && data[3].status === "success" ? data[3].result : null;
 
-  const { register, getValues, setValue, watch } = useForm();
+  const { register, getValues, setValue, watch, handleSubmit } = useForm();
 
   const watchPcoSettings = watch("pco-settings");
   const annualizedRate = watchPcoSettings
@@ -127,102 +126,113 @@ export default function UpdatePCOSettingsPage({
   };
 
   return (
-    <div className="m-auto w-2/4">
-      <h1 className="text-4xl font-bold text-blue-500">
-        {tokenName} ({truncateStr(tokenAddress, 12)})
+    <>
+      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
+        Edit
+        <br />
+        PCO Settings
       </h1>
-      <h2 className="text-medium mt-5 text-2xl font-bold">Edit PCO Settings</h2>
-      <form onSubmit={(e) => e.preventDefault()}>
-        <div className="mb-6 mt-12">
-          <label
-            htmlFor="cycle"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Stewardship Cycle
-          </label>
-          <label
-            htmlFor="cycle"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            The duration between Stewardship Inaugurations. Weeks, months, and
-            years are converted to seconds based on 7, 30, & 365 days
-            respectively.
-          </label>
-          <div className="flex flex-col gap-2 lg:flex-row">
-            <input
-              {...register("pco-settings.cycle")}
-              type="number"
-              id="cycle"
-              required
-              min={1}
-              className="mr-5 grow rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            />
-            <select
-              {...register("pco-settings.cycle-type")}
-              defaultValue="days"
-              className="w-40 rounded-lg text-gray-900 dark:bg-gray-700 dark:text-white"
-            >
-              <option value="minutes">Minutes</option>
-              <option value="hours">Hours</option>
-              <option value="days">Days</option>
-              <option value="weeks">Weeks</option>
-              <option value="years">Years</option>
-            </select>
-          </div>
-        </div>
-        <div className="mb-6">
-          <label
-            htmlFor="rate"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Honorarium Rate
-          </label>
-          <label
-            htmlFor="rate"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            The percent of a winning Stewardship Inauguration bid that is
-            contributed to the Creator Circle in each Stewardship Cycle.
-          </label>
-          <div className="flex flex-col gap-2 text-center lg:flex-row">
-            <input
-              {...register("pco-settings.rate")}
-              type="number"
-              id="rate"
-              className="w-20 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              placeholder="%"
-              required
-              min={0.01}
-              step={0.01}
-            />
-            <label
-              htmlFor="rate"
-              className="w-50 dark:text-white-500 mx-10 mb-2 font-medium text-gray-500"
-            >
-              = an Annualized Rate of
-            </label>
-            <input
-              type="text"
-              className="w-30 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-500 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              value={
-                annualizedRate ? `${parseFloat(annualizedRate.toFixed(2))}%` : 0
-              }
-              disabled
-            />
+      <form onSubmit={handleSubmit(handleSave)} className="relative">
+        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
+          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24">
+            <div className="flex">
+              <label htmlFor="cycle" className="w-1/3">
+                Stewardship Cycle
+              </label>
+              <div className="flex flex-col w-2/3">
+                <label htmlFor="cycle">
+                  The duration between Stewardship Inaugurations. Weeks, months,
+                  and years are converted to seconds based on 7, 30, & 365 days
+                  respectively.
+                </label>
+                <input
+                  {...register("pco-settings.cycle")}
+                  type="number"
+                  id="cycle"
+                  required
+                  min={1}
+                  placeholder="365"
+                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] p-1"
+                />
+                <select
+                  {...register("pco-settings.cycle-type")}
+                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl text-[#ADADAD] p-1"
+                  defaultValue="days"
+                >
+                  <option value="minutes">Minutes</option>
+                  <option value="hours">Hours</option>
+                  <option value="days">Days</option>
+                  <option value="weeks">Weeks</option>
+                  <option value="years">Years</option>
+                </select>
+              </div>
+            </div>
+            <div className="flex mt-10">
+              <label htmlFor="rate" className="w-1/3">
+                Honorarium Rate
+              </label>
+              <div className="flex flex-col w-2/3">
+                <label htmlFor="rate">
+                  The percent of a winning Stewardship Inauguration bid that is
+                  contributed to the Creator Circle in each Stewardship Cycle.
+                </label>
+                <input
+                  {...register("pco-settings.rate")}
+                  type="number"
+                  id="rate"
+                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] p-1"
+                  placeholder="%"
+                  required
+                  min={0.01}
+                  step={0.01}
+                />
+                <div className="bg-transparent border-solid border-0 border-b border-black p-0 font-serif text-2xl text-[#ADADAD] p-1">
+                  = an Annualized Rate of{" "}
+                  {annualizedRate
+                    ? `${parseFloat(annualizedRate.toFixed(2))}%`
+                    : 0}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <BranchIsWalletConnected>
           <button
-            className="float-right w-full rounded-full bg-blue-500 px-8 py-4 text-xl font-bold lg:w-40"
-            onClick={handleSave}
+            className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] font-serif text-2xl"
+            disabled={isSaving}
           >
-            {isSaving ? <span className="lds-dual-ring" /> : "Save"}
+            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] m-auto">
+              <Image
+                src="/forward-arrow.svg"
+                alt="Forward"
+                width={18}
+                height={18}
+              />{" "}
+              {isSaving ? "SAVING..." : "SAVE"}
+            </div>
           </button>
-          <div className="float-right">
-            <WalletConnect />
-          </div>
+          <button
+            className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] font-serif text-2xl"
+            onClick={(e) => {
+              e.preventDefault();
+
+              if (openConnectModal) {
+                openConnectModal();
+              }
+            }}
+          >
+            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] m-auto">
+              <Image
+                src="/forward-arrow.svg"
+                alt="Forward"
+                width={18}
+                height={18}
+              />{" "}
+              CONNECT
+            </div>
+          </button>
         </BranchIsWalletConnected>
       </form>
-    </div>
+    </>
   );
 }

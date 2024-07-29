@@ -6,7 +6,6 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { Address, useContractReads } from "wagmi";
 import { waitForTransaction, writeContract } from "wagmi/actions";
-import { useMediaQuery } from "react-responsive";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 import { BranchIsWalletConnected } from "@/components/shared/branch-is-wallet-connected";
@@ -24,7 +23,6 @@ export default function UpdateEligibilityPage({
 
   const tokenAddress = params["token-address"] as Address;
 
-  const isMobileOrIsTablet = useMediaQuery({ query: "(max-width: 1240px)" });
   const { openConnectModal } = useConnectModal();
   const { data } = useContractReads({
     contracts: [
