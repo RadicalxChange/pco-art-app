@@ -15,7 +15,7 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
         <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] mt-10 sm:mt-16 xl:mt-20 2xl:mt-24">
           <div className="flex">
             <p className="w-1/3 sm:text-xl">Intro</p>
-            <p className="w-2/3 sm:text-xl text-neon-pink">
+            <p className="w-2/3 sm:text-xl">
               Follow these steps to mint a Stewardship Licence for your artwork.
               We recommend keeping the documentation close to guide you through
               this process.
@@ -52,7 +52,7 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
             width={18}
             height={18}
           />{" "}
-          {address ? "GET STARTED" : "Connect"}
+          {address ? "GET STARTED" : "CONNECT"}
         </div>
       </button>
     </>

@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import {
@@ -9,18 +9,22 @@ import {
   useWaitForTransaction,
 } from "wagmi";
 
-import { WalletConnect } from "@/components/blockchain/wallet-connect";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useMediaQuery } from "react-responsive";
 import { BranchIsWalletConnected } from "@/components/shared/branch-is-wallet-connected";
-import { FADE_DOWN_ANIMATION_VARIANTS } from "@/config/design";
 import { nativeStewardLicenseFacetABI } from "@/lib/blockchain";
 import { fromUnitsToSeconds } from "@/lib/utils";
 
-function AddToCollection({ params }: { params: { "token-address": Address } }) {
+export default function AddToCollection({
+  params,
+}: {
+  params: { "token-address": Address };
+}) {
   const tokenAddress = params["token-address"];
 
   const { register, handleSubmit, watch } = useForm();
   const isMobile = useMediaQuery({ query: "(max-width: 640px)" });
+  const { openConnectModal } = useConnectModal();
 
   const initialStartDate = watch("initial-start-date");
   const initialStartTime = watch("initial-start-time");
@@ -65,9 +69,9 @@ function AddToCollection({ params }: { params: { "token-address": Address } }) {
 
   if (!isLoading && isFetched && isSuccess) {
     return (
-      <div className="min-w-full rounded-md bg-neutral-100 p-4 text-center dark:bg-neutral-800">
-        <h3 className="mb-2 text-3xl font-bold">Done!</h3>
-        <p className="mb-2 text-lg font-medium">
+      <div className="flex flex-col flex-center mt-32">
+        <h3 className="mb-2 text-9xl font-bold">Done!</h3>
+        <p className="mb-2 text-xl">
           <Link
             href={`/token/${tokenAddress}/${prevMaxTokenCount}`}
             className="mt-2 underline"
@@ -79,214 +83,186 @@ function AddToCollection({ params }: { params: { "token-address": Address } }) {
     );
   } else if (!isLoading && isFetched && isError) {
     return (
-      <div className="min-w-full rounded-md bg-neutral-100 p-4 text-center dark:bg-neutral-800">
-        <h3 className="mb-2 text-3xl font-bold">Error!</h3>
+      <div className="flex flex-col flex-center mt-32">
+        <h3 className="mb-2 text-9xl font-bold">Error!</h3>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="min-w-full rounded-md bg-neutral-100 p-4 dark:bg-neutral-800">
-        <div className="mb-6">
-          <label
-            htmlFor="media"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            URI (Metadata)
-          </label>
-          <label
-            htmlFor="cycle"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Each token requires its own metadata.{" "}
-            <a
-              className="text-cyan-400 underline"
-              target="_blank"
-              href="https://nftstorage.link/ipfs/bafybeidxfej5cokgom5ticchwgdwge3sibxdk73ua7s3tlmrxcydhhktjy?filename=metadata.zip"
-            >
-              Download this folder template
-            </a>
-            , add media & a JSON doc for each token, upload it wit NFTUp, & add
-            the resulting CID here.
-          </label>
-          <input
-            {...register("media-uri")}
-            type="text"
-            id="media-uri"
-            className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            placeholder="ipfs://"
-            required
-          />
-        </div>
-        <div className="mb-6">
-          <label
-            htmlFor="media"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Number of Tokens You're Creating
-          </label>
-          <input
-            {...register("token-count")}
-            type="number"
-            id="token-count"
-            className="w-40 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            placeholder=""
-            required
-            min={1}
-          />
-        </div>
-        <div className="mb-6">
-          <label
-            htmlFor="initial-start-time"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Initial Auction
-          </label>
-          <label
-            htmlFor="initial-start-time"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Set when the first on-chain Stewardship Inauguration starts.
-            Subsequent auctions will automatically be triggered at the end of
-            each Stewardship Cycle. You can set this date one cycle into the
-            future and run an offline auction if you choose.
-          </label>
-          <div className="flex mt-2">
-            <input
-              {...register("auction.initial-start-date")}
-              id="auction.initial-start-date"
-              type="date"
-              required
-              className="w-2/4 bg-transparent border-solid border-0 border-b border-black focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mr-5 p-0 py-1"
-            />
-            <div className="flex w-2/4 border-solid border-0 border-b border-black">
-              <input
-                {...register("auction.initial-start-time")}
-                id="auction.initial-start-time"
-                type="time"
-                required
-                className="bg-transparent border-0 p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] p-0 py-1"
-              />
-              {!isMobile && (
-                <span className="flex items-center font-serif text-2xl pl-2">
-                  {
-                    new Date()
-                      .toLocaleTimeString("default", {
-                        timeZoneName: "short",
-                      })
-                      .split(" ")[2]
-                  }
+    <>
+      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
+        Add Art to <br />
+        Collection
+      </h1>
+      <form onSubmit={handleSubmit(onSubmit)} className="relative">
+        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
+          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24">
+            <div className="flex items-center">
+              <label htmlFor="media" className="self-start w-1/3 pt-3">
+                URI (Metadata)
+              </label>
+              <div className="flex flex-col gap-2 w-2/3">
+                <input
+                  {...register("media-uri")}
+                  type="text"
+                  id="media"
+                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                  placeholder="ipfs://"
+                  required
+                />
+                <span className="text-xs">
+                  Download{" "}
+                  <a
+                    className="underline"
+                    target="_blank"
+                    href="https://nftstorage.link/ipfs/bafybeidxfej5cokgom5ticchwgdwge3sibxdk73ua7s3tlmrxcydhhktjy?filename=metadata.zip"
+                  >
+                    this
+                  </a>{" "}
+                  JSON template , define your token metadata, upload it to
+                  NFT.Storage, & add the resulting CID here
                 </span>
-              )}
+              </div>
+            </div>
+            <div className="flex items-center mt-10">
+              <label htmlFor="media" className="w-1/3">
+                Number of Tokens
+              </label>
+              <input
+                {...register("token-count")}
+                type="number"
+                id="max-token-count"
+                className="w-2/3 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                placeholder="12"
+                required
+                min={1}
+              />
+            </div>
+            <div className="flex items-center mt-10 pt-3">
+              <label htmlFor="should-mint" className="w-1/3">
+                Mint Tokens at Creation
+              </label>
+              <input
+                {...register("should-mint")}
+                type="checkbox"
+                className="rounded-full text-black border-black focus:ring-0 focus:ring-offset-0 focus:outline-none"
+                id="should-mint"
+              />
+            </div>
+            <div className="flex mt-12">
+              <label htmlFor="initial-start-time" className="w-1/3">
+                Initial Auction
+              </label>
+              <div className="flex flex-col w-2/3">
+                <label htmlFor="initial-start-time">
+                  Set when the first on-chain Stewardship Inauguration starts.
+                </label>
+                <div className="flex mt-2">
+                  <input
+                    {...register("initial-start-date")}
+                    id="initial-start-date"
+                    type="date"
+                    required
+                    className="w-2/4 bg-transparent border-solid border-0 border-b border-black focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mr-5 p-0 py-1"
+                  />
+                  <div className="flex w-2/4 border-solid border-0 border-b border-black">
+                    <input
+                      {...register("initial-start-time")}
+                      id="initial-start-time"
+                      type="time"
+                      required
+                      className="bg-transparent border-0 p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] p-0 py-1"
+                    />
+                    {!isMobile && (
+                      <span className="flex items-center font-serif text-2xl pl-2">
+                        {
+                          new Date()
+                            .toLocaleTimeString("default", {
+                              timeZoneName: "short",
+                            })
+                            .split(" ")[2]
+                        }
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex mt-10">
+              <label htmlFor="initial-start-time-offset" className="w-1/3">
+                Collection Offset
+              </label>
+              <div className="flex flex-col w-2/3">
+                <label htmlFor="initial-start-time-offset">
+                  Stagger the first auction for each token in your collection
+                  sequentially by fixed amount. 0 means the auctions will all
+                  start at the same time.
+                </label>
+                <div className="flex gap-5 mt-2">
+                  <input
+                    {...register("initial-start-time-offset")}
+                    type="number"
+                    id="initial-start-time-offset"
+                    required
+                    min={0}
+                    placeholder="0"
+                    className="w-2/4 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                  />
+                  <select
+                    {...register("initial-start-time-offset-type")}
+                    defaultValue="hours"
+                    className="w-2/4 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                  >
+                    <option value="minutes">Minutes</option>
+                    <option value="hours">Hours</option>
+                    <option value="days">Days</option>
+                    <option value="weeks">Weeks</option>
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div className="mb-6">
-          <label
-            htmlFor="initial-start-time-offset"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+        <BranchIsWalletConnected>
+          <button
+            className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] font-serif text-2xl"
+            disabled={isLoading || isFetching || isTxnLoading}
           >
-            Collection Offset
-          </label>
-          <label
-            htmlFor="initial-start-time-offset"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Stagger the first auction for each token in your collection
-            sequentially by fixed amount. 0 means the auctions will all start at
-            the same time.
-          </label>
-          <div className="flex">
-            <input
-              {...register("initial-start-time-offset")}
-              type="number"
-              id="initial-start-time-offset"
-              required
-              min={0}
-              placeholder="0"
-              className="mr-5 w-40 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            />
-            <select
-              {...register("initial-start-time-offset-type")}
-              className="w-40 rounded-lg dark:border-gray-300 dark:bg-gray-700"
-            >
-              <option value="minutes">Minutes</option>
-              <option value="hours">Hours</option>
-              <option value="days">Days</option>
-              <option value="weeks">Weeks</option>
-            </select>
-          </div>
-        </div>
-        <div className="mb-6">
-          <label
-            htmlFor="should-mint"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Mint Tokens at Creation
-          </label>
-          <input
-            {...register("should-mint")}
-            type="checkbox"
-            id="should-mint"
-            className="rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-          />
-        </div>
-        {isLoading || isFetching || isTxnLoading ? (
-          <button className="btn bg-gradient-button btn-xl" disabled>
-            <span className="lds-dual-ring" />
+            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] m-auto">
+              <Image
+                src="/forward-arrow.svg"
+                alt="Forward"
+                width={18}
+                height={18}
+              />{" "}
+              {isLoading || isFetching || isTxnLoading
+                ? "UPDATING..."
+                : "ADD TOKEN TO COLLECTION"}
+            </div>
           </button>
-        ) : (
-          <input
-            type="submit"
-            className="btn bg-gradient-button btn-xl w-30"
-            value="Add Art to Collection"
-          />
-        )}
-      </div>
-    </form>
-  );
-}
+          <button
+            className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] font-serif text-2xl"
+            onClick={(e) => {
+              e.preventDefault();
 
-export default function TokenAddToCollectionPage({
-  params,
-}: {
-  params: { "token-address": Address };
-}) {
-  return (
-    <>
-      <div className="relative flex flex-1">
-        <div className="flex-center flex h-full flex-1 flex-col items-center justify-center">
-          <motion.div
-            className="min-w-full max-w-5xl px-5 xl:px-48"
-            initial="hidden"
-            whileInView="show"
-            animate="show"
-            viewport={{ once: true }}
-            variants={{
-              hidden: {},
-              show: {
-                transition: {
-                  staggerChildren: 0.15,
-                },
-              },
+              if (openConnectModal) {
+                openConnectModal();
+              }
             }}
           >
-            <motion.h1
-              className="text-gradient-primary text-center text-3xl font-bold tracking-[-0.02em] drop-shadow-sm md:text-4xl md:leading-[8rem]"
-              variants={FADE_DOWN_ANIMATION_VARIANTS}
-            >
-              Add Art to Collection
-            </motion.h1>
-            <div className="mt-8 flex min-w-fit items-center justify-center">
-              <BranchIsWalletConnected>
-                <AddToCollection params={params} />
-                <WalletConnect />
-              </BranchIsWalletConnected>
+            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] m-auto">
+              <Image
+                src="/forward-arrow.svg"
+                alt="Forward"
+                width={18}
+                height={18}
+              />{" "}
+              CONNECT
             </div>
-          </motion.div>
-        </div>
-      </div>
+          </button>
+        </BranchIsWalletConnected>
+      </form>
     </>
   );
 }
