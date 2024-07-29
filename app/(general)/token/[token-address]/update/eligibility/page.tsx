@@ -1,17 +1,19 @@
 "use client";
+
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 import { useForm } from "react-hook-form";
 import { Address, useContractReads } from "wagmi";
 import { waitForTransaction, writeContract } from "wagmi/actions";
+import { useMediaQuery } from "react-responsive";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 
-import { WalletConnect } from "@/components/blockchain/wallet-connect";
 import { BranchIsWalletConnected } from "@/components/shared/branch-is-wallet-connected";
 import {
   allowlistFacetABI,
   nativeStewardLicenseFacetABI,
 } from "@/lib/blockchain";
-import { truncateStr } from "@/lib/utils";
 
 export default function UpdateEligibilityPage({
   params,
@@ -22,6 +24,8 @@ export default function UpdateEligibilityPage({
 
   const tokenAddress = params["token-address"] as Address;
 
+  const isMobileOrIsTablet = useMediaQuery({ query: "(max-width: 1240px)" });
+  const { openConnectModal } = useConnectModal();
   const { data } = useContractReads({
     contracts: [
       {
@@ -47,7 +51,7 @@ export default function UpdateEligibilityPage({
       },
     ],
   });
-  const { register, setValue, getValues, watch } = useForm();
+  const { register, setValue, getValues, watch, handleSubmit } = useForm();
 
   const tokenName =
     data && data[0].status === "success" ? data[0].result : null;
@@ -164,102 +168,132 @@ export default function UpdateEligibilityPage({
   };
 
   return (
-    <div className="m-auto w-2/4">
-      <h1 className="text-4xl font-bold text-blue-500">
-        {tokenName} ({truncateStr(tokenAddress, 12)})
+    <>
+      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
+        Edit
+        <br />
+        Inauguration Eligibility
       </h1>
-      <h2 className="text-medium mt-5 text-2xl font-bold">
-        Edit Inauguration Eligibility
-      </h2>
-      <div className="mb-6 mt-12">
-        <label
-          htmlFor="allowlist.allow-any"
-          className="mb-2 block font-medium text-gray-900 dark:text-white"
-        >
-          Criteria
-        </label>
-        <label
-          htmlFor="allowlist.allow-any"
-          className="mb-2 block font-medium text-gray-900 dark:text-white"
-        >
-          Set who can participate in this token&apos;s Stewardship
-          Inaugurations.
-        </label>
-        <select
-          {...register("allowlist.allow-any")}
-          className="grow rounded-lg border border-gray-300 bg-gray-50 dark:border-gray-600 dark:bg-gray-700"
-        >
-          <option value="true">Open Participation</option>
-          <option value="false">Allowlist</option>
-        </select>
-      </div>
-      {watchAllowAny === "false" && (
-        <div className="mb-6">
-          <label
-            htmlFor="allowlist.addresses"
-            className="mb-2 block font-medium text-gray-900 dark:text-white"
-          >
-            Allowlist
-          </label>
-          <label
-            htmlFor="allowlist.addresses"
-            className="mb-2 block font-medium text-gray-900 dark:text-white"
-          >
-            Provide the eligibile Ethereum addresses.
-          </label>
-          {watchAddresses?.map((_: any, index: number) => (
-            <div key={index} className="mb-6 flex">
-              {index > 0 && (
-                <button
-                  className="btn btn-sm mx-5 bg-gradient-to-r from-red-500 to-red-400 text-white"
-                  onClick={() => {
-                    // Remove item from watchAddresses
-                    setValue(
-                      `allowlist.addresses`,
-                      watchAddresses?.toSpliced(index, 1)
-                    );
-                  }}
+      <form onSubmit={handleSubmit(handleSave)}>
+        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
+          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24">
+            <div className="flex">
+              <label htmlFor="allowlist.allow-any" className="w-1/3">
+                Criteria
+              </label>
+              <div className="flex flex-col w-2/3">
+                <label htmlFor="allowlist.allow-any">
+                  Set who can participate in this token&apos;s Stewardship
+                  Inaugurations.
+                </label>
+                <select
+                  {...register("allowlist.allow-any")}
+                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
                 >
-                  -
-                </button>
-              )}
-              <input
-                {...register(`allowlist.addresses.${index}`)}
-                type="string"
-                id={`allowlist.addresses.${index}`}
-                className="mx-1 grow rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="0x"
-                required
-                pattern="^(0x)?[0-9a-fA-F]{40}$"
-              />
+                  <option value="true">Open Participation</option>
+                  <option value="false">Allowlist</option>
+                </select>
+              </div>
             </div>
-          ))}
-          <div className="mb-6 flex">
-            <button
-              className="btn btn-sm mx-1 grow bg-gradient-to-r from-emerald-500 to-emerald-400 text-white"
-              onClick={() => {
-                setValue(
-                  `allowlist.addresses.${watchAddresses?.length ?? 0 + 1}`,
-                  ""
-                );
-              }}
-            >
-              + Add another address
-            </button>
+            {watchAllowAny === "false" && (
+              <div className="flex mt-10">
+                <label htmlFor="allowlist.addresses" className="w-1/3">
+                  Allowlist
+                </label>
+                <div className="flex flex-col w-2/3">
+                  <label htmlFor="allowlist.addresses">
+                    Provide the eligibile Ethereum addresses.
+                  </label>
+                  {watchAddresses?.map((_: any, index: number) => (
+                    <div key={index} className="flex">
+                      {index > 0 && (
+                        <button
+                          className="bg-transparent mt-1 mr-1"
+                          onClick={() => {
+                            // Remove item from watchAddresses
+                            setValue(
+                              `allowlist.addresses`,
+                              watchAddresses?.toSpliced(index, 1)
+                            );
+                          }}
+                        >
+                          <Image
+                            src="/cancel.svg"
+                            alt="Cancel"
+                            width={24}
+                            height={24}
+                          />
+                        </button>
+                      )}
+                      <input
+                        {...register(`allowlist.addresses.${index}`)}
+                        type="string"
+                        id={`allowlist.addresses.${index}`}
+                        className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mb-2"
+                        placeholder="0x"
+                        required
+                        pattern="^(0x)?[0-9a-fA-F]{40}$"
+                      />
+                    </div>
+                  ))}
+                  <div className="flex mt-2">
+                    <button
+                      className="w-full flex items-center gap-1 bg-transparent"
+                      onClick={() => {
+                        setValue(
+                          `allowlist.addresses.${
+                            watchAddresses?.length ?? 0 + 1
+                          }`,
+                          ""
+                        );
+                      }}
+                    >
+                      <Image src="/add.svg" alt="Add" width={23} height={23} />
+                      Add another address
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
-      )}
-      <BranchIsWalletConnected>
-        <button
-          className="float-right w-full rounded-full bg-blue-500 px-8 py-4 text-xl font-bold lg:w-40"
-          onClick={handleSave}
-        >
-          {isSaving ? <span className="lds-dual-ring" /> : "Save"}
-        </button>
-        <div className="float-right">
-          <WalletConnect />
-        </div>
-      </BranchIsWalletConnected>
-    </div>
+        <BranchIsWalletConnected>
+          <button
+            className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] font-serif text-2xl"
+            disabled={isSaving}
+          >
+            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] m-auto">
+              <Image
+                src="/forward-arrow.svg"
+                alt="Forward"
+                width={18}
+                height={18}
+              />{" "}
+              {isSaving ? "SAVING..." : "SAVE"}
+            </div>
+          </button>
+          <button
+            className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] font-serif text-2xl"
+            onClick={(e) => {
+              e.preventDefault();
+
+              if (openConnectModal) {
+                openConnectModal();
+              }
+            }}
+          >
+            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] m-auto">
+              <Image
+                src="/forward-arrow.svg"
+                alt="Forward"
+                width={18}
+                height={18}
+              />{" "}
+              CONNECT
+            </div>
+          </button>
+        </BranchIsWalletConnected>
+      </form>
+    </>
   );
 }
