@@ -1,19 +1,21 @@
 "use client";
+
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 import { gql, useQuery } from "@apollo/client";
 import { FormProvider, useForm } from "react-hook-form";
 import { Address, useContractReads } from "wagmi";
 import { waitForTransaction, writeContract } from "wagmi/actions";
-
-import { WalletConnect } from "@/components/blockchain/wallet-connect";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { BranchIsWalletConnected } from "@/components/shared/branch-is-wallet-connected";
+
+import { useMediaQuery } from "react-responsive";
 import CreatorCircleAllocationEntry from "@/components/shared/CreatorCircleAllocationEntry";
 import {
   idaBeneficiaryFacetABI,
   nativeStewardLicenseFacetABI,
 } from "@/lib/blockchain";
-import { truncateStr } from "@/lib/utils";
 
 export default function UpdateCreatorCirclePage({
   params,
@@ -45,6 +47,8 @@ export default function UpdateCreatorCirclePage({
     variables: { publisher: tokenAddress },
   });
 
+  const isMobile = useMediaQuery({ query: "(max-width: 640px)" });
+  const { openConnectModal } = useConnectModal();
   const { data: tokenInfo } = useContractReads({
     contracts: [
       {
@@ -74,7 +78,7 @@ export default function UpdateCreatorCirclePage({
       beneficiary: defaultBeneficiaries,
     },
   });
-  const { register, watch, getValues, setValue } = form;
+  const { register, watch, getValues, setValue, handleSubmit } = form;
   const watcher = watch("beneficiary.allocation");
 
   const tokenName =
@@ -135,88 +139,182 @@ export default function UpdateCreatorCirclePage({
   };
 
   return (
-    <div className="m-auto w-2/4">
-      <h1 className="text-4xl font-bold text-blue-500">
-        {tokenName} ({truncateStr(tokenAddress, 12)})
+    <>
+      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
+        Edit
+        <br />
+        Creator Circle
       </h1>
-      <h2 className="text-medium mt-5 text-2xl font-bold">
-        Edit Creator Circle
-      </h2>
-      <label
-        htmlFor="cycle"
-        className="mt-12 mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-      >
-        The Creator Circle is the group of people/organizations that receive a
-        token&apos;s Periodic Honorarium.
-      </label>
-      <div className="mb-6">
-        <label
-          htmlFor="cycle"
-          className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-        >
-          Allocation Table
-        </label>
-        <label
-          htmlFor="cycle"
-          className="mb-5 block text-sm font-medium text-gray-900 dark:text-white"
-        >
-          Enter the addresses and allocation units to define your Creator
-          Circle. Always use the smallest number of units required to achieve
-          your desired Honorarium split.
-          <br />
-          <br />
-          You can enter a single Ethereum address (e.g. a DAO treasury) if you
-          have other mechanisms planned for allocation.
-        </label>
-        <FormProvider {...form}>
-          {watcher?.map((_, index) => (
-            <CreatorCircleAllocationEntry
-              key={index}
-              index={index}
-              register={register}
-              totalUnits={totalUnits}
-            />
-          ))}
-        </FormProvider>
-        <div className="mb-6 flex">
+      <form onSubmit={handleSubmit(handleSave)}>
+        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
+          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24">
+            <div className="flex">
+              <span className="w-1/3">Intro</span>
+              <span className="w-2/3">
+                The Creator Circle is the group of people/organizations that
+                receive a token&apos;s Periodic Honorarium.
+              </span>
+            </div>
+            <div className="flex mt-10">
+              <label htmlFor="cycle" className="w-1/3">
+                Allocation Table
+              </label>
+              <div className="w-2/3">
+                <label htmlFor="cycle">
+                  Enter the addresses and allocation units to define your
+                  Creator Circle. Always use the smallest number of units
+                  required to achieve your desired Honorarium split.
+                  <br />
+                  <br />
+                  You can enter a single Ethereum address (e.g. a DAO treasury)
+                  if you have other mechanisms planned for allocation.
+                </label>
+                {!isMobile && (
+                  <>
+                    <FormProvider {...form}>
+                      {watcher?.map((_, index) => (
+                        <CreatorCircleAllocationEntry
+                          key={index}
+                          index={index}
+                          register={register}
+                          totalUnits={totalUnits!}
+                        />
+                      )) ?? (
+                        <CreatorCircleAllocationEntry
+                          index={0}
+                          register={register}
+                          totalUnits={totalUnits!}
+                        />
+                      )}
+                    </FormProvider>
+                    <div className="flex gap-5">
+                      <button
+                        className="w-full flex items-center gap-1 bg-transparent"
+                        onClick={() => {
+                          setValue(
+                            `beneficiary.allocation.${
+                              watcher?.length ?? 0 + 1
+                            }.units`,
+                            "0"
+                          );
+                        }}
+                      >
+                        <Image
+                          src="/add.svg"
+                          alt="Add"
+                          width={23}
+                          height={23}
+                        />
+                        Add another recipient
+                      </button>
+                      <input
+                        type="number"
+                        id="name"
+                        className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                        disabled
+                        value={totalUnits}
+                      />
+                      <input
+                        type="text"
+                        id="name"
+                        className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                        disabled
+                        value={`100%`}
+                      />
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+            {isMobile && (
+              <>
+                <FormProvider {...form}>
+                  {watcher?.map((_, index) => (
+                    <CreatorCircleAllocationEntry
+                      key={index}
+                      index={index}
+                      register={register}
+                      totalUnits={totalUnits!}
+                    />
+                  )) ?? (
+                    <CreatorCircleAllocationEntry
+                      index={0}
+                      register={register}
+                      totalUnits={totalUnits!}
+                    />
+                  )}
+                </FormProvider>
+                <div className="flex gap-5">
+                  <button
+                    className="w-full flex items-center gap-1 bg-transparent"
+                    onClick={() => {
+                      setValue(
+                        `beneficiary.allocation.${
+                          watcher?.length ?? 0 + 1
+                        }.units`,
+                        "0"
+                      );
+                    }}
+                  >
+                    <Image src="/add.svg" alt="Add" width={23} height={23} />
+                    Add another recipient
+                  </button>
+                  <input
+                    type="number"
+                    id="name"
+                    className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                    disabled
+                    value={totalUnits}
+                  />
+                  <input
+                    type="text"
+                    id="name"
+                    className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                    disabled
+                    value={`100%`}
+                  />
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+        <BranchIsWalletConnected>
           <button
-            className="btn btn-sm mx-1 grow bg-gradient-to-r from-emerald-500 to-emerald-400 text-white"
-            onClick={() => {
-              setValue(
-                `beneficiary.allocation.${watcher?.length ?? 0 + 1}.units`,
-                "0"
-              );
+            className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] font-serif text-2xl"
+            disabled={isSaving}
+          >
+            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] m-auto">
+              <Image
+                src="/forward-arrow.svg"
+                alt="Forward"
+                width={18}
+                height={18}
+              />{" "}
+              {isSaving ? "SAVING..." : "SAVE"}
+            </div>
+          </button>
+          <button
+            className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] font-serif text-2xl"
+            onClick={(e) => {
+              e.preventDefault();
+
+              if (openConnectModal) {
+                openConnectModal();
+              }
             }}
           >
-            + Add another recipient
+            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] m-auto">
+              <Image
+                src="/forward-arrow.svg"
+                alt="Forward"
+                width={18}
+                height={18}
+              />{" "}
+              CONNECT
+            </div>
           </button>
-          <input
-            type="number"
-            id="name"
-            className="dark:text-white-500 mx-1 w-20 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-500 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            disabled
-            value={totalUnits}
-          />
-          <input
-            type="text"
-            id="name"
-            className="dark:text-white-500 mx-1 w-20 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-500 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            disabled
-            value={`100%`}
-          />
-        </div>
-      </div>
-      <BranchIsWalletConnected>
-        <button
-          className="float-right w-full rounded-full bg-blue-500 px-8 py-4 text-xl font-bold lg:w-40"
-          onClick={handleSave}
-        >
-          {isSaving ? <span className="lds-dual-ring" /> : "Save"}
-        </button>
-        <div className="float-right">
-          <WalletConnect />
-        </div>
-      </BranchIsWalletConnected>
-    </div>
+        </BranchIsWalletConnected>
+      </form>
+    </>
   );
 }
