@@ -19,7 +19,7 @@ const menu = (
     <Link href="/create" prefetch>
       Create
     </Link>
-    <Link href="https://www.radicalxchange.org/wiki/pco-art" target="_blank">
+    <Link href="/about" prefetch>
       About
     </Link>
     <Link href="https://docs.pco.art" target="_blank">
