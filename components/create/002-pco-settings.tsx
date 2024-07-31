@@ -92,9 +92,9 @@ export default function ConfigPCOSettingsFacet({
         <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
           <div
             ref={formContainerRef}
-            className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24"
+            className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[950px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24"
           >
-            <div className="flex">
+            <div className="flex text-lg sm:text-xl">
               <label htmlFor="cycle" className="w-1/3">
                 Stewardship Cycle
               </label>
@@ -126,7 +126,7 @@ export default function ConfigPCOSettingsFacet({
                 </select>
               </div>
             </div>
-            <div className="flex mt-10">
+            <div className="flex mt-10 text-lg sm:text-xl">
               <label htmlFor="rate" className="w-1/3">
                 Honorarium Rate
               </label>
@@ -154,7 +154,7 @@ export default function ConfigPCOSettingsFacet({
               </div>
             </div>
           </div>
-          <div className="flex items-center mt-10 mb-24 xl:mb-32">
+          <div className="flex items-center mt-10 text-lg sm:text-2xl mb-24 xl:mb-32">
             <button
               className="absolute left-0 flex items-center gap-2 sm:gap-3 bg-neon-green px-2 sm:px-4 py-1 font-serif text-2xl"
               onClick={() => prevStep()}

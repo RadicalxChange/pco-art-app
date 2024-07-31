@@ -36,7 +36,7 @@ module.exports = {
         sm: "0.875rem",
         base: "1rem",
         lg: "1.125rem",
-        xl: "1.25rem",
+        xl: "1.375rem",
         "2xl": "1.5rem",
         "3xl": "1.875rem",
         "4xl": "2.25rem",
@@ -64,9 +64,9 @@ module.exports = {
       },
       colors: {
         "neon-green": "#05ff00",
-        "neon-red": "#FF5E5E",
+        "neon-red": "#ff5e5e",
         "neon-pink": "#fa00ff",
-        "off-white": "#dddddd",
+        "off-white": "#ececec",
         gray: {
           100: "#f7fafc",
           200: "#edf2f7",

@@ -83,9 +83,9 @@ export default function ConfigStewardLicenseFacet({
         <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
           <div
             ref={formContainerRef}
-            className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24"
+            className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[950px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24"
           >
-            <div className="flex">
+            <div className="flex text-lg sm:text-xl">
               <label htmlFor="mint-type" className="w-1/3">
                 Mint Type
               </label>
@@ -103,7 +103,7 @@ export default function ConfigStewardLicenseFacet({
                 </label>
               </div>
             </div>
-            <div className="flex items-center mt-10">
+            <div className="flex items-center mt-10 text-lg sm:text-xl">
               <label htmlFor="name" className="w-1/3">
                 Name
               </label>
@@ -117,7 +117,7 @@ export default function ConfigStewardLicenseFacet({
                 maxLength={32}
               />
             </div>
-            <div className="flex items-center mt-10">
+            <div className="flex items-center mt-10 text-lg sm:text-xl">
               <label htmlFor="symbol" className="w-1/3">
                 Symbol
               </label>
@@ -131,7 +131,7 @@ export default function ConfigStewardLicenseFacet({
                 maxLength={10}
               />
             </div>
-            <div className="flex items-center mt-10">
+            <div className="flex items-center mt-10 text-lg sm:text-xl">
               <label htmlFor="media" className="self-start w-1/3 pt-3">
                 URI (Metadata)
               </label>
@@ -158,7 +158,7 @@ export default function ConfigStewardLicenseFacet({
                 </span>
               </div>
             </div>
-            <div className="flex items-center mt-10">
+            <div className="flex items-center mt-10 text-lg sm:text-xl">
               <label htmlFor="media" className="w-1/3">
                 Number of Tokens
               </label>
@@ -172,7 +172,7 @@ export default function ConfigStewardLicenseFacet({
                 min={1}
               />
             </div>
-            <div className="flex items-center mt-10 pt-3">
+            <div className="flex items-center mt-10 pt-3 text-lg sm:text-xl">
               <label htmlFor="should-mint" className="w-1/3">
                 Mint Tokens at Creation
               </label>
@@ -185,7 +185,7 @@ export default function ConfigStewardLicenseFacet({
             </div>
           </div>
         </div>
-        <div className="flex items-center mt-10 mb-24 xl:mb-32">
+        <div className="flex items-center mt-10 text-lg sm:text-xl mb-24 xl:mb-32">
           <button
             className="absolute left-0 flex items-center gap-2 sm:gap-3 bg-neon-green px-2 sm:px-4 py-1 font-serif text-2xl"
             onClick={() => prevStep()}

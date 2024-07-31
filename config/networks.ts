@@ -1,16 +1,13 @@
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 // Networks
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-import { gnosis, base, hardhat } from "@wagmi/chains";
+import { base, hardhat } from "@wagmi/chains";
 import { Chain, configureChains } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { infuraProvider } from "wagmi/providers/infura";
 import { publicProvider } from "wagmi/providers/public";
 
 import { env } from "@/env.mjs";
-
-// @ts-ignore
-gnosis.iconUrl = "/icons/NetworkGnosis.svg";
 
 export const optimismSepolia = {
   id: 11155420,
@@ -43,9 +40,9 @@ export const optimismSepolia = {
   },
 } as const satisfies Chain;
 
-const CHAINS_SUPPORTED_BY_ALCHEMY = [gnosis, optimismSepolia];
-const CHAINS_SUPPORTED_BY_INFURA = [gnosis, optimismSepolia];
-const CHAINS_SUPPORTED_BY_PUBLIC_PROVIDER = [gnosis, optimismSepolia];
+const CHAINS_SUPPORTED_BY_ALCHEMY = [optimismSepolia];
+const CHAINS_SUPPORTED_BY_INFURA = [optimismSepolia];
+const CHAINS_SUPPORTED_BY_PUBLIC_PROVIDER = [optimismSepolia];
 const CHAINS_SUPPORTED_BY_HARDHAT = [hardhat];
 
 const PROVIDERS = [];

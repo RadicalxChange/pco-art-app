@@ -238,7 +238,6 @@ export default function UpdatePCOSettingsPage({
   const handleSave = async () => {
     const remainingActions = actions.slice();
 
-    console.log(actions);
     setIsSaving(true);
 
     try {
@@ -289,7 +288,7 @@ export default function UpdatePCOSettingsPage({
       </h1>
       <form onSubmit={handleSubmit(handleSave)}>
         <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
-          <div className="w-[320px] sm:w-[600px] xl:w-[800px] 2xl:w-[850px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24">
+          <div className="w-[320px] sm:w-[600px] xl:w-[800px] 2xl:w-[950px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-lg sm:text-xl">
             <div className="flex">
               <span className="w-1/3">Intro</span>
               <span className="w-2/3">
@@ -456,7 +455,7 @@ export default function UpdatePCOSettingsPage({
             className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] font-serif text-2xl"
             disabled={isSaving || actions.length === 0}
           >
-            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] m-auto">
+            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[950px] m-auto">
               <Image
                 src="/forward-arrow.svg"
                 alt="Forward"
@@ -480,7 +479,7 @@ export default function UpdatePCOSettingsPage({
               }
             }}
           >
-            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] m-auto">
+            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[950px] m-auto">
               <Image
                 src="/forward-arrow.svg"
                 alt="Forward"

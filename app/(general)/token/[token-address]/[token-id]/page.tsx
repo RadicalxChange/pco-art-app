@@ -1,13 +1,14 @@
 "use client";
+
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 import Link from "next/link";
-import { BiInfoCircle } from "react-icons/bi";
 import { formatEther, isAddress, parseEther } from "viem";
 import { Address, useAccount, useContractRead, useContractReads } from "wagmi";
 import { readContract, waitForTransaction, writeContract } from "wagmi/actions";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 
-import { WalletConnect } from "@/components/blockchain/wallet-connect";
 import { BranchIsWalletConnected } from "@/components/shared/branch-is-wallet-connected";
 import {
   Dialog,
@@ -74,6 +75,7 @@ export default function TokenPage({
     address: tokenAddress,
     abi: nativeStewardLicenseFacetABI,
   };
+  const { openConnectModal } = useConnectModal();
   const account = useAccount();
   const {
     hasAllowlistRole,
@@ -455,57 +457,79 @@ export default function TokenPage({
   };
 
   const bidInfoView = (
-    <div className="mt-5 flex h-[128px] flex-col justify-center gap-3 rounded-xl bg-gray-300 px-16 text-lg font-medium dark:bg-black">
-      <span>
-        {isAuctionFinished ? "Winning Bid" : "Top Bid"} :{" "}
-        {highestBid && highestBid.bidAmount > 0
-          ? formatEther(highestBid.bidAmount)
-          : "No Bid Received"}
-      </span>
-      <span>
-        Honorarium:{" "}
-        {highestBid &&
-        highestBid.bidAmount > 0 &&
-        perSecondFeeNumerator &&
-        perSecondFeeDenominator &&
-        licensePeriod
-          ? formatEther(
-              (highestBid.bidAmount * perSecondFeeNumerator) /
-                perSecondFeeDenominator
-            ).slice(0, 12)
-          : "N/A"}
-      </span>
-      <span>
-        {isAuctionFinished ? "New Steward" : "Bidder"}:{" "}
-        {highestBid && highestBid.bidder !== ZERO_ADDRESS
-          ? truncateStr(highestBid.bidder, 12)
-          : "N/A"}
-      </span>
+    <div className="flex grow gap-3 bg-[#d9d9d9] p-3">
+      <div className="flex flex-col w-2/4">
+        <span>{isAuctionFinished ? "Winning Bid" : "Top Bid"}</span>
+        {highestBid && highestBid.bidAmount > 0 ? (
+          <div className="mt-2 font-serif text-4xl xl:text-[48px] 2xl:text-[80px] break-words text-wrap">
+            <span>{formatEther(highestBid.bidAmount).slice(0, 6)}</span>
+            {highestBid && highestBid.bidAmount > 0 && (
+              <span className="hidden 2xl:inline-block text-2xl 2xl:text-[40px]">
+                ETH
+              </span>
+            )}
+          </div>
+        ) : (
+          <span className="font-serif text-4xl xl:text-[40px] 2xl:text-[48px]">
+            No Bid Received
+          </span>
+        )}
+      </div>
+      <div className="flex flex-col justify-between w-2/4">
+        <div>
+          Honorarium
+          <p className="font-serif text-2xl">
+            {highestBid &&
+            highestBid.bidAmount > 0 &&
+            perSecondFeeNumerator &&
+            perSecondFeeDenominator &&
+            licensePeriod
+              ? formatEther(
+                  (highestBid.bidAmount * perSecondFeeNumerator) /
+                    perSecondFeeDenominator
+                ).slice(0, 12)
+              : "N/A"}
+          </p>
+        </div>
+        <div>
+          {isAuctionFinished ? "New Steward" : "Bidder"}
+          <p className="font-serif text-2xl">
+            {highestBid && highestBid.bidder !== ZERO_ADDRESS
+              ? truncateStr(highestBid.bidder, 12)
+              : "N/A"}
+          </p>
+        </div>
+      </div>
     </div>
   );
 
   const userCollateralView = (
     <>
-      <p className="font-bold">
-        Locked Collateral:{" "}
-        {lockedCollateral && lockedCollateral > 0
-          ? formatEther(lockedCollateral).slice(0, 12)
-          : 0}{" "}
-        ETH
-      </p>
-      <p className="font-bold">
-        Available Collateral:{" "}
-        {availableCollateral && availableCollateral > 0
-          ? formatEther(availableCollateral).slice(0, 12)
-          : 0}{" "}
-        ETH
-      </p>
+      <div className="mt-2 p-3 sm:p-0">
+        <p>Locked Collateral</p>
+        <p className="font-serif text-2xl">
+          {lockedCollateral && lockedCollateral > 0
+            ? formatEther(lockedCollateral).slice(0, 12)
+            : 0}{" "}
+          ETH
+        </p>
+      </div>
+      <div className="mt-2 p-3 sm:p-0">
+        <p>Available Collateral: </p>
+        <p className="font-serif text-2xl">
+          {availableCollateral && availableCollateral > 0
+            ? formatEther(availableCollateral).slice(0, 12)
+            : 0}{" "}
+          ETH
+        </p>
+      </div>
     </>
   );
 
   const cancelBidButton = (
     <button
-      className="mt-2 w-80 rounded-full bg-red-400 px-1 py-2 font-medium hover:bg-red-500 lg:w-3/6"
+      className="flex items-center gap-2 bg-neon-red px-3 py-1 font-serif text-2xl disabled:opacity-50"
+      disabled={isPlaceBidLoading}
       onClick={() => {
         if (
           bidOfUser &&
@@ -517,349 +541,455 @@ export default function TokenPage({
           handleCancelBid();
         }
       }}
-      style={{
-        pointerEvents: isPlaceBidLoading ? "none" : "auto",
-        opacity: isPlaceBidLoading ? 0.6 : 1,
-      }}
     >
-      {isBidWithdrawLoading ? (
-        <span className="lds-dual-ring" />
-      ) : (
-        "Cancel Bid & Withdraw"
-      )}
+      <Image src="/back-arrow.svg" alt="Cancel" width={15} height={15} />
+      {isBidWithdrawLoading ? "Canceling..." : "Cancel Bid & Withdraw"}
     </button>
   );
 
   const withdrawCollateralButton = (
     <button
-      className="mt-2 w-80 rounded-full bg-red-400 px-1 py-2 font-medium hover:bg-red-500 lg:w-3/6"
+      className="flex items-center gap-2 bg-neon-red px-3 py-1 font-serif text-2xl"
       onClick={handleWithdrawCollateral}
     >
-      {isBidWithdrawLoading ? (
-        <span className="lds-dual-ring" />
-      ) : (
-        "Withdraw Collateral"
-      )}
+      <Image src="/back-arrow.svg" alt="Reclaim" width={15} height={15} />
+      {isBidWithdrawLoading ? "Reclaiming..." : "Reclaim Collateral"}
     </button>
   );
 
   if (!maxTokenCount || tokenId >= maxTokenCount) {
-    return <>NFT doesn't exists</>;
+    return (
+      <div className="flex flex-col flex-center mt-32">
+        <h3 className="mb-2 text-9xl font-bold">NFT doesn't exists!</h3>
+      </div>
+    );
   }
 
   return (
-    <div className="flex h-full flex-col sm:w-2/3">
-      <div className="flex flex-col justify-center gap-5 sm:flex-row">
-        <figure className="mb-20 flex h-80 w-80 flex-col justify-between sm:h-96 sm:w-96">
-          <img
-            src={
-              tokenInfo?.image
-                ? `https://w3s.link/ipfs/${tokenInfo.image.replace(
-                    "ipfs://",
-                    ""
-                  )}`
-                : "/placeholder-image.svg"
-            }
-            alt="image"
-          />
-          <figcaption className="text-ellipsis break-words">
-            {tokenInfo?.image}
-          </figcaption>
-        </figure>
-        <div className="flex flex-col">
-          <span className="m-auto mt-5 text-2xl font-bold sm:m-0">
-            {tokenInfo?.name}
-          </span>
-          <span className="mt-2 text-lg">
-            Artist: {artist ? truncateStr(artist, 12) : "N/A"}
-          </span>
-          <span className="mt-2 text-lg">
-            Current Steward:{" "}
-            {currentSteward ? truncateStr(currentSteward, 12) : "N/A"}
-          </span>
-          <Link
-            href={`/token/${tokenAddress}/creator-circle`}
-            className="mt-2 underline"
-          >
-            Creator Circle
-          </Link>
-          <span className="mt-5 text-lg">{tokenInfo?.description}</span>
-        </div>
-      </div>
-      {account?.address === currentSteward &&
-      (!isAuctionStarted || isAuctionFinished) &&
-      !isAuctionPeriod ? (
-        <Dialog open={openDialogTransfer} onOpenChange={setOpenDialogTransfer}>
-          <DialogTrigger asChild>
-            <div className="m-auto mb-5 flex justify-end">
-              <button className="w-40 rounded-full bg-blue-700 py-2 text-xl font-bold">
-                Transfer
-              </button>
-            </div>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogTitle className="m-0 text-xl">Transfer</DialogTitle>
-            <DialogDescription className="mb-5">
-              Input the address you want to transfer the token to.
-            </DialogDescription>
-            <fieldset className="flex items-center gap-5">
-              <label className="w-[90px] text-right text-[15px]">Address</label>
-              <input
-                className="inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-md px-[10px] text-[15px]"
-                placeholder="0x..."
-                value={transferRecipient}
-                onChange={(e) =>
-                  setTransferRecipient(e.target.value as Address)
-                }
-              />
-            </fieldset>
-            {transferRecipient && !isAddress(transferRecipient) ? (
-              <span className="mt-2 flex justify-end text-red-500">
-                Not a valid address
-              </span>
-            ) : null}
-            <div className="mt-6 flex justify-end">
-              <button
-                className="inline-flex h-[35px] items-center justify-center rounded-full bg-green-500 px-8 font-medium hover:bg-green-600"
-                onClick={handleTokenTransfer}
-              >
-                {isTransferLoading ? (
-                  <span className="lds-dual-ring" />
-                ) : (
-                  "Send"
-                )}
-              </button>
-            </div>
-          </DialogContent>
-        </Dialog>
-      ) : null}
-      <div className="flex flex-col justify-between lg:flex-row">
-        <div className="flex flex-col text-lg">
-          <span className="mb-3 text-2xl font-bold">Stewardship Details</span>
-          <span className="mb-1 text-lg">
-            Last Valuation:{" "}
-            {currentAuctionRound &&
-            currentAuctionRound > 0 &&
-            previousWinningBid?.bidAmount
-              ? formatEther(previousWinningBid.bidAmount)
-              : 0}{" "}
-            ETH
-          </span>
-          <span className="mb-1 text-lg">
-            Stewardship Cycle:{" "}
-            {parseFloat((Number(licensePeriod) / 60 / 60 / 24).toFixed(4))} Days
-          </span>
-          <span className="mb-1 text-lg">
-            Honorarium Rate:{" "}
-            {perSecondFeeDenominator && perSecondFeeNumerator
-              ? (
-                  (Number(perSecondFeeNumerator) * 100) /
-                  Number(perSecondFeeDenominator)
-                )
-                  .toString()
-                  .slice(0, 5)
-              : 0}
-            %
-          </span>
-          {tokenInfo?.properties?.legal_license ? (
-            <Link
-              target="_blank"
-              href={
-                tokenInfo.properties.legal_license.startsWith("ipfs")
-                  ? `https://w3s.link/ipfs/${tokenInfo.properties.legal_license.replace(
+    <>
+      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
+        {tokenInfo?.name}
+      </h1>
+      <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
+        <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] min-[2000px]:w-[1200px] mt-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-lg sm:text-xl">
+          <div className="flex flex-col justify-center gap-5 lg:flex-row mb-16 sm:mb-24 sm:pl-3">
+            <img
+              src={
+                tokenInfo?.image
+                  ? `https://w3s.link/ipfs/${tokenInfo.image.replace(
                       "ipfs://",
                       ""
                     )}`
-                  : tokenInfo?.properties?.legal_license
+                  : "/placeholder-image.svg"
               }
-              className="text-lg underline"
-            >
-              Legal License
-            </Link>
-          ) : null}
-        </div>
-        {!isAuctionPeriod &&
-        (hasPcoParamsRole ||
-          hasBeneficiaryRole ||
-          hasAuctionRole ||
-          hasAllowlistRole ||
-          hasAddTokenToCollectionRole) ? (
-          <div className="flex flex-col text-lg">
-            <span className="mb-3 text-2xl font-bold">Token Configuration</span>
-            <div className="grid grid-cols-2 grid-rows-2 gap-4">
-              {hasPcoParamsRole ? (
-                <Link href={`/token/${tokenAddress}/update/pco-settings`}>
-                  <button className="w-40 rounded-full bg-sky-500 px-4 py-2 hover:bg-sky-600">
-                    PCO Settings
-                  </button>
-                </Link>
-              ) : null}
-              {hasBeneficiaryRole ? (
-                <Link href={`/token/${tokenAddress}/update/creator-circle`}>
-                  <button className="w-40 rounded-full bg-sky-500 px-4 py-2 hover:bg-sky-600">
-                    Creator Circle
-                  </button>
-                </Link>
-              ) : null}
-              {hasAuctionRole ? (
-                <Link href={`/token/${tokenAddress}/update/auction-pitch`}>
-                  <button className="w-40 rounded-full bg-sky-500 px-4 py-2 hover:bg-sky-600">
-                    Stewardship Inauguration
-                  </button>
-                </Link>
-              ) : null}
-              {hasAllowlistRole ? (
-                <Link href={`/token/${tokenAddress}/update/eligibility`}>
-                  <button className="w-40 rounded-full bg-sky-500 px-4 py-2 hover:bg-sky-600">
-                    Eligibility
-                  </button>
-                </Link>
-              ) : null}
-              {hasAddTokenToCollectionRole ? (
-                <Link href={`/token/${tokenAddress}/update/add-token`}>
-                  <button className="w-40 rounded-full bg-sky-500 px-4 py-2 hover:bg-sky-600">
-                    Add Tokens
-                  </button>
-                </Link>
-              ) : null}
-              <Link href={`/token/${tokenAddress}/update/permissions`}>
-                <button className="w-40 rounded-full bg-sky-500 px-4 py-2 hover:bg-sky-600">
-                  Permissions
-                </button>
-              </Link>
-            </div>
-          </div>
-        ) : null}
-      </div>
-      <div className="flex flex-col items-center">
-        {isAuctionPeriod && isAuctionFinished ? (
-          <div className="flex flex-col items-center">
-            <span className="text-2xl font-bold">Stewardship Inauguration</span>
-            <span className="mt-1 text-2xl">
-              {calculateTimeString(Number(auctionEndTime) * 1000 - Date.now())}
-            </span>
-            {bidInfoView}
-            <div className="mt-1 mb-4">
-              {(availableCollateral && availableCollateral > 0) ||
-              (lockedCollateral && lockedCollateral > 0)
-                ? userCollateralView
-                : null}
-            </div>
-            <div className="flex w-full justify-end gap-3">
-              {bidOfUser &&
-              lockedCollateral &&
-              highestBid &&
-              (highestBid.bidAmount === BigInt(0) ||
-                bidOfUser.bidAmount < highestBid.bidAmount) &&
-              lockedCollateral > 0
-                ? cancelBidButton
-                : availableCollateral && availableCollateral > 0
-                ? withdrawCollateralButton
-                : null}
-              <BranchIsWalletConnected>
-                <button
-                  className="mt-2 w-80 rounded-full bg-green-500 p-2 font-medium hover:bg-green-600 lg:w-3/6"
-                  onClick={handleCloseAuction}
-                  style={{
-                    pointerEvents: isAuctionCloseLoading ? "none" : "auto",
-                    opacity: isAuctionCloseLoading ? 0.6 : 1,
-                  }}
-                >
-                  {isAuctionCloseLoading ? (
-                    <span className="lds-dual-ring" />
-                  ) : artist === account.address &&
-                    highestBid?.bidAmount === BigInt(0) ? (
-                    "Repossess Token"
-                  ) : (
-                    "Complete Auction"
-                  )}
-                </button>
-                <div className="float-right">
-                  <WalletConnect />
-                </div>
-              </BranchIsWalletConnected>
-            </div>
-          </div>
-        ) : isAuctionPeriod && isAuctionStarted ? (
-          <div className="flex flex-col items-center">
-            <span className="text-2xl font-bold">Stewardship Inauguration</span>
-            <div className="flex items-center gap-2">
-              <span className="mt-1 text-2xl">{auctionCountdown}</span>
-              {bidExtensionWindowLengthSeconds && bidExtensionSeconds ? (
-                <Tooltip delayDuration={200}>
-                  <TooltipTrigger>
-                    <BiInfoCircle
-                      style={{ fontSize: "1.5rem", marginTop: 4 }}
-                    />
-                  </TooltipTrigger>
-                  <TooltipContent className="max-w-[200px] text-center">
-                    <span className="">
-                      Bids placed in the final{" "}
-                      {Number(bidExtensionWindowLengthSeconds) / 60} minutes
-                      will extend the auction {Number(bidExtensionSeconds) / 60}{" "}
-                      minutes.
-                    </span>
-                  </TooltipContent>
-                </Tooltip>
-              ) : null}
-            </div>
-            {!isAllowed ? (
-              <span className="mt-2 text-yellow-300">
-                You're not allowed to bid
+              alt="image"
+              className="w-full lg:w-[400px] xl:w-[500px] 2xl:w-[800px] min-[2000px]:w-[800px] lg:h-[400px] xl:h-[500px] 2xl:h-[800px] min-[2000px]:h-[800px]"
+            />
+            <div className="flex flex-col w-full lg:w-1/3">
+              <span>Artist</span>
+              <span className="font-serif text-2xl">
+                {artist ? truncateStr(artist, 12) : "N/A"}
               </span>
-            ) : bidOfUser &&
-              highestBid &&
-              bidOfUser.bidAmount > 0 &&
-              bidOfUser.bidAmount < highestBid.bidAmount ? (
-              <span className="mt-2 text-red-300">You've Been Outbid</span>
-            ) : bidOfUser &&
-              highestBid &&
-              bidOfUser.bidder === account.address &&
-              bidOfUser.bidAmount === highestBid.bidAmount ? (
-              <span className="mt-2 text-green-300">You're The Top Bidder</span>
+              <span className="mt-6">Current Steward</span>
+              <span className="font-serif text-2xl">
+                {currentSteward ? truncateStr(currentSteward, 12) : "N/A"}
+              </span>
+              <Link
+                href={`/token/${tokenAddress}/creator-circle`}
+                className="mt-6 underline"
+              >
+                Creator Circle
+              </Link>
+              <span className="mt-6 font-serif text-2xl">
+                {tokenInfo?.description}
+              </span>
+            </div>
+          </div>
+          {account?.address === currentSteward &&
+          (!isAuctionStarted || isAuctionFinished) &&
+          !isAuctionPeriod ? (
+            <>
+              <div className="flex flex-col sm:flex-row mb-10">
+                <span className="sm:w-2/4 2xl:w-1/3 sm:pl-3">
+                  TokenID in Collection
+                </span>
+                <div className="flex flex-col sm:w-2/4 2xl:w-2/3">
+                  <span className="font-serif text-2xl border-b border-black">
+                    {tokenId.toString()}
+                  </span>
+                  <Dialog
+                    open={openDialogTransfer}
+                    onOpenChange={setOpenDialogTransfer}
+                  >
+                    <DialogTrigger asChild>
+                      <button className="w-full text-start bg-neon-green px-2 py-1 font-serif text-2xl">
+                        Transfer Token
+                      </button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogTitle className="m-0">Transfer</DialogTitle>
+                      <DialogDescription className="mb-5">
+                        Input the address you want to transfer the token to.
+                      </DialogDescription>
+                      <fieldset className="flex items-center gap-3">
+                        <label className="text-lg">Address</label>
+                        <input
+                          className="w-full bg-transparent border-solid border-0 border-b border-black focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mr-5 p-0 py-1"
+                          placeholder="0x..."
+                          value={transferRecipient}
+                          onChange={(e) =>
+                            setTransferRecipient(e.target.value as Address)
+                          }
+                        />
+                      </fieldset>
+                      {transferRecipient && !isAddress(transferRecipient) ? (
+                        <span className="flex justify-end text-neon-red">
+                          Not a valid address
+                        </span>
+                      ) : null}
+                      <div className="mt-6 flex justify-end">
+                        <button
+                          className="w-full bg-neon-green font-serif text-xl px-2 py-1"
+                          onClick={handleTokenTransfer}
+                        >
+                          {isTransferLoading ? (
+                            <span className="lds-dual-ring" />
+                          ) : (
+                            "Send"
+                          )}
+                        </button>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              </div>
+            </>
+          ) : null}
+          <div className="flex flex-col">
+            <div className="flex flex-col sm:flex-row justify-center">
+              <span className="sm:w-2/4 2xl:w-1/3 mb-2 sm:mb-0 sm:pl-3">
+                Stewardship Details
+              </span>
+              <div className="sm:w-2/4 2xl:w-2/3">
+                <div>
+                  <span>Last Valuation: </span>
+                  <span className="font-serif text-2xl">
+                    {currentAuctionRound &&
+                    currentAuctionRound > 0 &&
+                    previousWinningBid?.bidAmount
+                      ? formatEther(previousWinningBid.bidAmount)
+                      : 0}{" "}
+                    ETH
+                  </span>
+                </div>
+                <div>
+                  <span>Stewardship Cycle: </span>
+                  <span className="font-serif text-2xl">
+                    {parseFloat(
+                      (Number(licensePeriod) / 60 / 60 / 24).toFixed(4)
+                    )}{" "}
+                    Days
+                  </span>
+                </div>
+                <div>
+                  <span>Honorarium Rate: </span>
+                  <span className="font-serif text-2xl">
+                    {perSecondFeeDenominator && perSecondFeeNumerator
+                      ? (
+                          (Number(perSecondFeeNumerator) * 100) /
+                          Number(perSecondFeeDenominator)
+                        )
+                          .toString()
+                          .slice(0, 5)
+                      : 0}
+                    %
+                  </span>
+                </div>
+                {tokenInfo?.properties?.legal_license ? (
+                  <Link
+                    target="_blank"
+                    href={
+                      tokenInfo.properties.legal_license.startsWith("ipfs")
+                        ? `https://w3s.link/ipfs/${tokenInfo.properties.legal_license.replace(
+                            "ipfs://",
+                            ""
+                          )}`
+                        : tokenInfo?.properties?.legal_license
+                    }
+                    className="font-serif text-2xl underline"
+                  >
+                    Legal License
+                  </Link>
+                ) : null}
+              </div>
+            </div>
+            {(!isAuctionPeriod && hasPcoParamsRole) ||
+            hasBeneficiaryRole ||
+            hasAuctionRole ||
+            hasAllowlistRole ||
+            hasAddTokenToCollectionRole ? (
+              <div className="flex flex-col sm:flex-row mt-10">
+                <span className="sm:w-2/4 2xl:w-1/3 mb-4 sm:mb-0 sm:pl-3">
+                  Token Configuration
+                </span>
+                <div className="flex flex-col gap-2 sm:w-2/4 2xl:w-2/3">
+                  {hasPcoParamsRole ? (
+                    <Link href={`/token/${tokenAddress}/update/pco-settings`}>
+                      <button className="flex item-center gap-3 w-full bg-neon-green text-start px-2 py-1 font-serif text-2xl">
+                        <Image
+                          src="/forward-arrow.svg"
+                          alt="Forward"
+                          width={15}
+                          height={15}
+                        />
+                        PCO Settings
+                      </button>
+                    </Link>
+                  ) : null}
+                  {hasBeneficiaryRole ? (
+                    <Link href={`/token/${tokenAddress}/update/creator-circle`}>
+                      <button className="flex item-center gap-3 w-full bg-neon-green text-start px-2 py-1 font-serif text-2xl">
+                        <Image
+                          src="/forward-arrow.svg"
+                          alt="Forward"
+                          width={15}
+                          height={15}
+                        />
+                        Creator Circle
+                      </button>
+                    </Link>
+                  ) : null}
+                  {hasAuctionRole ? (
+                    <Link href={`/token/${tokenAddress}/update/auction-pitch`}>
+                      <button className="flex item-center gap-3 w-full bg-neon-green text-start px-2 py-1 font-serif text-2xl">
+                        <Image
+                          src="/forward-arrow.svg"
+                          alt="Forward"
+                          width={15}
+                          height={15}
+                        />
+                        Stewardship Inauguration
+                      </button>
+                    </Link>
+                  ) : null}
+                  {hasAllowlistRole ? (
+                    <Link href={`/token/${tokenAddress}/update/eligibility`}>
+                      <button className="flex item-center gap-3 w-full bg-neon-green text-start px-2 py-1 font-serif text-2xl">
+                        <Image
+                          src="/forward-arrow.svg"
+                          alt="Forward"
+                          width={15}
+                          height={15}
+                        />
+                        Eligibility
+                      </button>
+                    </Link>
+                  ) : null}
+                  {hasAddTokenToCollectionRole ? (
+                    <Link href={`/token/${tokenAddress}/update/add-token`}>
+                      <button className="flex item-center gap-3 w-full bg-neon-green text-start px-2 py-1 font-serif text-2xl">
+                        <Image
+                          src="/forward-arrow.svg"
+                          alt="Forward"
+                          width={15}
+                          height={15}
+                        />
+                        Add Tokens
+                      </button>
+                    </Link>
+                  ) : null}
+                  <Link href={`/token/${tokenAddress}/update/permissions`}>
+                    <button className="flex item-center gap-3 w-full bg-neon-green text-start px-2 py-1 font-serif text-2xl">
+                      <Image
+                        src="/forward-arrow.svg"
+                        alt="Forward"
+                        width={15}
+                        height={15}
+                      />
+                      Permissions
+                    </button>
+                  </Link>
+                </div>
+              </div>
             ) : null}
-            <div className="flex flex-col justify-around gap-5 lg:flex-row">
-              <div className="flex flex-col items-center gap-3">
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-col mt-12 mb-24 xl:mb-32">
+        {isAuctionPeriod && isAuctionFinished ? (
+          <>
+            <div className="w-full bg-neon-green py-1 text-lg sm:text-xl">
+              <div className="flex flex-col sm:flex-row items-center w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] min-[2000px]:w-[1200px] m-auto">
+                <span className="sm:w-2/4 2xl:w-1/3 pl-1 sm:pl-3">
+                  Stewardship Inauguration
+                </span>
+                <span className="font-serif text-2xl sm:w-2/4 2xl:w-2/3 pl-1 sm:pl-3">
+                  {calculateTimeString(
+                    Number(auctionEndTime) * 1000 - Date.now()
+                  )}
+                </span>
+              </div>
+            </div>
+            <div className="flex w-full items-center sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] min-[2000px]:w-[1200px] m-auto">
+              <div className="flex flex-col w-full sm:w-2/4 2xl:w-2/3 ml-auto">
                 {bidInfoView}
                 {(availableCollateral && availableCollateral > 0) ||
                 (lockedCollateral && lockedCollateral > 0)
                   ? userCollateralView
                   : null}
-              </div>
-              <div className="mt-5 flex flex-col gap-4">
-                <div>
-                  <fieldset className="flex items-center gap-5">
-                    <label className="w-[90px] text-right text-[15px]">
-                      Bid
-                    </label>
-                    <input
-                      placeholder="0"
-                      value={newBidAmount}
-                      onChange={(e) => setNewBidAmount(e.target.value)}
-                      className="inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-md px-[10px] text-[15px]"
-                      style={{
-                        pointerEvents: isAllowed ? "auto" : "none",
-                        opacity: isAllowed ? 1 : 0.6,
-                      }}
+                {bidOfUser &&
+                lockedCollateral &&
+                highestBid &&
+                (highestBid.bidAmount === BigInt(0) ||
+                  bidOfUser.bidAmount < highestBid.bidAmount) &&
+                lockedCollateral > 0
+                  ? cancelBidButton
+                  : availableCollateral && availableCollateral > 0
+                  ? withdrawCollateralButton
+                  : null}
+                <BranchIsWalletConnected>
+                  <button
+                    className="flex items-center gap-2 bg-neon-green px-3 py-1 font-serif text-2xl"
+                    disabled={isAuctionCloseLoading}
+                    onClick={handleCloseAuction}
+                  >
+                    <Image
+                      src="/forward-arrow.svg"
+                      alt="Forward"
+                      width={15}
+                      height={15}
                     />
-                  </fieldset>
-                  {isNewBidLessThanMinIncrement && !isPlaceBidLoading ? (
-                    <span className="mt-1 flex justify-end text-red-500">
-                      Min increment {formatEther(minBidIncrement)}
-                    </span>
-                  ) : isNewBidLessThanMinBid && !isPlaceBidLoading ? (
-                    <span className="mt-1 flex justify-end text-red-500">
-                      Min bid {formatEther(startingBidAmount)}
-                    </span>
+                    {isAuctionCloseLoading &&
+                    artist === account.address &&
+                    highestBid?.bidAmount === BigInt(0)
+                      ? "Repossessing..."
+                      : isAuctionCloseLoading
+                      ? "Closing..."
+                      : artist === account.address &&
+                        highestBid?.bidAmount === BigInt(0)
+                      ? "Repossess Token"
+                      : "Complete Auction"}
+                  </button>
+                  <button
+                    className="flex items-center gap-2 bg-neon-green px-3 py-1 font-serif text-2xl"
+                    onClick={openConnectModal}
+                  >
+                    <Image
+                      src="/forward-arrow.svg"
+                      alt="Forward"
+                      width={15}
+                      height={15}
+                    />
+                    Connect
+                  </button>
+                </BranchIsWalletConnected>
+              </div>
+            </div>
+          </>
+        ) : isAuctionPeriod && isAuctionStarted ? (
+          <>
+            <div className="w-full bg-neon-green py-1 text-lg sm:text-xl">
+              <div className="flex flex-col sm:flex-row items-center w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] min-[2000px]:w-[1200px] m-auto">
+                <span className="sm:w-2/4 2xl:w-1/3 pl-1 sm:pl-3">
+                  Stewardship Inauguration
+                </span>
+                <div className="flex items-center gap-2 sm:w-2/4 2xl:w-2/3">
+                  <span className="pl-1 sm:pl-3 font-serif text-2xl">
+                    {auctionCountdown}
+                  </span>
+                  {bidExtensionWindowLengthSeconds && bidExtensionSeconds ? (
+                    <Tooltip delayDuration={200}>
+                      <TooltipTrigger>
+                        <Image
+                          src="/info.svg"
+                          alt="Info"
+                          width={20}
+                          height={20}
+                        />
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-[200px] text-center">
+                        <span className="">
+                          Bids placed in the final{" "}
+                          {Number(bidExtensionWindowLengthSeconds) / 60} minutes
+                          will extend the auction{" "}
+                          {Number(bidExtensionSeconds) / 60} minutes.
+                        </span>
+                      </TooltipContent>
+                    </Tooltip>
                   ) : null}
                 </div>
-                <fieldset className="flex items-center gap-5">
-                  <label className="w-[90px] text-right text-[15px]">
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] min-[2000px]:w-[1200px] m-auto text-xl">
+              <>
+                {!isAllowed ? (
+                  <div className="flex flex-col grow w-full bg-neon-red sm:w-2/4 2xl:w-1/3 p-3">
+                    Status
+                    <span className="mt-2 font-serif text-4xl text-[48px] ">
+                      You're not on the auction allowlist
+                    </span>
+                  </div>
+                ) : bidOfUser &&
+                  highestBid &&
+                  bidOfUser.bidAmount > 0 &&
+                  bidOfUser.bidAmount < highestBid.bidAmount ? (
+                  <div className="flex flex-col grow w-full bg-neon-red sm:w-2/4 2xl:w-1/3 p-3">
+                    Status
+                    <span className="mt-2 font-serif text-[48px]">
+                      You've Been Outbid!
+                    </span>
+                  </div>
+                ) : bidOfUser &&
+                  highestBid &&
+                  bidOfUser.bidder === account.address &&
+                  bidOfUser.bidAmount === highestBid.bidAmount ? (
+                  <div className="flex flex-col grow w-full bg-neon-green sm:w-2/4 2xl:w-1/3 p-3">
+                    Status
+                    <span className="mt-2 font-serif text-[48px]">
+                      You're The Top Bidder!
+                    </span>
+                  </div>
+                ) : null}
+              </>
+              <div className="flex flex-col w-full sm:w-2/4 2xl:w-2/3 ml-auto">
+                {bidInfoView}
+              </div>
+            </div>
+            {(availableCollateral && availableCollateral > 0) ||
+            (lockedCollateral && lockedCollateral > 0) ? (
+              <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] min-[2000px]:w-[1200px] m-auto text-xl">
+                <div className="flex flex-col w-full sm:w-2/4 2xl:w-2/3 ml-auto p-3">
+                  {userCollateralView}
+                </div>
+              </div>
+            ) : null}
+            <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] min-[2000px]:w-[1200px] m-auto text-xl">
+              <div className="flex flex-col w-full sm:w-2/4 2xl:w-2/3 bg-[#d9d9d9] ml-auto p-3">
+                <fieldset className="flex flex-col">
+                  <label style={{ color: !isAllowed ? "#888888" : "" }}>
+                    Bid
+                  </label>
+                  <input
+                    disabled={!isAllowed}
+                    placeholder={`Must be at least ${
+                      highestBid?.bidAmount && minBidIncrement
+                        ? formatEther(highestBid.bidAmount + minBidIncrement)
+                        : startingBidAmount
+                        ? formatEther(startingBidAmount)
+                        : "0"
+                    }`}
+                    value={newBidAmount}
+                    onChange={(e) => setNewBidAmount(e.target.value)}
+                    className="bg-transparent border-solid border-0 border-b border-black focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] p-0 pb-1"
+                  />
+                </fieldset>
+                <fieldset className="flex flex-col mt-6">
+                  <label style={{ color: !isAllowed ? "#888888" : "" }}>
                     Honorarium
                   </label>
                   <input
-                    style={{ pointerEvents: "none" }}
-                    className="inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-md border-gray-500 px-[10px] text-[15px] opacity-50"
+                    disabled
+                    className="bg-transparent border-solid border-0 border-b border-black focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] p-0 pb-1"
                     value={
                       !isNewBidLessThanMinBid &&
                       !isNewBidLessThanMinIncrement &&
@@ -872,18 +1002,28 @@ export default function TokenPage({
                               perSecondFeeNumerator) /
                               perSecondFeeDenominator
                           ).slice(0, 12)
-                        : 0
+                        : ""
                     }
+                    placeholder={`${
+                      perSecondFeeDenominator && perSecondFeeNumerator
+                        ? (
+                            (Number(perSecondFeeNumerator) * 100) /
+                            Number(perSecondFeeDenominator)
+                          )
+                            .toString()
+                            .slice(0, 5)
+                        : 0
+                    }% of your bid`}
                     readOnly
                   />
                 </fieldset>
-                <fieldset className="flex items-center gap-5">
-                  <label className="w-[90px] text-right text-[15px]">
+                <fieldset className="flex flex-col mt-6">
+                  <label style={{ color: !isAllowed ? "#888888" : "" }}>
                     Total
                   </label>
                   <input
-                    style={{ pointerEvents: "none" }}
-                    className="inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-md px-[10px] text-[15px] opacity-50"
+                    disabled
+                    className="bg-transparent border-solid border-0 border-b border-black focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] p-0 pb-1"
                     value={
                       !isNewBidLessThanMinBid &&
                       !isNewBidLessThanMinIncrement &&
@@ -897,78 +1037,89 @@ export default function TokenPage({
                                 perSecondFeeNumerator) /
                                 perSecondFeeDenominator
                           ).slice(0, 12)
-                        : 0
+                        : ""
                     }
                     readOnly
+                    placeholder="Bid Value + Honorarium"
                   />
                 </fieldset>
-                <div className="flex justify-end gap-2">
-                  {bidOfUser &&
-                  highestBid &&
-                  (highestBid.bidAmount === BigInt(0) ||
-                    bidOfUser.bidAmount < highestBid.bidAmount) &&
-                  lockedCollateral &&
-                  lockedCollateral > 0
-                    ? cancelBidButton
-                    : availableCollateral && availableCollateral > 0
-                    ? withdrawCollateralButton
-                    : null}
-                  <button
-                    className="m-auto mt-2 mr-0 w-80 rounded-full bg-green-500 px-8 py-2 font-medium hover:bg-green-600 lg:w-40"
-                    onClick={handlePlaceBid}
-                    style={{
-                      pointerEvents:
-                        !newBidAmount ||
-                        isNewBidLessThanMinBid ||
-                        isNewBidLessThanMinIncrement
-                          ? "none"
-                          : "auto",
-                      opacity:
-                        !newBidAmount ||
-                        isNewBidLessThanMinBid ||
-                        isNewBidLessThanMinIncrement
-                          ? 0.6
-                          : 1,
-                    }}
-                  >
-                    {isPlaceBidLoading ? (
-                      <span className="lds-dual-ring" />
-                    ) : (
-                      "Submit Bid"
-                    )}
-                  </button>
-                </div>
+              </div>
+            </div>
+            <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] min-[2000px]:w-[1200px] m-auto text-xl">
+              <div className="flex flex-col w-full sm:w-2/4 2xl:w-2/3 ml-auto">
+                {bidOfUser &&
+                highestBid &&
+                (highestBid.bidAmount === BigInt(0) ||
+                  bidOfUser.bidAmount < highestBid.bidAmount) &&
+                lockedCollateral &&
+                lockedCollateral > 0
+                  ? cancelBidButton
+                  : availableCollateral && availableCollateral > 0
+                  ? withdrawCollateralButton
+                  : null}
+                <button
+                  className="flex gap-3 w-full bg-neon-green font-serif text-2xl px-3 py-1 disabled:opacity-50"
+                  onClick={account?.address ? handlePlaceBid : openConnectModal}
+                  disabled={
+                    !!account.address &&
+                    (!newBidAmount ||
+                      isNewBidLessThanMinBid ||
+                      isNewBidLessThanMinIncrement)
+                      ? true
+                      : false
+                  }
+                >
+                  <Image
+                    src="/forward-arrow.svg"
+                    alt="Forward"
+                    width={15}
+                    height={15}
+                  />
+                  {!account?.address
+                    ? "Connect"
+                    : isPlaceBidLoading
+                    ? "Bidding..."
+                    : "Update Bid"}
+                </button>
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className="flex flex-col sm:flex-row items-center sm:items-start w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] min-[2000px]:w-[1200px] m-auto text-lg sm:text-xl">
+            <span className="sm:w-2/4 2xl:w-1/3 sm:pl-3">
+              Next Stewardship Inauguration
+            </span>
+            <div className="flex flex-col items-center sm:items-start sm:w-2/4 2xl:w-2/3">
+              <span>English Auction [Extending]</span>
+              <div className="mt-1 px-3 sm:px-0">
+                Start:{" "}
+                <span className="font-serif text-2xl">
+                  {formatDate(Number(auctionStartTime) * 1000)} -{" "}
+                </span>
+              </div>
+              <div className="mt-1 px-3 sm:px-0">
+                Close:{" "}
+                <span className="font-serif text-2xl">
+                  {formatDate(Number(auctionEndTime) * 1000)} -{" "}
+                </span>
+              </div>
+              <div className="mt-6 flex flex-col">
+                {(availableCollateral && availableCollateral > 0) ||
+                (lockedCollateral && lockedCollateral > 0) ? (
+                  <div className="pb-3 border-b border-black">
+                    {userCollateralView}
+                  </div>
+                ) : null}
+                {lockedCollateral && lockedCollateral > 0
+                  ? cancelBidButton
+                  : availableCollateral && availableCollateral > 0
+                  ? withdrawCollateralButton
+                  : null}
               </div>
             </div>
           </div>
-        ) : (
-          <>
-            <span className="mt-5 text-2xl font-bold">
-              Next Stewardship Inauguration
-            </span>
-            <span className="mt-5 text-lg">English Auction (Extending)</span>
-            <div>
-              <span className="text-lg">
-                {formatDate(Number(auctionStartTime) * 1000)} -{" "}
-              </span>
-              <span className="text-lg">
-                {formatDate(Number(auctionEndTime) * 1000)}
-              </span>
-            </div>
-            <div className="mt-5 flex w-3/6 flex-col items-center gap-1">
-              {(availableCollateral && availableCollateral > 0) ||
-              (lockedCollateral && lockedCollateral > 0)
-                ? userCollateralView
-                : null}
-              {lockedCollateral && lockedCollateral > 0
-                ? cancelBidButton
-                : availableCollateral && availableCollateral > 0
-                ? withdrawCollateralButton
-                : null}
-            </div>
-          </>
         )}
       </div>
-    </div>
+    </>
   );
 }
