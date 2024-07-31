@@ -65,7 +65,7 @@ export default function About() {
                 <br />
                 Matt Prewitt [RadicalxChange]
                 <br />
-                Graven Prest [GeoWeb]
+                Graven Prest [Flow State Coop]
               </span>
               <span className="mt-5">Partial Common Ownership System R&D</span>
               <span className="font-serif text-2xl">
@@ -75,16 +75,9 @@ export default function About() {
                 Ruth Waters, Kay Watson 
               </span>
               <span className="mt-5">Blockchain Development</span>
-              <span className="font-serif text-2xl">
-                Graven Prest
-                <br />
-                Cody Hatfield
-                <br />
-                Stefano De Berardinis
-                <br />
-              </span>
+              <span className="font-serif text-2xl">Cody Hatfield</span>
               <span className="mt-5">Web Development</span>
-              <span className="font-serif text-2xl">Graven Prest</span>
+              <span className="font-serif text-2xl">Stefano De Berardinis</span>
               <span className="mt-5">Graphic Design</span>
               <span className="font-serif text-2xl">Jaime Del Corro</span>
             </div>

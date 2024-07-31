@@ -567,9 +567,12 @@ export default function TokenPage({
 
   return (
     <>
-      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
+      <h1 className="font-mono text-6xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
         {tokenInfo?.name}
       </h1>
+      <h2 className="font-mono text-3xl text-center leading-none">
+        TESTNET COLLECTION - For testing purposes only
+      </h2>
       <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
         <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] min-[2000px]:w-[1200px] mt-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-lg sm:text-xl">
           <div className="flex flex-col justify-center gap-5 lg:flex-row mb-16 sm:mb-24 sm:pl-3">

@@ -35,7 +35,11 @@ export default function Home() {
             alt="Pop-Up"
             className="w-full sm:h-[200px] 2xl:h-[300px]"
           />
-          <Link href="/about" prefetch className="font-serif text-xl">
+          <Link
+            href="https://docs.pco.art"
+            target="_blank"
+            className="font-serif text-xl"
+          >
             Learn More!
           </Link>
         </DialogContent>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useAccount } from "wagmi";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 
@@ -10,15 +11,60 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
     <>
       <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto my-10 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
         <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none">
-          Mint Stewardship License
+          Mint Stewardship License (Testnet)
         </h1>
         <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[950px] mt-10 sm:mt-16 xl:mt-20 2xl:mt-24">
           <div className="flex text-lg sm:text-xl">
             <p className="w-1/3">Intro</p>
             <p className="w-2/3">
-              Follow these steps to mint a Stewardship Licence for your artwork.
-              We recommend keeping the documentation close to guide you through
-              this process.
+              PCOArt recognises that today's art and art’s value emerge from the
+              ongoing interactions between artists, communities, organisations,
+              and wider societal dynamics. It allows artists to embed the
+              individual commitments their art may have to specific communities,
+              causes, and organisations into the ownership and value
+              distribution model that underwrites the circulation of their work.
+              <br />
+              <br />
+              You can create your own collection of PCOArt Stewardship Licences
+              for your artwork by completing the steps below.{" "}
+              <Link
+                href="https://docs.pco.art"
+                target="_blank"
+                className="underline"
+              >
+                Documentation
+              </Link>{" "}
+              is available to help you through every step of the process.
+            </p>
+          </div>
+          <div className="flex mt-10 text-lg sm:text-xl">
+            <p className="w-1/3">Testnet</p>
+            <p className="w-2/3">
+              PCOArt is currently available for testing on the OP Sepolia
+              testnet. PCOArt collections minted during this open beta period
+              will not be migrated to a production environment, but you can
+              easily recreate them when the mainnet beta is launched. If you
+              need testnet tokens, we recommend using the{" "}
+              <Link
+                href="https://console.optimism.io/faucet"
+                target="_blank"
+                className="underline"
+              >
+                Superchain Faucet
+              </Link>
+              .
+              <br />
+              <br />
+              If you are interested in using the full system or want to speak to
+              us about developing your project using PCOArt,{" "}
+              <Link
+                href="mailto:fae@serpentinegalleries.org"
+                target="_blank"
+                className="underline"
+              >
+                please get in touch
+              </Link>
+              .
             </p>
           </div>
           <div className="flex mt-10 text-lg sm:text-xl">
