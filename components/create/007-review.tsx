@@ -99,14 +99,18 @@ export default function ConfigReview({
 
   useEffect(() => {
     (async () => {
-      const metadata = await fetchJson(
-        `https://w3s.link/ipfs/${(state as any).stewardLicenseInput[
-          "media-uri"
-        ].replace("ipfs://", "")}/metadata/0`
-      );
+      try {
+        const metadata = await fetchJson(
+          `https://w3s.link/ipfs/${(state as any).stewardLicenseInput[
+            "media-uri"
+          ].replace("ipfs://", "")}/metadata/0`
+        );
 
-      if (metadata) {
         setMetadata(metadata as Metadata);
+      } catch (err) {
+        console.error(err);
+
+        setMetadata({} as Metadata);
       }
     })();
   }, [state]);
@@ -158,16 +162,16 @@ export default function ConfigReview({
 
   return (
     <>
-      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
+      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[160px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
         7.
         <br />
         Review
       </h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
+        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
           <div
             ref={formContainerRef}
-            className="w-[320px] sm:w-[600px] xl:w-[800px] 2xl:w-[950px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-lg sm:text-xl"
+            className="w-[320px] sm:w-[600px] xl:w-[800px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-lg sm:text-xl"
           >
             <div className="flex flex-col sm:flex-row">
               <div className="flex items-center self-start w-full sm:w-1/3">
@@ -223,7 +227,7 @@ export default function ConfigReview({
                 </div>
                 <img
                   src={
-                    metadata
+                    metadata?.image
                       ? `https://w3s.link/ipfs/${metadata.image.replace(
                           "ipfs://",
                           ""

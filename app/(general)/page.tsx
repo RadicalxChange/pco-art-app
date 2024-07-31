@@ -25,16 +25,14 @@ export default function Home() {
       />
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent className="bg-neon-green">
-          <span className="flex flex-col font-mono text-[50px] sm:text-[100px] min-[2000px]:text-[160px] text-center">
+          <span className="flex flex-col font-mono text-[50px] sm:text-[100px] min-[2000px]:text-[160px] text-center leading-none">
             PCO <br />
             TESTNET <br />
             MODE
           </span>
-          <img
-            src="butterfly.png"
-            alt="Pop-Up"
-            className="w-full sm:h-[200px] 2xl:h-[300px]"
-          />
+          <div className="w-full lg:h-[250px] 2xl:h-[350px] overflow-hidden">
+            <img src="butterfly.png" alt="Pop-Up" />
+          </div>
           <Link
             href="https://docs.pco.art"
             target="_blank"

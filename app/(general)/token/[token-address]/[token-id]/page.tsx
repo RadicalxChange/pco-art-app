@@ -567,14 +567,14 @@ export default function TokenPage({
 
   return (
     <>
-      <h1 className="font-mono text-6xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
+      <h1 className="font-mono text-6xl sm:text-[75px] xl:text-[100px] 2xl:text-[160px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
         {tokenInfo?.name}
       </h1>
       <h2 className="font-mono text-3xl text-center leading-none">
         TESTNET COLLECTION - For testing purposes only
       </h2>
-      <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
-        <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] min-[2000px]:w-[1200px] mt-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-lg sm:text-xl">
+      <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
+        <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] mt-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-lg sm:text-xl">
           <div className="flex flex-col justify-center gap-5 lg:flex-row mb-16 sm:mb-24 sm:pl-3">
             <img
               src={
@@ -586,7 +586,7 @@ export default function TokenPage({
                   : "/placeholder-image.svg"
               }
               alt="image"
-              className="w-full lg:w-[400px] xl:w-[500px] 2xl:w-[800px] min-[2000px]:w-[800px] lg:h-[400px] xl:h-[500px] 2xl:h-[800px] min-[2000px]:h-[800px]"
+              className="w-full lg:w-[400px] xl:w-[500px] 2xl:w-[800px] lg:h-[400px] xl:h-[500px] 2xl:h-[800px]"
             />
             <div className="flex flex-col w-full lg:w-1/3">
               <span>Artist</span>
@@ -822,7 +822,7 @@ export default function TokenPage({
         {isAuctionPeriod && isAuctionFinished ? (
           <>
             <div className="w-full bg-neon-green py-1 text-lg sm:text-xl">
-              <div className="flex flex-col sm:flex-row items-center w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] min-[2000px]:w-[1200px] m-auto">
+              <div className="flex flex-col sm:flex-row items-center w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto">
                 <span className="sm:w-2/4 2xl:w-1/3 pl-1 sm:pl-3">
                   Stewardship Inauguration
                 </span>
@@ -833,7 +833,7 @@ export default function TokenPage({
                 </span>
               </div>
             </div>
-            <div className="flex w-full items-center sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] min-[2000px]:w-[1200px] m-auto">
+            <div className="flex w-full items-center sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto">
               <div className="flex flex-col w-full sm:w-2/4 2xl:w-2/3 ml-auto">
                 {bidInfoView}
                 {(availableCollateral && availableCollateral > 0) ||
@@ -892,7 +892,7 @@ export default function TokenPage({
         ) : isAuctionPeriod && isAuctionStarted ? (
           <>
             <div className="w-full bg-neon-green py-1 text-lg sm:text-xl">
-              <div className="flex flex-col sm:flex-row items-center w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] min-[2000px]:w-[1200px] m-auto">
+              <div className="flex flex-col sm:flex-row items-center w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto">
                 <span className="sm:w-2/4 2xl:w-1/3 pl-1 sm:pl-3">
                   Stewardship Inauguration
                 </span>
@@ -923,7 +923,7 @@ export default function TokenPage({
                 </div>
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] min-[2000px]:w-[1200px] m-auto text-xl">
+            <div className="flex flex-col sm:flex-row w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-xl">
               <>
                 {!isAllowed ? (
                   <div className="flex flex-col grow w-full bg-neon-red sm:w-2/4 2xl:w-1/3 p-3">
@@ -960,13 +960,13 @@ export default function TokenPage({
             </div>
             {(availableCollateral && availableCollateral > 0) ||
             (lockedCollateral && lockedCollateral > 0) ? (
-              <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] min-[2000px]:w-[1200px] m-auto text-xl">
+              <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-xl">
                 <div className="flex flex-col w-full sm:w-2/4 2xl:w-2/3 ml-auto p-3">
                   {userCollateralView}
                 </div>
               </div>
             ) : null}
-            <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] min-[2000px]:w-[1200px] m-auto text-xl">
+            <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-xl">
               <div className="flex flex-col w-full sm:w-2/4 2xl:w-2/3 bg-[#d9d9d9] ml-auto p-3">
                 <fieldset className="flex flex-col">
                   <label style={{ color: !isAllowed ? "#888888" : "" }}>
@@ -1048,7 +1048,7 @@ export default function TokenPage({
                 </fieldset>
               </div>
             </div>
-            <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] min-[2000px]:w-[1200px] m-auto text-xl">
+            <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-xl">
               <div className="flex flex-col w-full sm:w-2/4 2xl:w-2/3 ml-auto">
                 {bidOfUser &&
                 highestBid &&
@@ -1088,7 +1088,7 @@ export default function TokenPage({
             </div>
           </>
         ) : (
-          <div className="flex flex-col sm:flex-row items-center sm:items-start w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] min-[2000px]:w-[1200px] m-auto text-lg sm:text-xl">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-lg sm:text-xl">
             <span className="sm:w-2/4 2xl:w-1/3 sm:pl-3">
               Next Stewardship Inauguration
             </span>

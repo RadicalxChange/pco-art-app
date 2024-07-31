@@ -96,16 +96,16 @@ export default function ConfigBeneficiaryFacet({
 
   return (
     <>
-      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
+      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[160px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
         3.
         <br />
         Creator Circle
       </h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto text-lg sm:text-xl">
+        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto text-lg sm:text-xl">
           <div
             ref={formContainerRef}
-            className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[950px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24"
+            className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24"
           >
             <div className="flex">
               <span className="w-1/3">Intro</span>
@@ -121,12 +121,13 @@ export default function ConfigBeneficiaryFacet({
               <div className="w-2/3">
                 <label htmlFor="cycle">
                   Enter the addresses and allocation units to define your
-                  Creator Circle. Always use the smallest number of units
-                  required to achieve your desired Honorarium split.
+                  Creator Circle. Don't forget to include yourself as the
+                  Artist! You can enter a single Ethereum address (e.g. a DAO
+                  treasury) if you have other mechanisms planned for allocation.
                   <br />
                   <br />
-                  You can enter a single Ethereum address (e.g. a DAO treasury)
-                  if you have other mechanisms planned for allocation.
+                  Note: Always use the smallest number of units required to
+                  achieve your desired Honorarium split.
                 </label>
                 {!isMobile && (
                   <>

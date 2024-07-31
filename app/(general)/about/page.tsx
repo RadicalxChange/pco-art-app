@@ -3,11 +3,11 @@ import Link from "next/link";
 export default function About() {
   return (
     <>
-      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
+      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[160px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
         About
       </h1>
-      <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
-        <div className="w-[350px] sm:w-[600px] xl:w-[750px] 2xl:w-[850px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-lg sm:text-xl mb-24 xl:mb-32">
+      <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
+        <div className="w-[350px] sm:w-[600px] xl:w-[800px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-lg sm:text-xl mb-24 xl:mb-32">
           <div className="flex">
             <span className="w-1/3">About</span>
             <span className="w-2/3">
@@ -59,7 +59,7 @@ export default function About() {
                 <br />
                 Matt Prewitt [President, RadicalxChange]
               </span>
-              <span className="mt-5">Project Leads</span>
+              <span className="mt-5">Production</span>
               <span className="font-serif text-2xl">
                 Tommie Introna [R&D Producer, Serpentine Arts Technologies]
                 <br />

@@ -9,22 +9,14 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
 
   return (
     <>
-      <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto my-10 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
-        <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none">
+      <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto my-10 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
+        <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[160px] text-center leading-none">
           Mint Stewardship License (Testnet)
         </h1>
-        <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[950px] mt-10 sm:mt-16 xl:mt-20 2xl:mt-24">
+        <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] mt-10 sm:mt-16 xl:mt-20 2xl:mt-24">
           <div className="flex text-lg sm:text-xl">
             <p className="w-1/3">Intro</p>
             <p className="w-2/3">
-              PCOArt recognises that today's art and art’s value emerge from the
-              ongoing interactions between artists, communities, organisations,
-              and wider societal dynamics. It allows artists to embed the
-              individual commitments their art may have to specific communities,
-              causes, and organisations into the ownership and value
-              distribution model that underwrites the circulation of their work.
-              <br />
-              <br />
               You can create your own collection of PCOArt Stewardship Licences
               for your artwork by completing the steps below.{" "}
               <Link
@@ -41,10 +33,7 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
             <p className="w-1/3">Testnet</p>
             <p className="w-2/3">
               PCOArt is currently available for testing on the OP Sepolia
-              testnet. PCOArt collections minted during this open beta period
-              will not be migrated to a production environment, but you can
-              easily recreate them when the mainnet beta is launched. If you
-              need testnet tokens, we recommend using the{" "}
+              testnet. If you need testnet tokens, we recommend using the{" "}
               <Link
                 href="https://console.optimism.io/faucet"
                 target="_blank"
@@ -63,8 +52,7 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
                 className="underline"
               >
                 please get in touch
-              </Link>
-              .
+              </Link>.
             </p>
           </div>
           <div className="flex mt-10 text-lg sm:text-xl">
@@ -91,7 +79,7 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
         className="w-full mb-24 xl:mb-32 px-2 py-1 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] font-serif text-2xl"
         onClick={address ? nextStep : openConnectModal}
       >
-        <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[950px] m-auto">
+        <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
           <Image
             src="/forward-arrow.svg"
             alt="Forward"

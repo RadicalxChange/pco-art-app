@@ -83,16 +83,16 @@ export default function ConfigPCOSettingsFacet({
 
   return (
     <>
-      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
+      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[160px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
         2.
         <br />
         PCO Settings
       </h1>
       <form onSubmit={handleSubmit(onSubmit)} className="relative">
-        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
+        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
           <div
             ref={formContainerRef}
-            className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[950px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24"
+            className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24"
           >
             <div className="flex text-lg sm:text-xl">
               <label htmlFor="cycle" className="w-1/3">
@@ -115,7 +115,7 @@ export default function ConfigPCOSettingsFacet({
                 />
                 <select
                   {...register("pco-settings.cycle-type")}
-                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl text-[#ADADAD] p-1"
+                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl p-1"
                   defaultValue="days"
                 >
                   <option value="minutes">Minutes</option>
@@ -145,7 +145,7 @@ export default function ConfigPCOSettingsFacet({
                   min={0.01}
                   step={0.01}
                 />
-                <div className="bg-transparent border-solid border-0 border-b border-black p-0 font-serif text-2xl text-[#ADADAD] p-1">
+                <div className="bg-transparent border-solid border-0 border-b border-black p-0 font-serif text-2xl p-1">
                   = an Annualized Rate of{" "}
                   {annualizedRate
                     ? `${parseFloat(annualizedRate.toFixed(2))}%`

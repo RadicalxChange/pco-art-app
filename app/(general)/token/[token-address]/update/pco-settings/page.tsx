@@ -127,14 +127,14 @@ export default function UpdatePCOSettingsPage({
 
   return (
     <>
-      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
+      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[160px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
         Edit
         <br />
         PCO Settings
       </h1>
       <form onSubmit={handleSubmit(handleSave)} className="relative">
-        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
-          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[950px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-lg sm:text-xl">
+        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
+          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-lg sm:text-xl">
             <div className="flex">
               <label htmlFor="cycle" className="w-1/3">
                 Stewardship Cycle
@@ -201,7 +201,7 @@ export default function UpdatePCOSettingsPage({
             className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] font-serif text-2xl"
             disabled={isSaving}
           >
-            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[950px] m-auto">
+            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
               <Image
                 src="/forward-arrow.svg"
                 alt="Forward"
@@ -221,7 +221,7 @@ export default function UpdatePCOSettingsPage({
               }
             }}
           >
-            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[950px] m-auto">
+            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
               <Image
                 src="/forward-arrow.svg"
                 alt="Forward"

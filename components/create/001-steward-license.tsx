@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import { GlobalState, useStateMachine } from "little-state-machine";
 import { useForm } from "react-hook-form";
@@ -74,16 +75,16 @@ export default function ConfigStewardLicenseFacet({
 
   return (
     <>
-      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[128px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
+      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[100px] 2xl:text-[160px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
         1.
         <br />
         The Art
       </h1>
       <form onSubmit={handleSubmit(onSubmit)} className="relative">
-        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1200px] m-auto">
+        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
           <div
             ref={formContainerRef}
-            className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[950px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24"
+            className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24"
           >
             <div className="flex text-lg sm:text-xl">
               <label htmlFor="mint-type" className="w-1/3">
@@ -147,14 +148,23 @@ export default function ConfigStewardLicenseFacet({
                 <span className="text-xs">
                   Download{" "}
                   <a
+                    href="https://gateway.pinata.cloud/ipfs/QmY3x9K5dX4xQ7R8dPocWp6EvJESt13JmEL3xyzMZ4AcJr/?filename=metadata.zip"
+                    download
                     className="underline"
                     target="_blank"
-                    href="https://nftstorage.link/ipfs/bafybeidxfej5cokgom5ticchwgdwge3sibxdk73ua7s3tlmrxcydhhktjy?filename=metadata.zip"
                   >
-                    this
-                  </a>{" "}
-                  JSON template , define your token metadata, upload it to
-                  NFT.Storage, & add the resulting CID here
+                    this JSON template
+                  </a>
+                  , define your token metadata according to{" "}
+                  <Link
+                    href="https://docs.pco.art/for-artists/instantiating-your-art/#metadata"
+                    className="underline"
+                    target="_blank"
+                  >
+                    these instructions
+                  </Link>
+                  , upload it to a decentralized storage provider, & add the
+                  resulting URI here.
                 </span>
               </div>
             </div>
