@@ -1,8 +1,14 @@
 "use client";
+
+import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 export default function Home() {
+  const [openDialog, setOpenDialog] = useState(true);
+
   const isMobile = useMediaQuery({ query: "(max-width: 640px)" });
   const isMediumScreen = useMediaQuery({
     query: "(min-width: 2000px)",
@@ -17,6 +23,23 @@ export default function Home() {
         height={isMobile ? 109 : isMediumScreen ? 336 : 202}
         className="absolute"
       />
+      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+        <DialogContent className="bg-neon-green">
+          <span className="flex flex-col font-mono text-[50px] sm:text-[100px] min-[2000px]:text-[160px] text-center">
+            PCO <br />
+            TESTNET <br />
+            MODE
+          </span>
+          <img
+            src="butterfly.png"
+            alt="Pop-Up"
+            className="w-full sm:h-[200px] 2xl:h-[300px]"
+          />
+          <Link href="/about" prefetch className="font-serif text-xl">
+            Learn More!
+          </Link>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
