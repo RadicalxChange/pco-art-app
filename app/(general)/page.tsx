@@ -30,7 +30,7 @@ export default function Home() {
             TESTNET <br />
             MODE
           </span>
-          <div className="w-full lg:h-[250px] 2xl:h-[350px] overflow-hidden">
+          <div className="w-full lg:h-[250px] 2xl:h-[400px] overflow-hidden">
             <img src="butterfly.png" alt="Pop-Up" />
           </div>
           <Link
