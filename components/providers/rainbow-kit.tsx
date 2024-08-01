@@ -8,7 +8,6 @@ import {
   coinbaseWallet,
   injectedWallet,
   metaMaskWallet,
-  rainbowWallet,
   walletConnectWallet,
 } from "@rainbow-me/rainbowkit/wallets";
 import { WagmiConfig, createConfig } from "wagmi";
@@ -31,7 +30,6 @@ const connectors = connectorsForWallets([
     wallets: [
       injectedWallet({ chains }),
       metaMaskWallet({ chains, projectId }),
-      rainbowWallet({ chains, projectId }),
       coinbaseWallet({ chains, appName: siteConfig.name }),
       walletConnectWallet({ chains, projectId }),
     ],
