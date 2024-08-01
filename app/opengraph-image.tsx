@@ -4,7 +4,6 @@ import { siteConfig } from "@/config/site";
 
 export const runtime = "edge";
 
-export const alt = "TurboETH Logo";
 export const size = {
   width: 1200,
   height: 630,
@@ -33,19 +32,18 @@ export default async function Image() {
           backgroundColor: "white",
           backgroundImage:
             "linear-gradient(to bottom right, #FFF 25%, #FFF0CA 75%)",
+          padding: "16px",
         }}
       >
         <h1
           style={{
             fontSize: "100px",
             fontFamily: "SuisseIntl",
-            fontWeight: 900,
             background:
               "linear-gradient(to bottom right, #000000 21.66%, #78716c 86.47%)",
             backgroundClip: "text",
             color: "transparent",
-            lineHeight: "5rem",
-            letterSpacing: "-0.02em",
+            textAlign: "center",
           }}
         >
           {siteConfig.title}
@@ -58,8 +56,7 @@ export default async function Image() {
               "linear-gradient(to bottom right, #000000 21.66%, #78716c 86.47%)",
             backgroundClip: "text",
             color: "transparent",
-            lineHeight: "5rem",
-            letterSpacing: "-0.02em",
+            textAlign: "center",
           }}
         >
           {siteConfig.description}

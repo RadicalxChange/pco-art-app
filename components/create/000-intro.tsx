@@ -52,7 +52,8 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
                 className="underline"
               >
                 please get in touch
-              </Link>.
+              </Link>
+              .
             </p>
           </div>
           <div className="flex mt-10 text-lg sm:text-xl">
