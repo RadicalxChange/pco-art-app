@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 import { gql, useQuery } from "@apollo/client";
-import { Framework, NativeAssetSuperToken } from "@superfluid-finance/sdk-core";
+import { Framework } from "@superfluid-finance/sdk-core";
 import Link from "next/link";
 import { formatEther } from "viem";
 import { Address, useAccount, useContractRead, useNetwork } from "wagmi";
@@ -33,7 +33,15 @@ export default function CreatorCirclePage({
   const isMobile = useMediaQuery({ query: "(max-width: 640px)" });
 
   const CREATOR_CIRCLE_QUERY = gql`
-    query CreatorCircle($publisher: String!) {
+    query CreatorCircle($publisher: String!, $accountAddress: String!) {
+      account(id: $accountAddress) {
+        accountTokenSnapshots {
+          totalNetFlowRate
+          token {
+            id
+          }
+        }
+      }
       indexes(first: 1, where: { publisher: $publisher }) {
         subscriptions {
           subscriber {
@@ -56,10 +64,13 @@ export default function CreatorCirclePage({
   `;
   const tokenAddress = params["token-address"].toLowerCase() as Address;
 
-  const { data: creatorCircle, refetch } = useQuery(CREATOR_CIRCLE_QUERY, {
-    variables: { publisher: tokenAddress },
-  });
   const account = useAccount();
+  const { data: creatorCircle, refetch } = useQuery(CREATOR_CIRCLE_QUERY, {
+    variables: {
+      publisher: tokenAddress,
+      accountAddress: account?.address?.toLowerCase() ?? "",
+    },
+  });
   const signer = useEthersSigner();
   const provider = useEthersProvider();
   const { chain } = useNetwork();
@@ -77,23 +88,11 @@ export default function CreatorCirclePage({
 
   useEffect(() => {
     (async () => {
-      if (
-        !provider ||
-        !chain ||
-        !creatorCircle?.indexes[0] ||
-        !account.address ||
-        !signer ||
-        isApproving ||
-        isWithdrawing
-      ) {
+      if (!creatorCircle?.indexes[0] || isApproving || isWithdrawing) {
         return;
       }
 
       const index = creatorCircle.indexes[0];
-      const sfFramework = await Framework.create({
-        chainId: chain.id,
-        provider: provider,
-      });
       const amountsReceived: string[] = [];
 
       for (const subscription of index.subscriptions) {
@@ -107,19 +106,46 @@ export default function CreatorCirclePage({
         amountsReceived.push(amountReceived);
       }
 
+      setAmountsReceived(amountsReceived);
+    })();
+  }, [creatorCircle, isApproving, isWithdrawing]);
+
+  useEffect(() => {
+    (async () => {
+      if (
+        !provider ||
+        !chain ||
+        !account.address ||
+        !superToken ||
+        isApproving ||
+        isWithdrawing
+      ) {
+        return;
+      }
+
+      const sfFramework = await Framework.create({
+        chainId: chain.id,
+        provider: provider,
+      });
       const nativeSuperToken = await sfFramework.loadNativeAssetSuperToken(
         superToken
       );
       const superTokenBalance = await nativeSuperToken.balanceOf({
         account: account.address,
-        providerOrSigner: signer,
+        providerOrSigner: provider,
       });
 
-      setAmountsReceived(amountsReceived);
       setSfFramework(sfFramework);
       setSuperTokenBalance(superTokenBalance);
     })();
-  }, [provider, chain, creatorCircle, signer, isApproving, isWithdrawing]);
+  }, [
+    provider,
+    chain,
+    account?.address,
+    superToken,
+    isApproving,
+    isWithdrawing,
+  ]);
 
   const handleClaim = async () => {
     if (!account.address || !signer || !sfFramework) {
@@ -158,11 +184,32 @@ export default function CreatorCirclePage({
     try {
       setIsWithdrawing(true);
 
-      const nativeSuperToken = (await sfFramework.loadSuperToken(
+      const nativeSuperToken = await sfFramework.loadNativeAssetSuperToken(
         superToken
-      )) as NativeAssetSuperToken;
+      );
+      const superTokenBalance = await nativeSuperToken.balanceOf({
+        account: signer._address,
+        providerOrSigner: provider,
+      });
+
+      let amount = superTokenBalance ?? "0";
+      const accountTokenSnapshot =
+        creatorCircle.account.accountTokenSnapshots.find(
+          (snapshot: { token: { id: string } }) =>
+            snapshot.token.id === superToken
+        );
+
+      if (accountTokenSnapshot && superTokenBalance) {
+        if (BigInt(accountTokenSnapshot.totalNetFlowRate) < 0) {
+          amount = (
+            BigInt(superTokenBalance) -
+            BigInt(-accountTokenSnapshot.totalNetFlowRate) * BigInt(60)
+          ).toString();
+        }
+      }
+
       const op = nativeSuperToken.downgrade({
-        amount: superTokenBalance ?? "0",
+        amount,
       });
       const tx = await op.exec(signer);
 
@@ -254,41 +301,39 @@ export default function CreatorCirclePage({
               <tbody>
                 {creatorCircle?.indexes[0]?.subscriptions.map(
                   (subscription: Subscription, i: number) => (
-                    <>
-                      <tr key={i} className="font-serif text-2xl">
-                        <td className="pt-3 border-b border-black text-center">
-                          {truncateStr(subscription.subscriber.id, 20)}
+                    <tr key={i} className="font-serif text-2xl">
+                      <td className="pt-3 border-b border-black text-center">
+                        {truncateStr(subscription.subscriber.id, 20)}
+                      </td>
+                      <td className="pt-3 border-b border-black text-center">
+                        {subscription.units}
+                      </td>
+                      <td className="pt-3 border-b border-black text-center">
+                        {parseFloat(
+                          (
+                            (Number(subscription.units) * 100) /
+                            totalUnits
+                          ).toFixed(2)
+                        )}
+                      </td>
+                      <td className="pt-3 border-b border-black text-center">
+                        {amountsReceived[i] ? amountsReceived[i] : "0"}
+                      </td>
+                      {subscription.subscriber.id ===
+                        account.address?.toLowerCase() &&
+                      !subscription.approved ? (
+                        <td className="flex justify-center pt-3">
+                          <button
+                            className="bg-neon-green px-2 py-1"
+                            onClick={handleClaim}
+                          >
+                            <span>
+                              {isApproving ? "Approving..." : "Approve Units"}
+                            </span>
+                          </button>
                         </td>
-                        <td className="pt-3 border-b border-black text-center">
-                          {subscription.units}
-                        </td>
-                        <td className="pt-3 border-b border-black text-center">
-                          {parseFloat(
-                            (
-                              (Number(subscription.units) * 100) /
-                              totalUnits
-                            ).toFixed(2)
-                          )}
-                        </td>
-                        <td className="pt-3 border-b border-black text-center">
-                          {amountsReceived[i] ? amountsReceived[i] : "0"}
-                        </td>
-                        {subscription.subscriber.id ===
-                          account.address?.toLowerCase() &&
-                        !subscription.approved ? (
-                          <td className="flex justify-center pt-3">
-                            <button
-                              className="bg-neon-green px-2 py-1"
-                              onClick={handleClaim}
-                            >
-                              <span>
-                                {isApproving ? "Approving..." : "Approve Units"}
-                              </span>
-                            </button>
-                          </td>
-                        ) : null}
-                      </tr>
-                    </>
+                      ) : null}
+                    </tr>
                   )
                 )}
               </tbody>
@@ -297,7 +342,7 @@ export default function CreatorCirclePage({
           {account?.address ? (
             <div className="mt-12 mb-24 2xl:mb-32">
               <h4 className="text-xl font-bold">Your Available Honorarium</h4>
-              <p className="mt-2 leading-6">
+              <p className="mt-2 leading-6 text-lg">
                 The Honorariums from all Creator Circles in which you have
                 approved units are collected in the single balance shown below.
                 <br /> You can utilize this{" "}
