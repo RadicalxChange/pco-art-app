@@ -925,7 +925,14 @@ export default function TokenPage({
             </div>
             <div className="flex flex-col sm:flex-row w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-xl">
               <>
-                {!isAllowed ? (
+                {!account.address ? (
+                  <div className="flex flex-col grow w-full bg-neon-red sm:w-2/4 2xl:w-1/3 p-3">
+                    Status
+                    <span className="mt-2 font-serif text-4xl text-[48px] ">
+                      Connect wallet to bid
+                    </span>
+                  </div>
+                ) : !isAllowed ? (
                   <div className="flex flex-col grow w-full bg-neon-red sm:w-2/4 2xl:w-1/3 p-3">
                     Status
                     <span className="mt-2 font-serif text-4xl text-[48px] ">
@@ -1097,13 +1104,13 @@ export default function TokenPage({
               <div className="mt-1 px-3 sm:px-0">
                 Start:{" "}
                 <span className="font-serif text-2xl">
-                  {formatDate(Number(auctionStartTime) * 1000)} -{" "}
+                  {formatDate(Number(auctionStartTime) * 1000)}
                 </span>
               </div>
               <div className="mt-1 px-3 sm:px-0">
                 Close:{" "}
                 <span className="font-serif text-2xl">
-                  {formatDate(Number(auctionEndTime) * 1000)} -{" "}
+                  {formatDate(Number(auctionEndTime) * 1000)}
                 </span>
               </div>
               <div className="mt-6 flex flex-col">
