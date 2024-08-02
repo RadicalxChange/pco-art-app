@@ -34,7 +34,7 @@ export default function Home() {
             <img src="butterfly.png" alt="Pop-Up" />
           </div>
           <Link
-            href="https://docs.pco.art"
+            href="https://docs.pco.art/testnet"
             target="_blank"
             className="font-serif text-xl"
           >
