@@ -21,10 +21,10 @@ export function Footer() {
           height={isMobileOrTablet ? 30 : 38}
         />
       </div>
-      <Link href="/" className="font-bold text-sm md:text-base">
+      <Link href="/" className="text-sm md:text-base">
         Terms & Conditions
       </Link>
-      <p className="font-bold text-sm md:text-base">&#169; Serpentine 2024</p>
+      <p className="text-sm md:text-base">&#169; Serpentine 2024</p>
     </footer>
   );
 }
