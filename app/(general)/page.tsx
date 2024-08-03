@@ -35,12 +35,13 @@ export default function Home() {
         <Modal
           show={openModal}
           size="2xl"
+          dismissible
           onClose={() => setOpenModal(false)}
           className="bg-transparent opacity-1"
         >
           <Modal.Body className="bg-neon-green p-[15px] pb-0">
             <button
-              className="absolute right-0 px-4"
+              className="float-right focus:outline-none"
               onClick={() => setOpenModal(false)}
             >
               <Image src="/close.svg" alt="Close" width={15} height={15} />

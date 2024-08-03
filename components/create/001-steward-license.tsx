@@ -145,10 +145,10 @@ export default function ConfigStewardLicenseFacet({
                   placeholder="ipfs://"
                   required
                 />
-                <span className="text-xs sm:text-sm">
+                <span className="text-xs sm:text-sm break-words">
                   Download{" "}
                   <a
-                    href="https://gateway.pinata.cloud/ipfs/QmY3x9K5dX4xQ7R8dPocWp6EvJESt13JmEL3xyzMZ4AcJr/?filename=metadata.zip"
+                    href="https://gateway.pinata.cloud/ipfs/QmPPTSewMyDBaaGuFrzBeh2Kny64S7REFiw9C22Ap8QFfP/?filename=metadata.zip"
                     download
                     className="underline text-sm sm:text-base"
                     target="_blank"
@@ -164,7 +164,9 @@ export default function ConfigStewardLicenseFacet({
                     these instructions
                   </Link>
                   , upload it to a decentralized storage provider, & add the
-                  resulting URI here.
+                  resulting URI here. You can use
+                  ipfs://Qmd4KHEUWdWWRJnceqk3vGfML84cUQ1ezYFjZvs5eHX8sa to test
+                  mint a collection of 3 tokens with our sample data.
                 </span>
               </div>
             </div>

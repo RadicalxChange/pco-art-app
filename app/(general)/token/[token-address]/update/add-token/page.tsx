@@ -116,7 +116,7 @@ export default function AddToCollection({
                   <a
                     className="underline"
                     target="_blank"
-                    href="https://nftstorage.link/ipfs/bafybeidxfej5cokgom5ticchwgdwge3sibxdk73ua7s3tlmrxcydhhktjy?filename=metadata.zip"
+                    href="https://gateway.pinata.cloud/ipfs/QmPPTSewMyDBaaGuFrzBeh2Kny64S7REFiw9C22Ap8QFfP/?filename=metadata.zip"
                   >
                     this
                   </a>{" "}
