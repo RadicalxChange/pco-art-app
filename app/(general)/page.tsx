@@ -4,10 +4,18 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Flowbite, CustomFlowbiteTheme, Modal } from "flowbite-react";
+
+const customTheme: CustomFlowbiteTheme = {
+  modal: {
+    content: {
+      inner: "relative flex max-h-[75dvh] flex-col mt-[50px] sm:mt-0",
+    },
+  },
+};
 
 export default function Home() {
-  const [openDialog, setOpenDialog] = useState(true);
+  const [openModal, setOpenModal] = useState(true);
 
   const isMobile = useMediaQuery({ query: "(max-width: 640px)" });
   const isMediumScreen = useMediaQuery({
@@ -23,25 +31,57 @@ export default function Home() {
         height={isMobile ? 109 : isMediumScreen ? 336 : 202}
         className="absolute"
       />
-      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-        <DialogContent className="bg-neon-green">
-          <span className="flex flex-col font-mono text-[50px] sm:text-[100px] min-[2000px]:text-[160px] text-center leading-none">
-            PCO <br />
-            TESTNET <br />
-            MODE
-          </span>
-          <div className="w-full lg:h-[250px] 2xl:h-[400px] overflow-hidden">
-            <img src="butterfly.png" alt="Pop-Up" />
-          </div>
-          <Link
-            href="https://docs.pco.art/testnet"
-            target="_blank"
-            className="font-serif text-xl"
-          >
-            Learn More!
-          </Link>
-        </DialogContent>
-      </Dialog>
+      <Flowbite theme={{ theme: customTheme }}>
+        <Modal
+          show={openModal}
+          size="xl"
+          onClose={() => setOpenModal(false)}
+          className="bg-transparent opacity-1"
+        >
+          <Modal.Body className="bg-neon-green p-[15px]">
+            <button className="float-right" onClick={() => setOpenModal(false)}>
+              <Image src="/close.svg" alt="Close" width={15} height={15} />
+            </button>
+            <h1 className="flex flex-col font-mono text-[50px] xl:text-[130px] 2xl:text-[145px] text-center">
+              PCO <br />
+              TESTNET <br />
+              MODE
+            </h1>
+            <div className="w-full mt-3">
+              <img src="placeholder-image.jpg" alt="Pop-Up" />
+            </div>
+            <p className="text-lg mt-4 mb-5">
+              PCO is currently only available to test using a testnet
+              blockchain. To find out more about using the testnet and the
+              claiming test tokens{" "}
+              <Link
+                href="https://docs.optimism.io/builders/tools/build/faucets"
+                target="_blank"
+                className="underline text-xl"
+              >
+                click here
+              </Link>
+              . If you are interested on using the full system or want to speak
+              to us about developing your project using PCO, please{" "}
+              <Link
+                href="fae@serpentinegalleries.org"
+                target="_blank"
+                className="underline text-xl"
+              >
+                get in touch
+              </Link>
+              .
+            </p>
+            <Link
+              href="https://docs.pco.art/testnet"
+              target="_blank"
+              className="font-serif text-xl"
+            >
+              Learn More!
+            </Link>
+          </Modal.Body>
+        </Modal>
+      </Flowbite>
     </div>
   );
 }

@@ -1,11 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 const plugin = require("tailwindcss/plugin");
+const flowbite = require("flowbite-react/tailwind");
+
 module.exports = {
   darkMode: ["class", '[data-theme="dark"]'],
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
     "./integrations/**/*.{js,ts,jsx,tsx}",
+    flowbite.content(),
   ],
   safelist: [
     {
@@ -100,5 +103,6 @@ module.exports = {
       addVariant("radix-side-top", '&[data-side="top"]');
       addVariant("radix-side-bottom", '&[data-side="bottom"]');
     }),
+    flowbite.plugin(),
   ],
 };
