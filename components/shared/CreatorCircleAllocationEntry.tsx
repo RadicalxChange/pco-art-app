@@ -44,7 +44,7 @@ export default function CreatorCircleAllocationEntry({
         required
         pattern="^(0x)?[0-9a-fA-F]{40}$"
         placeholder="0x"
-        className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+        className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
         style={{
           marginLeft: index > 0 ? 28 : "",
           width: index > 0 ? "calc(100% - 50px)" : "100%",
@@ -58,14 +58,14 @@ export default function CreatorCircleAllocationEntry({
         min={0}
         required
         placeholder="5"
-        className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+        className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
       />
       <input
         type="text"
         value={`${percentage}%`}
         disabled
         placeholder="5%"
-        className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+        className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
       />
     </div>
   );

@@ -241,7 +241,7 @@ export default function CreatorCirclePage({
         Creator Circle
       </h1>
       <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
-        <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-lg sm:text-xl">
+        <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-sm sm:text-lg">
           <h3 className="text-xl font-bold">Allocation Table</h3>
           {isMobile && (
             <>
@@ -249,15 +249,15 @@ export default function CreatorCirclePage({
                 (subscription: Subscription, i: number) => (
                   <div key={i} className="flex flex-col">
                     <span className="pt-3">Address</span>
-                    <span className="pt-2 border-b border-black font-serif text-2xl">
+                    <span className="pt-2 border-b border-black font-serif text-xl">
                       {truncateStr(subscription.subscriber.id, 20)}
                     </span>
                     <span className="pt-3">Address</span>
-                    <span className="pt-2 border-b border-black font-serif text-2xl">
+                    <span className="pt-2 border-b border-black font-serif text-xl">
                       {subscription.units}
                     </span>
                     <span className="pt-3">Percentage</span>
-                    <span className="pt-2 border-b border-black font-serif text-2xl">
+                    <span className="pt-2 border-b border-black font-serif text-xl">
                       {parseFloat(
                         (
                           (Number(subscription.units) * 100) /
@@ -266,14 +266,14 @@ export default function CreatorCirclePage({
                       )}
                     </span>
                     <span className="pt-3">Amount</span>
-                    <span className="pt-2 border-b border-black font-serif text-2xl">
+                    <span className="pt-2 border-b border-black font-serif text-xl">
                       {amountsReceived[i] ? amountsReceived[i] : "0"}
                     </span>
                     {subscription.subscriber.id ===
                       account.address?.toLowerCase() &&
                     !subscription.approved ? (
                       <button
-                        className="bg-neon-green px-2 py-1 font-serif text-2xl"
+                        className="bg-neon-green px-2 py-1 font-serif text-xl"
                         onClick={handleClaim}
                       >
                         <span>
@@ -301,7 +301,7 @@ export default function CreatorCirclePage({
               <tbody>
                 {creatorCircle?.indexes[0]?.subscriptions.map(
                   (subscription: Subscription, i: number) => (
-                    <tr key={i} className="font-serif text-2xl">
+                    <tr key={i} className="font-serif text-xl">
                       <td className="pt-3 border-b border-black text-center">
                         {truncateStr(subscription.subscriber.id, 20)}
                       </td>
@@ -341,8 +341,8 @@ export default function CreatorCirclePage({
           )}
           {account?.address ? (
             <div className="mt-12 mb-24 2xl:mb-32">
-              <h4 className="text-xl font-bold">Your Available Honorarium</h4>
-              <p className="mt-2 leading-6 text-lg">
+              <h4 className="text-lg font-bold">Your Available Honorarium</h4>
+              <p className="mt-2 leading-6 text-sm sm:text-base">
                 The Honorariums from all Creator Circles in which you have
                 approved units are collected in the single balance shown below.
                 <br /> You can utilize this{" "}
@@ -350,13 +350,13 @@ export default function CreatorCirclePage({
                   href="https://docs.superfluid.finance/superfluid/developers/super-tokens"
                   target="_blank"
                   prefetch={false}
-                  className="underline"
+                  className="underline text-base text-lg"
                 >
                   Super Token
                 </Link>{" "}
                 balance as is or withdraw to ETH.
               </p>
-              <h5 className="mt-5 font-serif text-2xl">
+              <h5 className="mt-5 font-serif text-xl">
                 {superTokenBalance
                   ? formatEther(BigInt(superTokenBalance)).slice(0, 10)
                   : 0}{" "}

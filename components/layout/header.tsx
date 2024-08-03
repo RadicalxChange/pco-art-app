@@ -12,7 +12,7 @@ interface Props {
 }
 
 const menu = (
-  <div className="flex flex-col gap-7 font-serif text-xl min-[2000px]:text-2xl font-thin lg:flex-row">
+  <div className="flex flex-col gap-7 font-serif text-xl font-thin lg:flex-row">
     <Link href="/" prefetch>
       PCO Art
     </Link>
@@ -44,7 +44,7 @@ export function Header(props: Props) {
           {menu}
         </ResponsiveMobileAndDesktop>
         <WalletConnectCustom
-          className="flex items-center font-serif text-xl min-[2000px]:text-2xl"
+          className="flex items-center font-serif text-xl"
           classNameConnect="ml-1.5 bg-neon-green"
           labelConnect="Connect"
         />

@@ -94,7 +94,7 @@ export default function ConfigPCOSettingsFacet({
             ref={formContainerRef}
             className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24"
           >
-            <div className="flex text-lg sm:text-xl">
+            <div className="flex text-sm sm:text-lg">
               <label htmlFor="cycle" className="w-1/3">
                 Stewardship Cycle
               </label>
@@ -111,11 +111,11 @@ export default function ConfigPCOSettingsFacet({
                   required
                   min={1}
                   placeholder="365"
-                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] p-1"
+                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] p-1"
                 />
                 <select
                   {...register("pco-settings.cycle-type")}
-                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl p-1"
+                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl p-1"
                   defaultValue="days"
                 >
                   <option value="minutes">Minutes</option>
@@ -126,7 +126,7 @@ export default function ConfigPCOSettingsFacet({
                 </select>
               </div>
             </div>
-            <div className="flex mt-10 text-lg sm:text-xl">
+            <div className="flex mt-10 text-sm sm:text-lg">
               <label htmlFor="rate" className="w-1/3">
                 Honorarium Rate
               </label>
@@ -139,13 +139,13 @@ export default function ConfigPCOSettingsFacet({
                   {...register("pco-settings.rate")}
                   type="number"
                   id="rate"
-                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] p-1"
+                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] p-1"
                   placeholder="%"
                   required
                   min={0.01}
                   step={0.01}
                 />
-                <div className="bg-transparent border-solid border-0 border-b border-black p-0 font-serif text-2xl p-1">
+                <div className="bg-transparent border-solid border-0 border-b border-black p-0 font-serif text-xl p-1">
                   = an Annualized Rate of{" "}
                   {annualizedRate
                     ? `${parseFloat(annualizedRate.toFixed(2))}%`
@@ -154,7 +154,7 @@ export default function ConfigPCOSettingsFacet({
               </div>
             </div>
           </div>
-          <div className="flex items-center mt-10 text-lg sm:text-2xl mb-24 xl:mb-32">
+          <div className="flex items-center mt-10 text-lg sm:text-xl mb-24 xl:mb-32">
             <button
               className="absolute left-0 flex items-center gap-2 sm:gap-3 bg-neon-green px-2 sm:px-4 py-1 font-serif text-2xl"
               onClick={() => prevStep()}

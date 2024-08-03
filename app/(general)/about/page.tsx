@@ -7,7 +7,7 @@ export default function About() {
         About
       </h1>
       <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
-        <div className="w-[350px] sm:w-[600px] xl:w-[800px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-lg sm:text-xl mb-24 xl:mb-32">
+        <div className="w-[350px] sm:w-[600px] xl:w-[800px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-sm sm:text-lg mb-24 xl:mb-32">
           <div className="flex">
             <span className="w-1/3">About</span>
             <span className="w-2/3">
@@ -26,7 +26,7 @@ export default function About() {
               <Link
                 href="https://www.radicalxchange.org/#message"
                 target="_blank"
-                className="underline"
+                className="underline text-base sm:text-xl"
               >
                 RadicalxChange
               </Link>{" "}
@@ -34,7 +34,7 @@ export default function About() {
               <Link
                 href="https://futureartecosystems.org"
                 target="_blank"
-                className="underline"
+                className="underline text-base sm:text-xl"
               >
                 Future Art Ecosystems
               </Link>{" "}
@@ -42,7 +42,7 @@ export default function About() {
               <Link
                 href="https://www.serpentinegalleries.org/arts-technologies/"
                 target="_blank"
-                className="underline"
+                className="underline text-base sm:text-xl"
               >
                 Serpentine Arts
               </Link>{" "}
@@ -53,14 +53,14 @@ export default function About() {
             <span className="w-1/3">Team</span>
             <div className="flex flex-col w-2/3">
               <span>Project Leads</span>
-              <span className="font-serif text-2xl">
+              <span className="font-serif text-xl">
                 Victoria Ivanova [R&D Strategic Lead, Serpentine Arts
                 Technologies]
                 <br />
                 Matt Prewitt [President, RadicalxChange]
               </span>
               <span className="mt-5">Production</span>
-              <span className="font-serif text-2xl">
+              <span className="font-serif text-xl">
                 Tommie Introna [R&D Producer, Serpentine Arts Technologies]
                 <br />
                 Matt Prewitt [RadicalxChange]
@@ -68,18 +68,18 @@ export default function About() {
                 Graven Prest [Flow State Coop]
               </span>
               <span className="mt-5">Partial Common Ownership System R&D</span>
-              <span className="font-serif text-2xl">
+              <span className="font-serif text-xl">
                 Paula Berman, Stefano De Berardinis, Cody Hatfield, Jack
                 Henderson, Will Holley, Tommie Introna, Victoria Ivanova, Graven
                 Prest, Matt Prewitt, Alice Scope, Lucy Sollitt, Rival Strategy,
                 Ruth Waters, Kay Watson 
               </span>
               <span className="mt-5">Blockchain Development</span>
-              <span className="font-serif text-2xl">Cody Hatfield</span>
+              <span className="font-serif text-xl">Cody Hatfield</span>
               <span className="mt-5">Web Development</span>
-              <span className="font-serif text-2xl">Stefano De Berardinis</span>
+              <span className="font-serif text-xl">Stefano De Berardinis</span>
               <span className="mt-5">Graphic Design</span>
-              <span className="font-serif text-2xl">Jaime Del Corro</span>
+              <span className="font-serif text-xl">Jaime Del Corro</span>
             </div>
           </div>
         </div>

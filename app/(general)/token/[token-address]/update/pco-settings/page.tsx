@@ -134,7 +134,7 @@ export default function UpdatePCOSettingsPage({
       </h1>
       <form onSubmit={handleSubmit(handleSave)} className="relative">
         <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
-          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-lg sm:text-xl">
+          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 textm sm:text-lg">
             <div className="flex">
               <label htmlFor="cycle" className="w-1/3">
                 Stewardship Cycle
@@ -152,11 +152,11 @@ export default function UpdatePCOSettingsPage({
                   required
                   min={1}
                   placeholder="365"
-                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] p-1"
+                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] p-1"
                 />
                 <select
                   {...register("pco-settings.cycle-type")}
-                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl text-[#ADADAD] p-1"
+                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl text-[#ADADAD] p-1"
                   defaultValue="days"
                 >
                   <option value="minutes">Minutes</option>
@@ -180,13 +180,13 @@ export default function UpdatePCOSettingsPage({
                   {...register("pco-settings.rate")}
                   type="number"
                   id="rate"
-                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] p-1"
+                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] p-1"
                   placeholder="%"
                   required
                   min={0.01}
                   step={0.01}
                 />
-                <div className="bg-transparent border-solid border-0 border-b border-black p-0 font-serif text-2xl text-[#ADADAD] p-1">
+                <div className="bg-transparent border-solid border-0 border-b border-black p-0 font-serif text-xl text-[#ADADAD] p-1">
                   = an Annualized Rate of{" "}
                   {annualizedRate
                     ? `${parseFloat(annualizedRate.toFixed(2))}%`

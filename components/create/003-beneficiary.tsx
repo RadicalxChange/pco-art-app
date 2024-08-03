@@ -102,7 +102,7 @@ export default function ConfigBeneficiaryFacet({
         Creator Circle
       </h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto text-lg sm:text-xl">
+        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto text-sm sm:text-lg">
           <div
             ref={formContainerRef}
             className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24"
@@ -170,14 +170,14 @@ export default function ConfigBeneficiaryFacet({
                       <input
                         type="number"
                         id="name"
-                        className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                        className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
                         disabled
                         value={totalUnits}
                       />
                       <input
                         type="text"
                         id="name"
-                        className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                        className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
                         disabled
                         value={`100%`}
                       />
@@ -222,14 +222,14 @@ export default function ConfigBeneficiaryFacet({
                   <input
                     type="number"
                     id="name"
-                    className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                    className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
                     disabled
                     value={totalUnits}
                   />
                   <input
                     type="text"
                     id="name"
-                    className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                    className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
                     disabled
                     value={`100%`}
                   />

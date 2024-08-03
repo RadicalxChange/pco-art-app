@@ -80,33 +80,6 @@ body {
   @apply border-0 px-3 py-3 placeholder-neutral-400 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150;
 }
 
-.lds-dual-ring {
-  display: inline-block;
-  width: 22px;
-  height: 22px;
-}
-.lds-dual-ring:after {
-  content: " ";
-  display: block;
-  width: 18px;
-  height: 18px;
-  margin-top: 4px;
-  border-radius: 50%;
-  animation: lds-dual-ring 1.2s linear infinite;
-  border: 6px solid #fff;
-  border-color: #fff transparent #fff transparent;
-}
-
-[data-theme="light"] .colormode .lds-dual-ring:after {
-  border: 6px solid #3e3e3e !important;
-  border-color: #3e3e3e transparent #3e3e3e transparent !important;
-}
-
-[data-theme="dark"] .colormode .lds-dual-ring:after {
-  border: 6px solid #fff !important;
-  border-color: #fff transparent #fff transparent !important;
-}
-
 @layer utilities {
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button {
@@ -153,11 +126,6 @@ input[type="radio"]:checked:hover {
   border-color: #000;
 }
 
-@keyframes lds-dual-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+#rk_connect_title {
+  letter-spacing: 0px;
 }

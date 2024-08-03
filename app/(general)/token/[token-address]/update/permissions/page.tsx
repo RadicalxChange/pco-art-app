@@ -288,7 +288,7 @@ export default function UpdatePCOSettingsPage({
       </h1>
       <form onSubmit={handleSubmit(handleSave)}>
         <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
-          <div className="w-[320px] sm:w-[600px] xl:w-[800px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-lg sm:text-xl">
+          <div className="w-[320px] sm:w-[600px] xl:w-[800px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-sm sm:text-lg">
             <div className="flex">
               <span className="w-1/3">Intro</span>
               <span className="w-2/3">
@@ -319,7 +319,7 @@ export default function UpdatePCOSettingsPage({
                   <input
                     {...register(`owner`)}
                     type="text"
-                    className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                    className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
                     placeholder="0x"
                     required
                     pattern="^(0x)?[0-9a-fA-F]{40}$"
@@ -332,7 +332,7 @@ export default function UpdatePCOSettingsPage({
                 </div>
                 {isTransferPending && nomineeOwner === account.address ? (
                   <button
-                    className="w-full bg-neon-green font-serif text-2xl py-1"
+                    className="w-full bg-neon-green font-serif text-xl py-1"
                     onClick={handleTransferAcceptance}
                   >
                     <span className="font-bold">
@@ -359,7 +359,7 @@ export default function UpdatePCOSettingsPage({
                 <input
                   {...register(`roleAdmin`)}
                   type="text"
-                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
                   placeholder="0x"
                   required
                   pattern="^(0x)?[0-9a-fA-F]{40}$"
@@ -374,7 +374,7 @@ export default function UpdatePCOSettingsPage({
                 <input
                   {...register(`permissions.pcoParams`)}
                   type="text"
-                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
                   placeholder="0x"
                   required
                   pattern="^(0x)?[0-9a-fA-F]{40}$"
@@ -389,7 +389,7 @@ export default function UpdatePCOSettingsPage({
                 <input
                   {...register(`permissions.auction`)}
                   type="text"
-                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
                   placeholder="0x"
                   required
                   pattern="^(0x)?[0-9a-fA-F]{40}$"
@@ -404,7 +404,7 @@ export default function UpdatePCOSettingsPage({
                 <input
                   {...register(`permissions.allowlist`)}
                   type="text"
-                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
                   placeholder="0x"
                   required
                   pattern="^(0x)?[0-9a-fA-F]{40}$"
@@ -419,7 +419,7 @@ export default function UpdatePCOSettingsPage({
                 <input
                   {...register(`permissions.beneficiary`)}
                   type="text"
-                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
                   placeholder="0x"
                   required
                   pattern="^(0x)?[0-9a-fA-F]{40}$"
@@ -437,7 +437,7 @@ export default function UpdatePCOSettingsPage({
                 <input
                   {...register("permissions.addTokenToCollection")}
                   type="text"
-                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
                   placeholder="0x"
                   required
                   pattern="^(0x)?[0-9a-fA-F]{40}$"

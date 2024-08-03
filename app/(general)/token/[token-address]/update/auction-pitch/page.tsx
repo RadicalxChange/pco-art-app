@@ -154,7 +154,7 @@ export default function UpdateAuctionPitchPage({
       </h1>
       <form onSubmit={handleSubmit(handleSave)} className="relative">
         <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
-          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-lg sm:text-xl">
+          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-sm sm:text-lg">
             <div className="flex">
               <span className="w-1/3">Intro</span>
               <span className="w-2/3">
@@ -181,12 +181,12 @@ export default function UpdateAuctionPitchPage({
                     required
                     min={1}
                     placeholder={"24"}
-                    className="w-2/4 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                    className="w-2/4 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
                   />
                   <select
                     {...register("auction.duration-type")}
                     defaultValue="hours"
-                    className="w-2/4 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                    className="w-2/4 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
                   >
                     <option value="minutes">Minutes</option>
                     <option value="hours">Hours</option>
@@ -209,7 +209,7 @@ export default function UpdateAuctionPitchPage({
                   min={0.000000000000000001}
                   step="any"
                   placeholder={"0 ETH"}
-                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
                 />
               </div>
             </div>
@@ -230,7 +230,7 @@ export default function UpdateAuctionPitchPage({
                     min={0.000000000000000001}
                     step="any"
                     placeholder={"0.001 ETH"}
-                    className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                    className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
                   />
                 </div>
               </div>
@@ -252,7 +252,7 @@ export default function UpdateAuctionPitchPage({
                     required
                     min={0}
                     placeholder={"15 Minutes"}
-                    className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                    className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
                   />
                 </div>
               </div>
@@ -274,7 +274,7 @@ export default function UpdateAuctionPitchPage({
                     required
                     placeholder={"15 Minutes"}
                     min={0}
-                    className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                    className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
                   />
                 </div>
               </div>

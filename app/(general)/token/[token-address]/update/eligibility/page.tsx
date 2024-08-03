@@ -174,7 +174,7 @@ export default function UpdateEligibilityPage({
       </h1>
       <form onSubmit={handleSubmit(handleSave)}>
         <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
-          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-lg sm:text-xl">
+          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-sm sm:text-lg">
             <div className="flex">
               <label htmlFor="allowlist.allow-any" className="w-1/3">
                 Criteria
@@ -186,7 +186,7 @@ export default function UpdateEligibilityPage({
                 </label>
                 <select
                   {...register("allowlist.allow-any")}
-                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
                 >
                   <option value="true">Open Participation</option>
                   <option value="false">Allowlist</option>
@@ -227,7 +227,7 @@ export default function UpdateEligibilityPage({
                         {...register(`allowlist.addresses.${index}`)}
                         type="string"
                         id={`allowlist.addresses.${index}`}
-                        className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mb-2"
+                        className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mb-2"
                         placeholder="0x"
                         required
                         pattern="^(0x)?[0-9a-fA-F]{40}$"

@@ -144,7 +144,7 @@ export default function ConfigPermissions({
         <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
           <div
             ref={formContainerRef}
-            className="w-[320px] sm:w-[600px] xl:w-[800px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-lg sm:text-xl"
+            className="w-[320px] sm:w-[600px] xl:w-[800px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-sm sm:text-lg"
           >
             <div className="flex">
               <span className="w-1/3">Intro</span>
@@ -176,7 +176,7 @@ export default function ConfigPermissions({
                   {...register(`permissions.token-admin`)}
                   type="string"
                   id={`permissions.token-admin`}
-                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
                   placeholder="0x"
                   required
                   pattern="^(0x)?[0-9a-fA-F]{40}$"
@@ -197,7 +197,7 @@ export default function ConfigPermissions({
                   {...register(`permissions.role-admin`)}
                   type="string"
                   id={`permissions.role-admin`}
-                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
                   placeholder="0x"
                   required
                   pattern="^(0x)?[0-9a-fA-F]{40}$"
@@ -209,7 +209,7 @@ export default function ConfigPermissions({
                   {...register(`pco-settings.owner`)}
                   type="string"
                   id={`pco-settings.owner`}
-                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
                   placeholder="0x"
                   required
                   pattern="^(0x)?[0-9a-fA-F]{40}$"
@@ -221,7 +221,7 @@ export default function ConfigPermissions({
                   {...register(`auction.owner`)}
                   type="string"
                   id={`auction.owner`}
-                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
                   placeholder="0x"
                   required
                   pattern="^(0x)?[0-9a-fA-F]{40}$"
@@ -233,7 +233,7 @@ export default function ConfigPermissions({
                   {...register(`allowlist.owner`)}
                   type="string"
                   id={`allowlist.owner`}
-                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
                   placeholder="0x"
                   required
                   pattern="^(0x)?[0-9a-fA-F]{40}$"
@@ -245,7 +245,7 @@ export default function ConfigPermissions({
                   {...register(`beneficiary.owner`)}
                   type="string"
                   id={`beneficiary.owner`}
-                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
                   placeholder="0x"
                   required
                   pattern="^(0x)?[0-9a-fA-F]{40}$"
@@ -257,7 +257,7 @@ export default function ConfigPermissions({
                   {...register(`steward-license.minter`)}
                   type="string"
                   id={`steward-license.minter`}
-                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mt-2"
+                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
                   placeholder="0x"
                   required
                   pattern="^(0x)?[0-9a-fA-F]{40}$"

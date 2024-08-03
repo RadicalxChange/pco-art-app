@@ -97,7 +97,7 @@ export default function AddToCollection({
       </h1>
       <form onSubmit={handleSubmit(onSubmit)} className="relative">
         <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
-          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-lg sm:text-xl">
+          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-sm sm:text-lg">
             <div className="flex items-center">
               <label htmlFor="media" className="self-start w-1/3 pt-3">
                 URI (Metadata)
@@ -107,7 +107,7 @@ export default function AddToCollection({
                   {...register("media-uri")}
                   type="text"
                   id="media"
-                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
                   placeholder="ipfs://"
                   required
                 />
@@ -133,7 +133,7 @@ export default function AddToCollection({
                 {...register("token-count")}
                 type="number"
                 id="max-token-count"
-                className="w-2/3 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                className="w-2/3 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
                 placeholder="12"
                 required
                 min={1}
@@ -164,7 +164,7 @@ export default function AddToCollection({
                     id="initial-start-date"
                     type="date"
                     required
-                    className="w-2/4 bg-transparent border-solid border-0 border-b border-black focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] mr-5 p-0 py-1"
+                    className="w-2/4 bg-transparent border-solid border-0 border-b border-black focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mr-5 p-0 py-1"
                   />
                   <div className="flex w-2/4 border-solid border-0 border-b border-black">
                     <input
@@ -172,10 +172,10 @@ export default function AddToCollection({
                       id="initial-start-time"
                       type="time"
                       required
-                      className="bg-transparent border-0 p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] p-0 py-1"
+                      className="bg-transparent border-0 p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] p-0 py-1"
                     />
                     {!isMobile && (
-                      <span className="flex items-center font-serif text-2xl pl-2">
+                      <span className="flex items-center font-serif text-xl pl-2">
                         {
                           new Date()
                             .toLocaleTimeString("default", {
@@ -207,12 +207,12 @@ export default function AddToCollection({
                     required
                     min={0}
                     placeholder="0"
-                    className="w-2/4 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                    className="w-2/4 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
                   />
                   <select
                     {...register("initial-start-time-offset-type")}
                     defaultValue="hours"
-                    className="w-2/4 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD]"
+                    className="w-2/4 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
                   >
                     <option value="minutes">Minutes</option>
                     <option value="hours">Hours</option>

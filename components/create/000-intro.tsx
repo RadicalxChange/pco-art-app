@@ -14,7 +14,7 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
           Mint Stewardship License (Testnet)
         </h1>
         <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] mt-10 sm:mt-16 xl:mt-20 2xl:mt-24">
-          <div className="flex text-lg sm:text-xl">
+          <div className="flex text-sm sm:text-lg">
             <p className="w-1/3">Intro</p>
             <p className="w-2/3">
               You can create your own collection of PCOArt Stewardship Licences
@@ -22,14 +22,14 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
               <Link
                 href="https://docs.pco.art"
                 target="_blank"
-                className="underline"
+                className="underline text-base sm:text-xl"
               >
                 Documentation
               </Link>{" "}
               is available to help you through every step of the process.
             </p>
           </div>
-          <div className="flex mt-10 text-lg sm:text-xl">
+          <div className="flex mt-10 text-sm sm:text-lg">
             <p className="w-1/3">Testnet</p>
             <p className="w-2/3">
               PCOArt is currently available for testing on the OP Sepolia
@@ -37,7 +37,7 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
               <Link
                 href="https://console.optimism.io/faucet"
                 target="_blank"
-                className="underline"
+                className="underline text-base sm:text-xl"
               >
                 Superchain Faucet
               </Link>
@@ -49,14 +49,14 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
               <Link
                 href="mailto:fae@serpentinegalleries.org"
                 target="_blank"
-                className="underline"
+                className="underline text-base sm:text-xl"
               >
                 please get in touch
               </Link>
               .
             </p>
           </div>
-          <div className="flex mt-10 text-lg sm:text-xl">
+          <div className="flex mt-10 text-sm sm:text-lg">
             <p className="w-1/3">Steps</p>
             <p className="w-2/3">
               1. The Art

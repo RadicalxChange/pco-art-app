@@ -131,7 +131,7 @@ export default function ConfigReview({
     return (
       <div className="flex flex-col flex-center mt-32">
         <h3 className="mb-2 text-9xl font-bold">Contracts Deployed!</h3>
-        <p className="mb-2 text-2xl">
+        <p className="mb-2 text-xl">
           <Link href={`/token/${tokenAddress}/0`} className="mt-2 underline">
             View Token Page
           </Link>
@@ -171,7 +171,7 @@ export default function ConfigReview({
         <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
           <div
             ref={formContainerRef}
-            className="w-[320px] sm:w-[600px] xl:w-[800px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-lg sm:text-xl"
+            className="w-[320px] sm:w-[600px] xl:w-[800px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-sm sm:text-lg"
           >
             <div className="flex flex-col sm:flex-row">
               <div className="flex items-center self-start w-full sm:w-1/3">
@@ -189,7 +189,7 @@ export default function ConfigReview({
               <div className="flex flex-col w-full sm:w-2/3">
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Mint Type: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap ">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap ">
                     {(state as any).stewardLicenseInput["mint-type"] === "new"
                       ? "New Token"
                       : "Wrapped Token"}
@@ -197,31 +197,31 @@ export default function ConfigReview({
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Legal License: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap ">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap ">
                     {metadata?.properties?.legal_license ?? ""}
                   </p>
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Name: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap ">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap ">
                     {(state as any).stewardLicenseInput.name}
                   </p>
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Symbol: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap ">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap ">
                     {(state as any).stewardLicenseInput.symbol}
                   </p>
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="mt-1">External Link: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap ">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap ">
                     {metadata?.external_link ?? ""}
                   </p>
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Description: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap ">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap ">
                     {metadata?.description ?? ""}
                   </p>
                 </div>
@@ -259,7 +259,7 @@ export default function ConfigReview({
               <div className="flex flex-col w-full sm:w-2/3">
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Stewardship Cycle: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
                     {`${(state as any).pcoSettingsInput?.cycle} ${
                       (state as any).pcoSettingsInput?.["cycle-type"]
                     }`}
@@ -267,7 +267,7 @@ export default function ConfigReview({
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Honorarium Rate: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
                     {`${(state as any).pcoSettingsInput?.rate}`}%
                   </p>
                 </div>
@@ -290,7 +290,7 @@ export default function ConfigReview({
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Type: </span>
                   <p
-                    className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap underline decoration-2 cursor-pointer"
+                    className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap underline decoration-2 cursor-pointer"
                     onClick={() => setStep(3)}
                   >
                     Allocation Table
@@ -314,7 +314,7 @@ export default function ConfigReview({
               <div className="flex flex-col w-full sm:w-2/3">
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Initial Auction: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
                     {new Date(
                       (state as any).auctionInitData?.initialPeriodStartTime *
                         1000
@@ -323,7 +323,7 @@ export default function ConfigReview({
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Offset: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
                     {Number(
                       (state as any).auctionInput?.["initial-start-time-offset"]
                     ) > 0
@@ -341,7 +341,7 @@ export default function ConfigReview({
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Duration: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
                     {`${(state as any).auctionInput?.["duration"]} ${
                       (state as any).auctionInput?.["duration-type"]
                     }`}
@@ -349,31 +349,31 @@ export default function ConfigReview({
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Starting Bid: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
                     {(state as any).auctionInput?.["starting-bid"]} ETH
                   </p>
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Minimum Bid Increase: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
                     {(state as any).auctionInput?.["min-bid-increase"]} ETH
                   </p>
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Extension Window: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
                     {(state as any).auctionInput?.["extension-window"]} minutes
                   </p>
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Extension Length: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
                     {(state as any).auctionInput?.["extension-length"]} minutes
                   </p>
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Eligibility: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
                     {(state as any).allowlistInput?.["allow-any"] === "true"
                       ? "Open"
                       : "Allowlist"}
@@ -397,7 +397,7 @@ export default function ConfigReview({
               <div className="flex flex-col w-full sm:w-2/3">
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Token Admin: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
                     {truncateStr(
                       (state as any).permissionsInput?.["token-admin"] ?? "",
                       12
@@ -406,7 +406,7 @@ export default function ConfigReview({
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="mt-1">PCO Configuration: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
                     {truncateStr(
                       (state as any).pcoSettingsInput?.["owner"] ?? "",
                       12
@@ -415,7 +415,7 @@ export default function ConfigReview({
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Auction Configuration: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
                     {truncateStr(
                       (state as any).auctionInput?.["owner"] ?? "",
                       12
@@ -424,7 +424,7 @@ export default function ConfigReview({
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Eligibility Configuration: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
                     {truncateStr(
                       (state as any).allowlistInput?.["owner"] ?? "",
                       12
@@ -433,7 +433,7 @@ export default function ConfigReview({
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Creator Circle Configuration: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
                     {truncateStr(
                       (state as any).beneficiaryInput?.["owner"] ?? "",
                       12
@@ -442,7 +442,7 @@ export default function ConfigReview({
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Additional Token Minter: </span>
-                  <p className="font-serif text-2xl text-ellipsis overflow-hidden whitespace-nowrap">
+                  <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
                     {truncateStr(
                       (state as any).stewardLicenseInput?.["minter"] ?? "",
                       12

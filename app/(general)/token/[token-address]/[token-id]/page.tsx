@@ -464,7 +464,7 @@ export default function TokenPage({
           <div className="mt-2 font-serif text-4xl xl:text-[48px] 2xl:text-[80px] break-words text-wrap">
             <span>{formatEther(highestBid.bidAmount).slice(0, 6)}</span>
             {highestBid && highestBid.bidAmount > 0 && (
-              <span className="hidden 2xl:inline-block text-2xl 2xl:text-[40px]">
+              <span className="hidden 2xl:inline-block text-xl 2xl:text-[40px]">
                 ETH
               </span>
             )}
@@ -478,7 +478,7 @@ export default function TokenPage({
       <div className="flex flex-col justify-between w-2/4">
         <div>
           Honorarium
-          <p className="font-serif text-2xl">
+          <p className="font-serif text-xl">
             {highestBid &&
             highestBid.bidAmount > 0 &&
             perSecondFeeNumerator &&
@@ -493,7 +493,7 @@ export default function TokenPage({
         </div>
         <div>
           {isAuctionFinished ? "New Steward" : "Bidder"}
-          <p className="font-serif text-2xl">
+          <p className="font-serif text-xl">
             {highestBid && highestBid.bidder !== ZERO_ADDRESS
               ? truncateStr(highestBid.bidder, 12)
               : "N/A"}
@@ -507,7 +507,7 @@ export default function TokenPage({
     <>
       <div className="mt-2 p-3 sm:p-0">
         <p>Locked Collateral</p>
-        <p className="font-serif text-2xl">
+        <p className="font-serif text-xl">
           {lockedCollateral && lockedCollateral > 0
             ? formatEther(lockedCollateral).slice(0, 12)
             : 0}{" "}
@@ -516,7 +516,7 @@ export default function TokenPage({
       </div>
       <div className="mt-2 p-3 sm:p-0">
         <p>Available Collateral: </p>
-        <p className="font-serif text-2xl">
+        <p className="font-serif text-xl">
           {availableCollateral && availableCollateral > 0
             ? formatEther(availableCollateral).slice(0, 12)
             : 0}{" "}
@@ -528,7 +528,7 @@ export default function TokenPage({
 
   const cancelBidButton = (
     <button
-      className="flex items-center gap-2 bg-neon-red px-3 py-1 font-serif text-2xl disabled:opacity-50"
+      className="flex items-center gap-2 bg-neon-red px-3 py-1 font-serif text-xl disabled:opacity-50"
       disabled={isPlaceBidLoading}
       onClick={() => {
         if (
@@ -549,7 +549,7 @@ export default function TokenPage({
 
   const withdrawCollateralButton = (
     <button
-      className="flex items-center gap-2 bg-neon-red px-3 py-1 font-serif text-2xl"
+      className="flex items-center gap-2 bg-neon-red px-3 py-1 font-serif text-xl"
       onClick={handleWithdrawCollateral}
     >
       <Image src="/back-arrow.svg" alt="Reclaim" width={15} height={15} />
@@ -574,7 +574,7 @@ export default function TokenPage({
         TESTNET COLLECTION - For testing purposes only
       </h2>
       <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
-        <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] mt-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-lg sm:text-xl">
+        <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] mt-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-sm sm:text-lg">
           <div className="flex flex-col justify-center gap-5 lg:flex-row mb-16 sm:mb-24 sm:pl-3">
             <img
               src={
@@ -590,11 +590,11 @@ export default function TokenPage({
             />
             <div className="flex flex-col w-full lg:w-1/3">
               <span>Artist</span>
-              <span className="font-serif text-2xl">
+              <span className="font-serif text-xl">
                 {artist ? truncateStr(artist, 12) : "N/A"}
               </span>
               <span className="mt-6">Current Steward</span>
-              <span className="font-serif text-2xl">
+              <span className="font-serif text-xl">
                 {currentSteward ? truncateStr(currentSteward, 12) : "N/A"}
               </span>
               <Link
@@ -603,7 +603,7 @@ export default function TokenPage({
               >
                 Creator Circle
               </Link>
-              <span className="mt-6 font-serif text-2xl">
+              <span className="mt-6 font-serif text-xl">
                 {tokenInfo?.description}
               </span>
             </div>
@@ -617,7 +617,7 @@ export default function TokenPage({
                   TokenID in Collection
                 </span>
                 <div className="flex flex-col sm:w-2/4 2xl:w-2/3">
-                  <span className="font-serif text-2xl border-b border-black">
+                  <span className="font-serif text-xl border-b border-black">
                     {tokenId.toString()}
                   </span>
                   <Dialog
@@ -625,7 +625,7 @@ export default function TokenPage({
                     onOpenChange={setOpenDialogTransfer}
                   >
                     <DialogTrigger asChild>
-                      <button className="w-full text-start bg-neon-green px-2 py-1 font-serif text-2xl">
+                      <button className="w-full text-start bg-neon-green px-2 py-1 font-serif text-xl">
                         Transfer Token
                       </button>
                     </DialogTrigger>
@@ -676,7 +676,7 @@ export default function TokenPage({
               <div className="sm:w-2/4 2xl:w-2/3">
                 <div>
                   <span>Last Valuation: </span>
-                  <span className="font-serif text-2xl">
+                  <span className="font-serif text-xl">
                     {currentAuctionRound &&
                     currentAuctionRound > 0 &&
                     previousWinningBid?.bidAmount
@@ -687,7 +687,7 @@ export default function TokenPage({
                 </div>
                 <div>
                   <span>Stewardship Cycle: </span>
-                  <span className="font-serif text-2xl">
+                  <span className="font-serif text-xl">
                     {parseFloat(
                       (Number(licensePeriod) / 60 / 60 / 24).toFixed(4)
                     )}{" "}
@@ -696,7 +696,7 @@ export default function TokenPage({
                 </div>
                 <div>
                   <span>Honorarium Rate: </span>
-                  <span className="font-serif text-2xl">
+                  <span className="font-serif text-xl">
                     {perSecondFeeDenominator && perSecondFeeNumerator
                       ? (
                           (Number(perSecondFeeNumerator) * 100) /
@@ -719,7 +719,7 @@ export default function TokenPage({
                           )}`
                         : tokenInfo?.properties?.legal_license
                     }
-                    className="font-serif text-2xl underline"
+                    className="font-serif text-xl underline"
                   >
                     Legal License
                   </Link>
@@ -738,7 +738,7 @@ export default function TokenPage({
                 <div className="flex flex-col gap-2 sm:w-2/4 2xl:w-2/3">
                   {hasPcoParamsRole ? (
                     <Link href={`/token/${tokenAddress}/update/pco-settings`}>
-                      <button className="flex item-center gap-3 w-full bg-neon-green text-start px-2 py-1 font-serif text-2xl">
+                      <button className="flex item-center gap-3 w-full bg-neon-green text-start px-2 py-1 font-serif text-xl">
                         <Image
                           src="/forward-arrow.svg"
                           alt="Forward"
@@ -751,7 +751,7 @@ export default function TokenPage({
                   ) : null}
                   {hasBeneficiaryRole ? (
                     <Link href={`/token/${tokenAddress}/update/creator-circle`}>
-                      <button className="flex item-center gap-3 w-full bg-neon-green text-start px-2 py-1 font-serif text-2xl">
+                      <button className="flex item-center gap-3 w-full bg-neon-green text-start px-2 py-1 font-serif text-xl">
                         <Image
                           src="/forward-arrow.svg"
                           alt="Forward"
@@ -764,7 +764,7 @@ export default function TokenPage({
                   ) : null}
                   {hasAuctionRole ? (
                     <Link href={`/token/${tokenAddress}/update/auction-pitch`}>
-                      <button className="flex item-center gap-3 w-full bg-neon-green text-start px-2 py-1 font-serif text-2xl">
+                      <button className="flex item-center gap-3 w-full bg-neon-green text-start px-2 py-1 font-serif text-xl">
                         <Image
                           src="/forward-arrow.svg"
                           alt="Forward"
@@ -777,7 +777,7 @@ export default function TokenPage({
                   ) : null}
                   {hasAllowlistRole ? (
                     <Link href={`/token/${tokenAddress}/update/eligibility`}>
-                      <button className="flex item-center gap-3 w-full bg-neon-green text-start px-2 py-1 font-serif text-2xl">
+                      <button className="flex item-center gap-3 w-full bg-neon-green text-start px-2 py-1 font-serif text-xl">
                         <Image
                           src="/forward-arrow.svg"
                           alt="Forward"
@@ -790,7 +790,7 @@ export default function TokenPage({
                   ) : null}
                   {hasAddTokenToCollectionRole ? (
                     <Link href={`/token/${tokenAddress}/update/add-token`}>
-                      <button className="flex item-center gap-3 w-full bg-neon-green text-start px-2 py-1 font-serif text-2xl">
+                      <button className="flex item-center gap-3 w-full bg-neon-green text-start px-2 py-1 font-serif text-xl">
                         <Image
                           src="/forward-arrow.svg"
                           alt="Forward"
@@ -802,7 +802,7 @@ export default function TokenPage({
                     </Link>
                   ) : null}
                   <Link href={`/token/${tokenAddress}/update/permissions`}>
-                    <button className="flex item-center gap-3 w-full bg-neon-green text-start px-2 py-1 font-serif text-2xl">
+                    <button className="flex item-center gap-3 w-full bg-neon-green text-start px-2 py-1 font-serif text-xl">
                       <Image
                         src="/forward-arrow.svg"
                         alt="Forward"
@@ -821,12 +821,12 @@ export default function TokenPage({
       <div className="flex flex-col mt-12 mb-24 xl:mb-32">
         {isAuctionPeriod && isAuctionFinished ? (
           <>
-            <div className="w-full bg-neon-green py-1 text-lg sm:text-xl">
+            <div className="w-full bg-neon-green py-1 text-sm sm:text-lg">
               <div className="flex flex-col sm:flex-row items-center w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto">
                 <span className="sm:w-2/4 2xl:w-1/3 pl-1 sm:pl-3">
                   Stewardship Inauguration
                 </span>
-                <span className="font-serif text-2xl sm:w-2/4 2xl:w-2/3 pl-1 sm:pl-3">
+                <span className="font-serif text-xl sm:w-2/4 2xl:w-2/3 pl-1 sm:pl-3">
                   {calculateTimeString(
                     Number(auctionEndTime) * 1000 - Date.now()
                   )}
@@ -852,7 +852,7 @@ export default function TokenPage({
                   : null}
                 <BranchIsWalletConnected>
                   <button
-                    className="flex items-center gap-2 bg-neon-green px-3 py-1 font-serif text-2xl"
+                    className="flex items-center gap-2 bg-neon-green px-3 py-1 font-serif text-xl"
                     disabled={isAuctionCloseLoading}
                     onClick={handleCloseAuction}
                   >
@@ -874,7 +874,7 @@ export default function TokenPage({
                       : "Complete Auction"}
                   </button>
                   <button
-                    className="flex items-center gap-2 bg-neon-green px-3 py-1 font-serif text-2xl"
+                    className="flex items-center gap-2 bg-neon-green px-3 py-1 font-serif text-xl"
                     onClick={openConnectModal}
                   >
                     <Image
@@ -891,13 +891,13 @@ export default function TokenPage({
           </>
         ) : isAuctionPeriod && isAuctionStarted ? (
           <>
-            <div className="w-full bg-neon-green py-1 text-lg sm:text-xl">
+            <div className="w-full bg-neon-green py-1 text-sm sm:text-lg">
               <div className="flex flex-col sm:flex-row items-center w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto">
                 <span className="sm:w-2/4 2xl:w-1/3 pl-1 sm:pl-3">
                   Stewardship Inauguration
                 </span>
                 <div className="flex items-center gap-2 sm:w-2/4 2xl:w-2/3">
-                  <span className="pl-1 sm:pl-3 font-serif text-2xl">
+                  <span className="pl-1 sm:pl-3 font-serif text-xl">
                     {auctionCountdown}
                   </span>
                   {bidExtensionWindowLengthSeconds && bidExtensionSeconds ? (
@@ -990,7 +990,7 @@ export default function TokenPage({
                     }`}
                     value={newBidAmount}
                     onChange={(e) => setNewBidAmount(e.target.value)}
-                    className="bg-transparent border-solid border-0 border-b border-black focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] p-0 pb-1"
+                    className="bg-transparent border-solid border-0 border-b border-black focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] p-0 pb-1"
                   />
                 </fieldset>
                 <fieldset className="flex flex-col mt-6">
@@ -999,7 +999,7 @@ export default function TokenPage({
                   </label>
                   <input
                     disabled
-                    className="bg-transparent border-solid border-0 border-b border-black focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] p-0 pb-1"
+                    className="bg-transparent border-solid border-0 border-b border-black focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] p-0 pb-1"
                     value={
                       !isNewBidLessThanMinBid &&
                       !isNewBidLessThanMinIncrement &&
@@ -1033,7 +1033,7 @@ export default function TokenPage({
                   </label>
                   <input
                     disabled
-                    className="bg-transparent border-solid border-0 border-b border-black focus:outline-none focus:ring-0 focus:border-black font-serif text-2xl placeholder-[#ADADAD] p-0 pb-1"
+                    className="bg-transparent border-solid border-0 border-b border-black focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] p-0 pb-1"
                     value={
                       !isNewBidLessThanMinBid &&
                       !isNewBidLessThanMinIncrement &&
@@ -1068,7 +1068,7 @@ export default function TokenPage({
                   ? withdrawCollateralButton
                   : null}
                 <button
-                  className="flex gap-3 w-full bg-neon-green font-serif text-2xl px-3 py-1 disabled:opacity-50"
+                  className="flex gap-3 w-full bg-neon-green font-serif text-xl px-3 py-1 disabled:opacity-50"
                   onClick={account?.address ? handlePlaceBid : openConnectModal}
                   disabled={
                     !!account.address &&
@@ -1095,7 +1095,7 @@ export default function TokenPage({
             </div>
           </>
         ) : (
-          <div className="flex flex-col sm:flex-row items-center sm:items-start w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-lg sm:text-xl">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-sm sm:text-lg">
             <span className="sm:w-2/4 2xl:w-1/3 sm:pl-3">
               Next Stewardship Inauguration
             </span>
@@ -1103,13 +1103,13 @@ export default function TokenPage({
               <span>English Auction [Extending]</span>
               <div className="mt-1 px-3 sm:px-0">
                 Start:{" "}
-                <span className="font-serif text-2xl">
+                <span className="font-serif text-xl">
                   {formatDate(Number(auctionStartTime) * 1000)}
                 </span>
               </div>
               <div className="mt-1 px-3 sm:px-0">
                 Close:{" "}
-                <span className="font-serif text-2xl">
+                <span className="font-serif text-xl">
                   {formatDate(Number(auctionEndTime) * 1000)}
                 </span>
               </div>
