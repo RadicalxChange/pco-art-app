@@ -51,8 +51,8 @@ export default function Home() {
               TESTNET <br />
               MODE
             </h1>
-            <div className="w-full mt-3">
-              <img src="placeholder-image.jpg" alt="Pop-Up" />
+            <div className="w-full mt-3 bg-off-white">
+              <img src="hero.svg" alt="Pop-Up" />
             </div>
             <p className="text-lg mt-4">
               PCO is currently only available to test using a testnet
