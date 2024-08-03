@@ -5,9 +5,9 @@ import { Header } from "@/components/layout/header";
 
 export default function GeneralLayout({ children }: any) {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col">
       <Header />
-      <main>{children}</main>
+      <main className="min-h-screen">{children}</main>
       <Footer />
     </div>
   );

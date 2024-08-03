@@ -23,7 +23,7 @@ export default function Home() {
   });
 
   return (
-    <div className="flex flex-center relative h-[calc(100vh-215px)] md:h-[calc(100vh-106px)] min-[2000px]:h-[calc(100vh-111px)]">
+    <div className="flex flex-center relative h-[calc(100vh-36px)] md:h-[calc(100vh-36px)]">
       <Image
         src="/hero.svg"
         alt="Hero"
@@ -34,12 +34,15 @@ export default function Home() {
       <Flowbite theme={{ theme: customTheme }}>
         <Modal
           show={openModal}
-          size="xl"
+          size="2xl"
           onClose={() => setOpenModal(false)}
           className="bg-transparent opacity-1"
         >
-          <Modal.Body className="bg-neon-green p-[15px]">
-            <button className="float-right" onClick={() => setOpenModal(false)}>
+          <Modal.Body className="bg-neon-green p-[15px] pb-0">
+            <button
+              className="absolute right-0 px-4"
+              onClick={() => setOpenModal(false)}
+            >
               <Image src="/close.svg" alt="Close" width={15} height={15} />
             </button>
             <h1 className="flex flex-col font-mono text-[50px] xl:text-[130px] 2xl:text-[145px] text-center">
@@ -50,7 +53,7 @@ export default function Home() {
             <div className="w-full mt-3">
               <img src="placeholder-image.jpg" alt="Pop-Up" />
             </div>
-            <p className="text-lg mt-4 mb-5">
+            <p className="text-lg mt-4">
               PCO is currently only available to test using a testnet
               blockchain. To find out more about using the testnet and the
               claiming test tokens{" "}
@@ -72,13 +75,15 @@ export default function Home() {
               </Link>
               .
             </p>
-            <Link
-              href="https://docs.pco.art/testnet"
-              target="_blank"
-              className="font-serif text-xl"
-            >
-              Learn More!
-            </Link>
+            <Modal.Footer className="sticky bottom-0 border-0 rounded-none bg-neon-green px-0 py-[15px]">
+              <Link
+                href="https://docs.pco.art/testnet"
+                target="_blank"
+                className="font-serif text-xl"
+              >
+                Learn More!
+              </Link>
+            </Modal.Footer>
           </Modal.Body>
         </Modal>
       </Flowbite>

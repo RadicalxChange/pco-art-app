@@ -6,7 +6,7 @@ export function Footer() {
   const isMobileOrTablet = useMediaQuery({ query: "(max-width: 1280px)" });
 
   return (
-    <footer className="flex flex-col md:flex-row items-center md:items-end justify-center md:justify-between gap-10 sm:gap-20 md:gap-0 mt-auto px-5 py-3">
+    <footer className="flex flex-col md:flex-row items-center md:items-end justify-center md:justify-between gap-10 sm:gap-20 md:gap-0 mt-auto px-5 pt-3 sm:pt-[74px] pb-3">
       <div className="flex gap-5">
         <Image
           src="/serpentine.svg"
