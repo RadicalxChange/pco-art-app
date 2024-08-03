@@ -567,7 +567,7 @@ export default function TokenPage({
 
   return (
     <>
-      <h1 className="font-mono text-6xl sm:text-[75px] xl:text-[100px] 2xl:text-[160px] text-center leading-none mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
+      <h1 className="font-mono text-6xl sm:text-[75px] xl:text-[130px] 2xl:text-[145px] text-center mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
         {tokenInfo?.name}
       </h1>
       <h2 className="font-mono text-3xl text-center leading-none">
