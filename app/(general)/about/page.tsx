@@ -17,6 +17,15 @@ export default function About() {
               artists, communities and holders of art to create structures of
               shared ownership and distribution of value that reflects those
               living relationships.
+              <br />
+              <br />
+              <Link
+                href="mailto:fae@serpentinegalleries.org?subject=pco.art%20website%20enquiry%20"
+                target="_blank"
+                className="underline text-base sm:text-xl"
+              >
+                Contact Us
+              </Link>
             </span>
           </div>
           <div className="flex mt-10">
