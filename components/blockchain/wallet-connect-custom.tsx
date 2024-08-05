@@ -42,25 +42,25 @@ export const WalletConnectCustom = ({
               if (!connected) {
                 return (
                   <>
-                    <PlusSignAnimated>
-                      <button
-                        className={classNameConnect}
-                        onClick={openConnectModal}
-                      >
-                        {labelConnect}
-                      </button>
-                    </PlusSignAnimated>
+                    <button
+                      className={classNameConnect}
+                      onClick={openConnectModal}
+                    >
+                      <PlusSignAnimated>
+                        <span>{labelConnect}</span>
+                      </PlusSignAnimated>
+                    </button>
                   </>
                 );
               }
 
               if (chain.unsupported) {
                 return (
-                  <PlusSignAnimated>
-                    <button className="flex gap-1.5" onClick={openChainModal}>
-                      {labelWrongNetwork}
-                    </button>
-                  </PlusSignAnimated>
+                  <button onClick={openChainModal}>
+                    <PlusSignAnimated>
+                      <span>{labelWrongNetwork}</span>
+                    </PlusSignAnimated>
+                  </button>
                 );
               }
 
@@ -74,7 +74,7 @@ export const WalletConnectCustom = ({
                     </div>
                   </PlusSignAnimated>
                   <PlusSignAnimated>
-                    <div className="flex gap-1.5">{account.displayName}</div>
+                    <span>{account.displayName}</span>
                   </PlusSignAnimated>
                 </button>
               );

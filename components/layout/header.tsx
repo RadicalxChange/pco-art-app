@@ -14,26 +14,26 @@ interface Props {
 
 const menu = (
   <div className="flex flex-col gap-7 font-serif text-xl font-thin lg:flex-row">
-    <PlusSignAnimated>
-      <Link href="/" prefetch>
-        PCO Art
-      </Link>
-    </PlusSignAnimated>
-    <PlusSignAnimated>
-      <Link href="/create" prefetch>
-        Create
-      </Link>
-    </PlusSignAnimated>
-    <PlusSignAnimated>
-      <Link href="/about" prefetch>
-        About
-      </Link>
-    </PlusSignAnimated>
-    <PlusSignAnimated>
-      <Link href="https://docs.pco.art" target="_blank">
-        Docs
-      </Link>
-    </PlusSignAnimated>
+    <Link href="/" prefetch>
+      <PlusSignAnimated>
+        <span>PCO Art</span>
+      </PlusSignAnimated>
+    </Link>
+    <Link href="/create" prefetch>
+      <PlusSignAnimated>
+        <span>Create</span>
+      </PlusSignAnimated>
+    </Link>
+    <Link href="/about" prefetch>
+      <PlusSignAnimated>
+        <span>About</span>
+      </PlusSignAnimated>
+    </Link>
+    <Link href="https://docs.pco.art" target="_blank">
+      <PlusSignAnimated>
+        <span>Docs</span>
+      </PlusSignAnimated>
+    </Link>
   </div>
 );
 
