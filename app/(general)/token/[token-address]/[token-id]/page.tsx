@@ -575,19 +575,21 @@ export default function TokenPage({
       </h2>
       <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
         <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] mt-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-sm sm:text-lg">
-          <div className="flex flex-col justify-center gap-5 lg:flex-row mb-16 sm:mb-24 sm:pl-3">
-            <img
-              src={
-                tokenInfo?.image
-                  ? `https://w3s.link/ipfs/${tokenInfo.image.replace(
-                      "ipfs://",
-                      ""
-                    )}`
-                  : "/placeholder-image.svg"
-              }
-              alt="image"
-              className="w-full lg:w-[400px] xl:w-[500px] 2xl:w-[800px] lg:h-[400px] xl:h-[500px] 2xl:h-[800px]"
-            />
+          <div className="flex flex-col justify-start gap-5 lg:flex-row mb-16 sm:mb-24 sm:pl-3">
+            <div>
+              <img
+                src={
+                  tokenInfo?.image
+                    ? `https://w3s.link/ipfs/${tokenInfo.image.replace(
+                        "ipfs://",
+                        ""
+                      )}`
+                    : "/placeholder-image.png"
+                }
+                alt="Token Image"
+                className="w-full lg:w-[400px] xl:w-[500px] 2xl:w-[700px] lg:h-[400px] xl:h-[500px] 2xl:h-[700px] object-contain object-right-top"
+              />
+            </div>
             <div className="flex flex-col w-full lg:w-1/3">
               <span>Artist</span>
               <span className="font-serif text-xl">
