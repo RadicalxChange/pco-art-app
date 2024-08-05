@@ -3,6 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+import PlusSignAnimated from "@/components/shared/plus-sign-animated";
 import { WalletConnectCustom } from "@/components/blockchain/wallet-connect-custom";
 
 import { ResponsiveMobileAndDesktop } from "../shared/responsive-mobile-and-desktop";
@@ -13,18 +14,26 @@ interface Props {
 
 const menu = (
   <div className="flex flex-col gap-7 font-serif text-xl font-thin lg:flex-row">
-    <Link href="/" prefetch>
-      PCO Art
-    </Link>
-    <Link href="/create" prefetch>
-      Create
-    </Link>
-    <Link href="/about" prefetch>
-      About
-    </Link>
-    <Link href="https://docs.pco.art" target="_blank">
-      Docs
-    </Link>
+    <PlusSignAnimated>
+      <Link href="/" prefetch>
+        PCO Art
+      </Link>
+    </PlusSignAnimated>
+    <PlusSignAnimated>
+      <Link href="/create" prefetch>
+        Create
+      </Link>
+    </PlusSignAnimated>
+    <PlusSignAnimated>
+      <Link href="/about" prefetch>
+        About
+      </Link>
+    </PlusSignAnimated>
+    <PlusSignAnimated>
+      <Link href="https://docs.pco.art" target="_blank">
+        Docs
+      </Link>
+    </PlusSignAnimated>
   </div>
 );
 
@@ -45,7 +54,7 @@ export function Header(props: Props) {
         </ResponsiveMobileAndDesktop>
         <WalletConnectCustom
           className="flex items-center font-serif text-xl"
-          classNameConnect="ml-1.5 bg-neon-green"
+          classNameConnect="bg-neon-green"
           labelConnect="Connect"
         />
       </header>
