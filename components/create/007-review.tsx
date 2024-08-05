@@ -468,7 +468,7 @@ export default function ConfigReview({
                 <button
                   type="submit"
                   disabled={isLoading || isFetching || isTxnLoading}
-                  className="absolute flex gap-2 items-center sm:gap-3 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] px-2 py-1 font-serif text-2xl w-[250px] sm:w-3/4"
+                  className="absolute flex gap-2 items-center sm:gap-3 px-2 py-1 font-serif text-2xl w-[250px] sm:w-3/4 gradient-action-btn"
                   style={{
                     right: isMobileOrIsTablet ? 0 : "",
                     left: isMobileOrIsTablet ? "" : formContainerOffset.left,

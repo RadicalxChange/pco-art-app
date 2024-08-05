@@ -452,7 +452,7 @@ export default function UpdatePCOSettingsPage({
         </div>
         <BranchIsWalletConnected>
           <button
-            className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] font-serif text-2xl"
+            className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 font-serif text-2xl gradient-action-btn"
             disabled={isSaving || actions.length === 0}
           >
             <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
@@ -470,7 +470,7 @@ export default function UpdatePCOSettingsPage({
             </div>
           </button>
           <button
-            className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 bg-gradient-to-r from-[#05ff00] via-[#0094ff] to-[#fa00ff] font-serif text-2xl"
+            className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 font-serif text-2xl gradient-action-btn"
             onClick={(e) => {
               e.preventDefault();
 
