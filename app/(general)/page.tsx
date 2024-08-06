@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
 import { Flowbite, CustomFlowbiteTheme, Modal } from "flowbite-react";
+import PlusSignAnimated from "@/components/shared/plus-sign-animated";
 
 const customTheme: CustomFlowbiteTheme = {
   modal: {
@@ -61,7 +62,7 @@ export default function Home() {
               <Link
                 href="https://docs.optimism.io/builders/tools/build/faucets"
                 target="_blank"
-                className="underline text-xl"
+                className="underline"
               >
                 click here
               </Link>
@@ -70,19 +71,21 @@ export default function Home() {
               <Link
                 href="fae@serpentinegalleries.org"
                 target="_blank"
-                className="underline text-xl"
+                className="underline"
               >
                 get in touch
               </Link>
               .
             </p>
-            <Modal.Footer className="sticky bottom-0 border-0 rounded-none bg-neon-green px-0 py-[15px]">
+            <Modal.Footer className="sticky bottom-0 border-0 rounded-none bg-neon-green px-0 py-[8px]">
               <Link
                 href="https://docs.pco.art/testnet"
                 target="_blank"
-                className="font-serif text-xl"
+                className="font-serif text-[19.1px]"
               >
-                Learn More!
+                <PlusSignAnimated>
+                  <span>Learn More!</span>
+                </PlusSignAnimated>
               </Link>
             </Modal.Footer>
           </Modal.Body>
