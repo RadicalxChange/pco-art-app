@@ -147,8 +147,8 @@ export default function ConfigPermissions({
             className="w-[320px] sm:w-[600px] xl:w-[800px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-sm sm:text-lg"
           >
             <div className="flex">
-              <span className="w-1/3">Intro</span>
-              <span className="w-2/3">
+              <span className="w-[45%]">Intro</span>
+              <span className="w-[55%]">
                 Certain aspects of your Stewardship License can be configured to
                 allow for updates. Carefully consider the expectations of your
                 future Stewards & Creator Circle. There are social and security
@@ -160,10 +160,10 @@ export default function ConfigPermissions({
               </span>
             </div>
             <div className="flex mt-10">
-              <label htmlFor="permissions.token-admin" className="w-1/3">
+              <label htmlFor="permissions.token-admin" className="w-[45%]">
                 Token Admin
               </label>
-              <div className="flex flex-col w-2/3">
+              <div className="flex flex-col w-[55%]">
                 <label htmlFor="permissions.token-admin">
                   This role mimics the permissions that you are exercising now
                   at minting (with technical limitations around backward
@@ -184,8 +184,8 @@ export default function ConfigPermissions({
               </div>
             </div>
             <div className="flex mt-10">
-              <label className="w-1/3">Component Configuration</label>
-              <div className="flex flex-col w-2/3">
+              <label className="w-[45%]">Component Configuration</label>
+              <div className="flex flex-col w-[55%]">
                 <label>
                   Assign the ability to configure the details of each core
                   component. Token Admins can reassign these roles at any time.

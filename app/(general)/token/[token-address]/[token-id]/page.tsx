@@ -615,10 +615,10 @@ export default function TokenPage({
           !isAuctionPeriod ? (
             <>
               <div className="flex flex-col sm:flex-row mb-10">
-                <span className="sm:w-2/4 2xl:w-1/3 sm:pl-3">
+                <span className="sm:w-[45%] sm:pl-3">
                   TokenID in Collection
                 </span>
-                <div className="flex flex-col sm:w-2/4 2xl:w-2/3">
+                <div className="flex flex-col sm:w-[55%] sm:pl-3">
                   <span className="font-serif text-xl border-b border-black">
                     {tokenId.toString()}
                   </span>
@@ -672,10 +672,10 @@ export default function TokenPage({
           ) : null}
           <div className="flex flex-col">
             <div className="flex flex-col sm:flex-row justify-center">
-              <span className="sm:w-2/4 2xl:w-1/3 mb-2 sm:mb-0 sm:pl-3">
+              <span className="sm:w-[45%] mb-2 sm:mb-0 sm:pl-3">
                 Stewardship Details
               </span>
-              <div className="sm:w-2/4 2xl:w-2/3">
+              <div className="sm:w-[55%] sm:pl-3">
                 <div>
                   <span>Last Valuation: </span>
                   <span className="font-serif text-xl">
@@ -734,10 +734,10 @@ export default function TokenPage({
             hasAllowlistRole ||
             hasAddTokenToCollectionRole ? (
               <div className="flex flex-col sm:flex-row mt-10">
-                <span className="sm:w-2/4 2xl:w-1/3 mb-4 sm:mb-0 sm:pl-3">
+                <span className="sm:w-[45%] mb-4 sm:mb-0 sm:pl-3">
                   Token Configuration
                 </span>
-                <div className="flex flex-col gap-2 sm:w-2/4 2xl:w-2/3">
+                <div className="flex flex-col gap-2 sm:w-[55%] sm:pl-3">
                   {hasPcoParamsRole ? (
                     <Link href={`/token/${tokenAddress}/update/pco-settings`}>
                       <button className="flex item-center gap-3 w-full bg-neon-green text-start px-2 py-1 font-serif text-xl">
@@ -825,10 +825,10 @@ export default function TokenPage({
           <>
             <div className="w-full bg-neon-green py-1 text-sm sm:text-lg">
               <div className="flex flex-col sm:flex-row items-center w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto">
-                <span className="sm:w-2/4 2xl:w-1/3 pl-1 sm:pl-3">
+                <span className="sm:w-[45%] pl-1 sm:pl-3">
                   Stewardship Inauguration
                 </span>
-                <span className="font-serif text-xl sm:w-2/4 2xl:w-2/3 pl-1 sm:pl-3">
+                <span className="font-serif text-xl sm:w-[55%] pl-1 sm:pl-3">
                   {calculateTimeString(
                     Number(auctionEndTime) * 1000 - Date.now()
                   )}
@@ -836,7 +836,7 @@ export default function TokenPage({
               </div>
             </div>
             <div className="flex w-full items-center sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto">
-              <div className="flex flex-col w-full sm:w-2/4 2xl:w-2/3 ml-auto">
+              <div className="flex flex-col w-full sm:w-[55%] ml-auto">
                 {bidInfoView}
                 {(availableCollateral && availableCollateral > 0) ||
                 (lockedCollateral && lockedCollateral > 0)
@@ -895,10 +895,10 @@ export default function TokenPage({
           <>
             <div className="w-full bg-neon-green py-1 text-sm sm:text-lg">
               <div className="flex flex-col sm:flex-row items-center w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto">
-                <span className="sm:w-2/4 2xl:w-1/3 pl-1 sm:pl-3">
+                <span className="sm:w-[45%] pl-1 sm:pl-3">
                   Stewardship Inauguration
                 </span>
-                <div className="flex items-center gap-2 sm:w-2/4 2xl:w-2/3">
+                <div className="flex items-center gap-2 sm:w-[55%]">
                   <span className="pl-1 sm:pl-3 font-serif text-xl">
                     {auctionCountdown}
                   </span>
@@ -928,14 +928,14 @@ export default function TokenPage({
             <div className="flex flex-col sm:flex-row w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-xl">
               <>
                 {!account.address ? (
-                  <div className="flex flex-col grow w-full bg-neon-red sm:w-2/4 2xl:w-1/3 p-3">
+                  <div className="flex flex-col grow w-full bg-neon-red sm:w-[45%] p-3">
                     Status
                     <span className="mt-2 font-serif text-4xl text-[48px] ">
                       Connect wallet to bid
                     </span>
                   </div>
                 ) : !isAllowed ? (
-                  <div className="flex flex-col grow w-full bg-neon-red sm:w-2/4 2xl:w-1/3 p-3">
+                  <div className="flex flex-col grow w-full bg-neon-red sm:w-[45%] p-3">
                     Status
                     <span className="mt-2 font-serif text-4xl text-[48px] ">
                       You're not on the auction allowlist
@@ -945,7 +945,7 @@ export default function TokenPage({
                   highestBid &&
                   bidOfUser.bidAmount > 0 &&
                   bidOfUser.bidAmount < highestBid.bidAmount ? (
-                  <div className="flex flex-col grow w-full bg-neon-red sm:w-2/4 2xl:w-1/3 p-3">
+                  <div className="flex flex-col grow w-full bg-neon-red sm:w-[45%] p-3">
                     Status
                     <span className="mt-2 font-serif text-[48px]">
                       You've Been Outbid!
@@ -955,7 +955,7 @@ export default function TokenPage({
                   highestBid &&
                   bidOfUser.bidder === account.address &&
                   bidOfUser.bidAmount === highestBid.bidAmount ? (
-                  <div className="flex flex-col grow w-full bg-neon-green sm:w-2/4 2xl:w-1/3 p-3">
+                  <div className="flex flex-col grow w-full bg-neon-green sm:w-[45%] p-3">
                     Status
                     <span className="mt-2 font-serif text-[48px]">
                       You're The Top Bidder!
@@ -963,20 +963,20 @@ export default function TokenPage({
                   </div>
                 ) : null}
               </>
-              <div className="flex flex-col w-full sm:w-2/4 2xl:w-2/3 ml-auto">
+              <div className="flex flex-col w-full sm:w-[55%] ml-auto">
                 {bidInfoView}
               </div>
             </div>
             {(availableCollateral && availableCollateral > 0) ||
             (lockedCollateral && lockedCollateral > 0) ? (
               <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-xl">
-                <div className="flex flex-col w-full sm:w-2/4 2xl:w-2/3 ml-auto p-3">
+                <div className="flex flex-col w-full sm:w-[55%] ml-auto p-3">
                   {userCollateralView}
                 </div>
               </div>
             ) : null}
             <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-xl">
-              <div className="flex flex-col w-full sm:w-2/4 2xl:w-2/3 bg-[#d9d9d9] ml-auto p-3">
+              <div className="flex flex-col w-full sm:w-[55%] bg-[#d9d9d9] ml-auto p-3">
                 <fieldset className="flex flex-col">
                   <label style={{ color: !isAllowed ? "#888888" : "" }}>
                     Bid
@@ -1058,7 +1058,7 @@ export default function TokenPage({
               </div>
             </div>
             <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-xl">
-              <div className="flex flex-col w-full sm:w-2/4 2xl:w-2/3 ml-auto">
+              <div className="flex flex-col w-full sm:w-[55%] ml-auto">
                 {bidOfUser &&
                 highestBid &&
                 (highestBid.bidAmount === BigInt(0) ||
@@ -1098,10 +1098,10 @@ export default function TokenPage({
           </>
         ) : (
           <div className="flex flex-col sm:flex-row items-center sm:items-start w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-sm sm:text-lg">
-            <span className="sm:w-2/4 2xl:w-1/3 sm:pl-3">
+            <span className="sm:w-[45%] sm:pl-3">
               Next Stewardship Inauguration
             </span>
-            <div className="flex flex-col items-center sm:items-start sm:w-2/4 2xl:w-2/3">
+            <div className="flex flex-col items-center sm:items-start sm:w-[55%]">
               <span>English Auction [Extending]</span>
               <div className="mt-1 px-3 sm:px-0">
                 Start:{" "}

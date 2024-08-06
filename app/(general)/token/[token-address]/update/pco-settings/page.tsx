@@ -136,10 +136,10 @@ export default function UpdatePCOSettingsPage({
         <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
           <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 textm sm:text-lg">
             <div className="flex">
-              <label htmlFor="cycle" className="w-1/3">
+              <label htmlFor="cycle" className="w-[45%]">
                 Stewardship Cycle
               </label>
-              <div className="flex flex-col w-2/3">
+              <div className="flex flex-col w-[55%]">
                 <label htmlFor="cycle">
                   The duration between Stewardship Inaugurations. Weeks, months,
                   and years are converted to seconds based on 7, 30, & 365 days
@@ -168,10 +168,10 @@ export default function UpdatePCOSettingsPage({
               </div>
             </div>
             <div className="flex mt-10">
-              <label htmlFor="rate" className="w-1/3">
+              <label htmlFor="rate" className="w-[45%]">
                 Honorarium Rate
               </label>
-              <div className="flex flex-col w-2/3">
+              <div className="flex flex-col w-[55%]">
                 <label htmlFor="rate">
                   The percent of a winning Stewardship Inauguration bid that is
                   contributed to the Creator Circle in each Stewardship Cycle.

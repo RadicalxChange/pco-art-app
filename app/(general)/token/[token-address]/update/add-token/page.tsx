@@ -99,10 +99,10 @@ export default function AddToCollection({
         <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
           <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-sm sm:text-lg">
             <div className="flex items-center">
-              <label htmlFor="media" className="self-start w-1/3 pt-3">
+              <label htmlFor="media" className="self-start w-[45%] pt-3">
                 URI (Metadata)
               </label>
-              <div className="flex flex-col gap-2 w-2/3">
+              <div className="flex flex-col gap-2 w-[55%]">
                 <input
                   {...register("media-uri")}
                   type="text"
@@ -126,21 +126,21 @@ export default function AddToCollection({
               </div>
             </div>
             <div className="flex items-center mt-10">
-              <label htmlFor="media" className="w-1/3">
+              <label htmlFor="media" className="w-[45%]">
                 Number of Tokens
               </label>
               <input
                 {...register("token-count")}
                 type="number"
                 id="max-token-count"
-                className="w-2/3 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
+                className="w-[55%] bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
                 placeholder="12"
                 required
                 min={1}
               />
             </div>
             <div className="flex items-center mt-10 pt-3">
-              <label htmlFor="should-mint" className="w-1/3">
+              <label htmlFor="should-mint" className="w-[45%]">
                 Mint Tokens at Creation
               </label>
               <input
@@ -151,10 +151,10 @@ export default function AddToCollection({
               />
             </div>
             <div className="flex mt-12">
-              <label htmlFor="initial-start-time" className="w-1/3">
+              <label htmlFor="initial-start-time" className="w-[45%]">
                 Initial Auction
               </label>
-              <div className="flex flex-col w-2/3">
+              <div className="flex flex-col w-[55%]">
                 <label htmlFor="initial-start-time">
                   Set when the first on-chain Stewardship Inauguration starts.
                 </label>
@@ -190,10 +190,10 @@ export default function AddToCollection({
               </div>
             </div>
             <div className="flex mt-10">
-              <label htmlFor="initial-start-time-offset" className="w-1/3">
+              <label htmlFor="initial-start-time-offset" className="w-[45%]">
                 Collection Offset
               </label>
-              <div className="flex flex-col w-2/3">
+              <div className="flex flex-col w-[55%]">
                 <label htmlFor="initial-start-time-offset">
                   Stagger the first auction for each token in your collection
                   sequentially by fixed amount. 0 means the auctions will all

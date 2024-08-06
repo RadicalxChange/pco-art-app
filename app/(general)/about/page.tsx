@@ -9,8 +9,8 @@ export default function About() {
       <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
         <div className="w-[350px] sm:w-[600px] xl:w-[800px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-sm sm:text-lg mb-24 xl:mb-32">
           <div className="flex">
-            <span className="w-1/3">About</span>
-            <span className="w-2/3">
+            <span className="w-[45%]">About</span>
+            <span className="w-[55%]">
               Art enriches society through the weaving of relations between the
               cultures that create it and the cultures that receive it. Partial
               common ownership of art is a new evolving system that allows
@@ -20,8 +20,8 @@ export default function About() {
             </span>
           </div>
           <div className="flex mt-10">
-            <span className="w-1/3">Collaborators</span>
-            <div className="w-2/3">
+            <span className="w-[45%]">Collaborators</span>
+            <div className="w-[55%]">
               The PCO project is initiated and incubated by{" "}
               <Link
                 href="https://www.radicalxchange.org/#message"
@@ -50,8 +50,8 @@ export default function About() {
             </div>
           </div>
           <div className="flex mt-10">
-            <span className="w-1/3">Team</span>
-            <div className="flex flex-col w-2/3">
+            <span className="w-[45%]">Team</span>
+            <div className="flex flex-col w-[55%]">
               <span>Project Leads</span>
               <span className="font-serif text-xl">
                 Victoria Ivanova [R&D Strategic Lead, Serpentine Arts
@@ -83,8 +83,8 @@ export default function About() {
             </div>
           </div>
           <div className="flex mt-10">
-            <span className="w-1/3 mt-1">Contact Us</span>
-            <span className="flex flex-col w-2/3 font-serif text-xl">
+            <span className="w-[45%] mt-1">Contact Us</span>
+            <span className="flex flex-col w-[55%] font-serif text-xl">
               fae@serpentinegalleries.org
             </span>
           </div>

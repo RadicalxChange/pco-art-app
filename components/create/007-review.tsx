@@ -174,7 +174,7 @@ export default function ConfigReview({
             className="w-[320px] sm:w-[600px] xl:w-[800px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-sm sm:text-lg"
           >
             <div className="flex flex-col sm:flex-row">
-              <div className="flex items-center self-start w-full sm:w-1/3">
+              <div className="flex items-center self-start w-full sm:w-[45%]">
                 The Art [
                 <button
                   onClick={(e) => {
@@ -186,7 +186,7 @@ export default function ConfigReview({
                 </button>
                 ]
               </div>
-              <div className="flex flex-col w-full sm:w-2/3">
+              <div className="flex flex-col w-full sm:w-[55%]">
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Mint Type: </span>
                   <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap ">
@@ -244,7 +244,7 @@ export default function ConfigReview({
               </div>
             </div>
             <div className="flex flex-col sm:flex-row mt-10">
-              <div className="flex items-center self-start w-full sm:w-1/3">
+              <div className="flex items-center self-start w-full sm:w-[45%]">
                 PCO Settings [
                 <button
                   onClick={(e) => {
@@ -256,7 +256,7 @@ export default function ConfigReview({
                 </button>
                 ]
               </div>
-              <div className="flex flex-col w-full sm:w-2/3">
+              <div className="flex flex-col w-full sm:w-[55%]">
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Stewardship Cycle: </span>
                   <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
@@ -274,7 +274,7 @@ export default function ConfigReview({
               </div>
             </div>
             <div className="flex flex-col sm:flex-row mt-10">
-              <div className="flex items-center w-full sm:w-1/3">
+              <div className="flex items-center w-full sm:w-[45%]">
                 Creator Circle [
                 <button
                   onClick={(e) => {
@@ -286,7 +286,7 @@ export default function ConfigReview({
                 </button>
                 ]
               </div>
-              <div className="flex flex-col w-full sm:w-2/3">
+              <div className="flex flex-col w-full sm:w-[55%]">
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Type: </span>
                   <p
@@ -299,7 +299,7 @@ export default function ConfigReview({
               </div>
             </div>
             <div className="flex flex-col sm:flex-row mt-10">
-              <div className="flex items-center self-start w-full sm:w-1/3">
+              <div className="flex items-center self-start w-full sm:w-[45%]">
                 English Auction [
                 <button
                   onClick={(e) => {
@@ -311,7 +311,7 @@ export default function ConfigReview({
                 </button>
                 ]
               </div>
-              <div className="flex flex-col w-full sm:w-2/3">
+              <div className="flex flex-col w-full sm:w-[55%]">
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Initial Auction: </span>
                   <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
@@ -382,7 +382,7 @@ export default function ConfigReview({
               </div>
             </div>
             <div className="flex flex-col sm:flex-row mt-10">
-              <div className="flex items-center self-start w-full sm:w-1/3">
+              <div className="flex items-center self-start w-full sm:w-[45%]">
                 Permissions [
                 <button
                   onClick={(e) => {
@@ -394,7 +394,7 @@ export default function ConfigReview({
                 </button>
                 ]
               </div>
-              <div className="flex flex-col w-full sm:w-2/3">
+              <div className="flex flex-col w-full sm:w-[55%]">
                 <div className="flex items-center gap-1">
                   <span className="mt-1">Token Admin: </span>
                   <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">

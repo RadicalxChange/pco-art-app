@@ -87,10 +87,10 @@ export default function ConfigStewardLicenseFacet({
             className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24"
           >
             <div className="flex text-sm sm:text-lg">
-              <label htmlFor="mint-type" className="w-1/3">
+              <label htmlFor="mint-type" className="w-[45%]">
                 Mint Type
               </label>
-              <div className="w-2/3">
+              <div className="w-[55%]">
                 <input
                   {...register("steward-license.mint-type")}
                   type="radio"
@@ -105,7 +105,7 @@ export default function ConfigStewardLicenseFacet({
               </div>
             </div>
             <div className="flex items-center mt-10 text-sm sm:text-lg">
-              <label htmlFor="name" className="w-1/3">
+              <label htmlFor="name" className="w-[45%]">
                 Name
               </label>
               <input
@@ -113,30 +113,30 @@ export default function ConfigStewardLicenseFacet({
                 type="text"
                 id="name"
                 placeholder="Name your token"
-                className="w-2/3 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
+                className="w-[55%] bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
                 required
                 maxLength={32}
               />
             </div>
             <div className="flex items-center mt-10 text-sm sm:text-lg">
-              <label htmlFor="symbol" className="w-1/3">
+              <label htmlFor="symbol" className="w-[45%]">
                 Symbol
               </label>
               <input
                 {...register("steward-license.symbol")}
                 type="text"
                 id="symbol"
-                className="w-2/3 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
+                className="w-[55%] bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
                 placeholder="An abbreviation for your token"
                 required
                 maxLength={10}
               />
             </div>
             <div className="flex items-center mt-10 text-sm sm:text-lg">
-              <label htmlFor="media" className="self-start w-1/3 pt-3">
+              <label htmlFor="media" className="self-start w-[45%] pt-3">
                 URI (Metadata)
               </label>
-              <div className="flex flex-col gap-2 w-2/3">
+              <div className="flex flex-col gap-2 w-[55%]">
                 <input
                   {...register("steward-license.media-uri")}
                   type="text"
@@ -171,21 +171,21 @@ export default function ConfigStewardLicenseFacet({
               </div>
             </div>
             <div className="flex items-center mt-10 text-sm sm:text-lg">
-              <label htmlFor="media" className="w-1/3">
+              <label htmlFor="media" className="w-[45%]">
                 Number of Tokens
               </label>
               <input
                 {...register("steward-license.max-token-count")}
                 type="number"
                 id="max-token-count"
-                className="w-2/3 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
+                className="w-[55%] bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
                 placeholder="12"
                 required
                 min={1}
               />
             </div>
             <div className="flex items-center mt-10 pt-3 text-sm sm:text-lg">
-              <label htmlFor="should-mint" className="w-1/3">
+              <label htmlFor="should-mint" className="w-[45%]">
                 Mint Tokens at Creation
               </label>
               <input

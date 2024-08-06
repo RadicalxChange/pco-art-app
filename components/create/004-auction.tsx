@@ -103,18 +103,18 @@ export default function ConfigAuctionFacet({
             className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-sm sm:text-lg"
           >
             <div className="flex">
-              <span className="w-1/3">Intro</span>
-              <span className="w-2/3">
+              <span className="w-[45%]">Intro</span>
+              <span className="w-[55%]">
                 This auction starts at a low/zero initial price and accepts
                 ascending bids until close. You can configure an auction
                 extension window to disincentivize last-second bids.
               </span>
             </div>
             <div className="flex mt-10">
-              <label htmlFor="auction.initial-start-time" className="w-1/3">
+              <label htmlFor="auction.initial-start-time" className="w-[45%]">
                 Initial Auction
               </label>
-              <div className="flex flex-col w-2/3">
+              <div className="flex flex-col w-[55%]">
                 <label htmlFor="auction.initial-start-time">
                   Set when the first on-chain Stewardship Inauguration starts.
                   Subsequent auctions will automatically be triggered at the end
@@ -155,11 +155,11 @@ export default function ConfigAuctionFacet({
             <div className="flex mt-10">
               <label
                 htmlFor="auction.initial-start-time-offset"
-                className="w-1/3"
+                className="w-[45%]"
               >
                 Collection Offset
               </label>
-              <div className="flex flex-col w-2/3">
+              <div className="flex flex-col w-[55%]">
                 <label htmlFor="auction.initial-start-time-offset">
                   Stagger the first auction for each token in your collection
                   sequentially by fixed amount. 0 means the auctions will all
@@ -189,10 +189,10 @@ export default function ConfigAuctionFacet({
               </div>
             </div>
             <div className="flex mt-10">
-              <label htmlFor="auction.duration" className="w-1/3">
+              <label htmlFor="auction.duration" className="w-[45%]">
                 Duration
               </label>
-              <div className="flex flex-col w-2/3">
+              <div className="flex flex-col w-[55%]">
                 <label htmlFor="auction.duration">
                   Set the standard length of your auction. The start time of
                   your auction can shift each stewardship cycle, so don&apos;t
@@ -222,10 +222,10 @@ export default function ConfigAuctionFacet({
               </div>
             </div>
             <div className="flex items-center mt-10">
-              <label htmlFor="auction.starting-bid" className="w-1/3">
+              <label htmlFor="auction.starting-bid" className="w-[45%]">
                 Starting Bid
               </label>
-              <div className="flex w-2/3">
+              <div className="flex w-[55%]">
                 <input
                   {...register("auction.starting-bid")}
                   type="number"
@@ -239,10 +239,10 @@ export default function ConfigAuctionFacet({
               </div>
             </div>
             <div className="flex mt-10">
-              <label htmlFor="auction.min-bid-increase" className="w-1/3">
+              <label htmlFor="auction.min-bid-increase" className="w-[45%]">
                 Minimum Bid Increase
               </label>
-              <div className="flex flex-col w-2/3">
+              <div className="flex flex-col w-[55%]">
                 <label htmlFor="auction.min-bid-increase">
                   Avoid infinitesimal increase bidding wars.
                 </label>
@@ -261,10 +261,10 @@ export default function ConfigAuctionFacet({
               </div>
             </div>
             <div className="flex mt-10">
-              <label htmlFor="auction.extension-window" className="w-1/3">
+              <label htmlFor="auction.extension-window" className="w-[45%]">
                 Extension Window
               </label>
-              <div className="flex flex-col w-2/3">
+              <div className="flex flex-col w-[55%]">
                 <label htmlFor="auction.extension-window">
                   Bids placed during this window at the end of the auction will
                   extend it. Set this to 0 if you want auction extensions.
@@ -283,10 +283,10 @@ export default function ConfigAuctionFacet({
               </div>
             </div>
             <div className="flex mt-10">
-              <label htmlFor="auction.extension-length" className="w-1/3">
+              <label htmlFor="auction.extension-length" className="w-[45%]">
                 Extension Length
               </label>
-              <div className="flex flex-col w-2/3">
+              <div className="flex flex-col w-[55%]">
                 <label htmlFor="auction.extension-length">
                   How long each bid during the extension window will extend the
                   auction.

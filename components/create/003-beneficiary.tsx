@@ -108,17 +108,17 @@ export default function ConfigBeneficiaryFacet({
             className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24"
           >
             <div className="flex">
-              <span className="w-1/3">Intro</span>
-              <span className="w-2/3">
+              <span className="w-[45%]">Intro</span>
+              <span className="w-[55%]">
                 The Creator Circle is the group of people/organizations that
                 receive a token&apos;s Periodic Honorarium.
               </span>
             </div>
             <div className="flex mt-10">
-              <label htmlFor="cycle" className="w-1/3">
+              <label htmlFor="cycle" className="w-[45%]">
                 Allocation Table
               </label>
-              <div className="w-2/3">
+              <div className="w-[55%]">
                 <label htmlFor="cycle">
                   Enter the addresses and allocation units to define your
                   Creator Circle. Don't forget to include yourself as the

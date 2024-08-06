@@ -15,8 +15,8 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
         </h1>
         <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] mt-10 sm:mt-16 xl:mt-20 2xl:mt-24">
           <div className="flex text-sm sm:text-lg">
-            <p className="w-1/3">Intro</p>
-            <p className="w-2/3">
+            <p className="w-[45%]">Intro</p>
+            <p className="w-[55%]">
               You can create your own collection of PCOArt Stewardship Licences
               for your artwork by completing the steps below.{" "}
               <Link
@@ -30,8 +30,8 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
             </p>
           </div>
           <div className="flex mt-10 text-sm sm:text-lg">
-            <p className="w-1/3">Testnet</p>
-            <p className="w-2/3">
+            <p className="w-[45%]">Testnet</p>
+            <p className="w-[55%]">
               PCOArt is currently available for testing on the OP Sepolia
               testnet. If you need testnet tokens, we recommend using the{" "}
               <Link
@@ -57,8 +57,8 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
             </p>
           </div>
           <div className="flex mt-10 text-sm sm:text-lg">
-            <p className="w-1/3">Steps</p>
-            <p className="w-2/3">
+            <p className="w-[45%]">Steps</p>
+            <p className="w-[55%]">
               1. The Art
               <br />
               2. PCO Settings
