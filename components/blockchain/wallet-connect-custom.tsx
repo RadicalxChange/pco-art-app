@@ -65,7 +65,7 @@ export const WalletConnectCustom = ({
               }
 
               return (
-                <button onClick={openAccountModal} className="flex gap-7">
+                <button onClick={openAccountModal} className="flex gap-[1.1rem]">
                   <PlusSignAnimated>
                     <div className="flex gap-1.5">
                       {account.displayBalance

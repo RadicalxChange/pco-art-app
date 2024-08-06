@@ -13,7 +13,7 @@ interface Props {
 }
 
 const menu = (
-  <div className="flex flex-col gap-7 font-serif text-xl font-thin lg:flex-row">
+  <div className="flex flex-col gap-[1.1rem] font-serif text-[19.1px] font-thin lg:flex-row">
     <Link href="/" prefetch>
       <PlusSignAnimated>
         <span>PCO Art</span>
@@ -42,7 +42,7 @@ export function Header(props: Props) {
 
   return (
     <>
-      <header className="flex justify-between bg-neon-green px-5 py-1">
+      <header className="sticky top-0 z-50 flex justify-between bg-neon-green px-5 py-1">
         <ResponsiveMobileAndDesktop>
           <button
             className="mb-1 bg-transparent"
@@ -53,7 +53,7 @@ export function Header(props: Props) {
           {menu}
         </ResponsiveMobileAndDesktop>
         <WalletConnectCustom
-          className="flex items-center font-serif text-xl"
+          className="flex items-center font-serif text-[19.1px]"
           classNameConnect="bg-neon-green"
           labelConnect="Connect"
         />
