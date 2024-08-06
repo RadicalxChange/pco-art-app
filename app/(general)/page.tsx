@@ -19,17 +19,14 @@ export default function Home() {
   const [openModal, setOpenModal] = useState(true);
 
   const isMobile = useMediaQuery({ query: "(max-width: 640px)" });
-  const isMediumScreen = useMediaQuery({
-    query: "(min-width: 2000px)",
-  });
 
   return (
-    <div className="flex flex-center relative h-[calc(100vh-36px)] md:h-[calc(100vh-36px)]">
+    <div className="flex flex-center relative h-[calc(100vh-36px)] md:h-[calc(100vh-52px)]">
       <Image
         src="/hero.svg"
         alt="Hero"
-        width={isMobile ? 212 : isMediumScreen ? 656 : 395}
-        height={isMobile ? 109 : isMediumScreen ? 336 : 202}
+        width={isMobile ? 212 : 650}
+        height={isMobile ? 109 : 325}
         className="absolute"
       />
       <Flowbite theme={{ theme: customTheme }}>
