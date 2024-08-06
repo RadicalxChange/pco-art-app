@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { useAccount } from "wagmi";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
+import ForwardArrowAnimated from "@/components/shared/forward-arrow-animated";
 
 export default function Intro({ nextStep }: { nextStep: () => void }) {
   const { address } = useAccount();
@@ -77,17 +77,13 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
         </div>
       </div>
       <button
-        className="w-full mb-24 xl:mb-32 px-2 py-1 font-serif text-2xl gradient-action-btn"
+        className="w-full mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn px-2"
         onClick={address ? nextStep : openConnectModal}
       >
-        <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
-          <Image
-            src="/forward-arrow.svg"
-            alt="Forward"
-            width={18}
-            height={18}
-          />{" "}
-          {address ? "GET STARTED" : "CONNECT"}
+        <div className="flex items-center w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
+          <ForwardArrowAnimated>
+            <span>{address ? "GET STARTED" : "CONNECT"}</span>
+          </ForwardArrowAnimated>
         </div>
       </button>
     </>

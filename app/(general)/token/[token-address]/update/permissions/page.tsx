@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 
 import { useForm } from "react-hook-form";
 import { keccak256, toHex } from "viem";
@@ -10,6 +9,7 @@ import { waitForTransaction, writeContract } from "wagmi/actions";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 import { BranchIsWalletConnected } from "@/components/shared/branch-is-wallet-connected";
+import ForwardArrowAnimated from "@/components/shared/forward-arrow-animated";
 import {
   accessControlFacetABI,
   nativeStewardLicenseFacetABI,
@@ -452,25 +452,23 @@ export default function UpdatePCOSettingsPage({
         </div>
         <BranchIsWalletConnected>
           <button
-            className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 font-serif text-2xl gradient-action-btn"
+            className="w-full mt-10 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
             disabled={isSaving || actions.length === 0}
           >
-            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
-              <Image
-                src="/forward-arrow.svg"
-                alt="Forward"
-                width={18}
-                height={18}
-              />{" "}
-              {isSaving
-                ? `SAVING (${completedActions + 1}/${actions.length})`
-                : actions.length > 0
-                ? `SAVE (${actions.length})`
-                : "SAVE"}
+            <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
+              <ForwardArrowAnimated>
+                <span>
+                  {isSaving
+                    ? `SAVING (${completedActions + 1}/${actions.length})`
+                    : actions.length > 0
+                    ? `SAVE (${actions.length})`
+                    : "SAVE"}
+                </span>
+              </ForwardArrowAnimated>
             </div>
           </button>
           <button
-            className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 font-serif text-2xl gradient-action-btn"
+            className="w-full mt-10 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
             onClick={(e) => {
               e.preventDefault();
 
@@ -479,14 +477,10 @@ export default function UpdatePCOSettingsPage({
               }
             }}
           >
-            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
-              <Image
-                src="/forward-arrow.svg"
-                alt="Forward"
-                width={18}
-                height={18}
-              />{" "}
-              CONNECT
+            <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
+              <ForwardArrowAnimated>
+                <span>CONNECT</span>
+              </ForwardArrowAnimated>
             </div>
           </button>
         </BranchIsWalletConnected>

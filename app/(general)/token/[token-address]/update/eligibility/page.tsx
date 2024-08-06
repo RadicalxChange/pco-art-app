@@ -8,6 +8,7 @@ import { Address, useContractReads } from "wagmi";
 import { waitForTransaction, writeContract } from "wagmi/actions";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 
+import ForwardArrowAnimated from "@/components/shared/forward-arrow-animated";
 import { BranchIsWalletConnected } from "@/components/shared/branch-is-wallet-connected";
 import {
   allowlistFacetABI,
@@ -257,21 +258,17 @@ export default function UpdateEligibilityPage({
         </div>
         <BranchIsWalletConnected>
           <button
-            className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 font-serif text-2xl gradient-action-btn"
+            className="w-full mt-10 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
             disabled={isSaving}
           >
-            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
-              <Image
-                src="/forward-arrow.svg"
-                alt="Forward"
-                width={18}
-                height={18}
-              />{" "}
-              {isSaving ? "SAVING..." : "SAVE"}
+            <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
+              <ForwardArrowAnimated>
+                <span>{isSaving ? "SAVING..." : "SAVE"}</span>
+              </ForwardArrowAnimated>
             </div>
           </button>
           <button
-            className="w-full mt-10 mb-24 xl:mb-32 px-2 py-1 font-serif text-2xl gradient-action-btn"
+            className="w-full mt-10 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
             onClick={(e) => {
               e.preventDefault();
 
@@ -280,14 +277,10 @@ export default function UpdateEligibilityPage({
               }
             }}
           >
-            <div className="flex items-center gap-3 w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
-              <Image
-                src="/forward-arrow.svg"
-                alt="Forward"
-                width={18}
-                height={18}
-              />{" "}
-              CONNECT
+            <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
+              <ForwardArrowAnimated>
+                <span>CONNECT</span>
+              </ForwardArrowAnimated>
             </div>
           </button>
         </BranchIsWalletConnected>

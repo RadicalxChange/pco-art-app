@@ -23,7 +23,7 @@ const path5 = [
   "M0.321506 8.66445C4.63646 8.66445 8.83752 12.6913 8.83752 17.1788L8.83753 8.66445L0.321506 8.66445Z",
 ];
 
-export default function PlusSignButton(props: {
+export default function PlusSignAnimated(props: {
   children: React.ReactElement;
 }) {
   const { children } = props;

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useWaitForTransaction } from "wagmi";
 
+import ForwardArrowAnimated from "@/components/shared/forward-arrow-animated";
 import fetchJson from "@/lib/utils/fetch-json";
 import { truncateStr } from "@/lib/utils";
 import useElementOffset from "@/lib/hooks/use-element-offset";
@@ -453,7 +454,7 @@ export default function ConfigReview({
             </div>
             <div className="flex items-center mt-20 mb-24 xl:mb-32">
               <button
-                className="absolute left-0 flex items-center gap-2 sm:gap-3 bg-neon-green px-2 sm:px-4 py-1 font-serif text-2xl"
+                className="absolute left-0 flex items-center gap-2 sm:gap-3 bg-neon-green font-serif text-2xl px-2 py-1"
                 onClick={() => prevStep()}
               >
                 <Image
@@ -468,7 +469,7 @@ export default function ConfigReview({
                 <button
                   type="submit"
                   disabled={isLoading || isFetching || isTxnLoading}
-                  className="absolute flex gap-2 items-center sm:gap-3 px-2 py-1 font-serif text-2xl w-[250px] sm:w-3/4 gradient-action-btn"
+                  className="absolute flex items-center sm:gap-3 font-serif text-2xl w-[250px] sm:w-3/4 gradient-action-btn px-2"
                   style={{
                     right: isMobileOrIsTablet ? 0 : "",
                     left: isMobileOrIsTablet ? "" : formContainerOffset.left,
@@ -478,15 +479,13 @@ export default function ConfigReview({
                         formContainerOffset.left,
                   }}
                 >
-                  <Image
-                    src="/forward-arrow.svg"
-                    alt="Forward"
-                    width={18}
-                    height={18}
-                  />
-                  {isLoading || isFetching || isTxnLoading
-                    ? "MINTING..."
-                    : "MINT PCO TOKEN"}
+                  <ForwardArrowAnimated>
+                    <span>
+                      {isLoading || isFetching || isTxnLoading
+                        ? "MINTING..."
+                        : "MINT PCO TOKEN"}
+                    </span>
+                  </ForwardArrowAnimated>
                 </button>
               )}
             </div>
