@@ -22,7 +22,7 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
               <Link
                 href="https://docs.pco.art"
                 target="_blank"
-                className="underline text-base sm:text-xl"
+                className="underline"
               >
                 Documentation
               </Link>{" "}
@@ -37,7 +37,7 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
               <Link
                 href="https://console.optimism.io/faucet"
                 target="_blank"
-                className="underline text-base sm:text-xl"
+                className="underline"
               >
                 Superchain Faucet
               </Link>
@@ -49,7 +49,7 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
               <Link
                 href="mailto:fae@serpentinegalleries.org"
                 target="_blank"
-                className="underline text-base sm:text-xl"
+                className="underline"
               >
                 please get in touch
               </Link>

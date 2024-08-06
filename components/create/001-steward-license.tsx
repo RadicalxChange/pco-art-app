@@ -150,7 +150,7 @@ export default function ConfigStewardLicenseFacet({
                   <a
                     href="https://gateway.pinata.cloud/ipfs/QmPPTSewMyDBaaGuFrzBeh2Kny64S7REFiw9C22Ap8QFfP/?filename=metadata.zip"
                     download
-                    className="underline text-sm sm:text-base"
+                    className="underline"
                     target="_blank"
                   >
                     this JSON template
@@ -158,7 +158,7 @@ export default function ConfigStewardLicenseFacet({
                   , define your token metadata according to{" "}
                   <Link
                     href="https://docs.pco.art/for-artists/instantiating-your-art/#metadata"
-                    className="underline text-sm sm:text-base"
+                    className="underline"
                     target="_blank"
                   >
                     these instructions

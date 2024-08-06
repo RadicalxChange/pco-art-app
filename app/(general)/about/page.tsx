@@ -22,7 +22,7 @@ export default function About() {
               <Link
                 href="mailto:fae@serpentinegalleries.org?subject=pco.art%20website%20enquiry%20"
                 target="_blank"
-                className="underline text-base sm:text-xl"
+                className="underline"
               >
                 Contact Us
               </Link>
@@ -35,7 +35,7 @@ export default function About() {
               <Link
                 href="https://www.radicalxchange.org/#message"
                 target="_blank"
-                className="underline text-base sm:text-xl"
+                className="underline"
               >
                 RadicalxChange
               </Link>{" "}
@@ -43,7 +43,7 @@ export default function About() {
               <Link
                 href="https://futureartecosystems.org"
                 target="_blank"
-                className="underline text-base sm:text-xl"
+                className="underline"
               >
                 Future Art Ecosystems
               </Link>{" "}
@@ -51,7 +51,7 @@ export default function About() {
               <Link
                 href="https://www.serpentinegalleries.org/arts-technologies/"
                 target="_blank"
-                className="underline text-base sm:text-xl"
+                className="underline"
               >
                 Serpentine Arts
               </Link>{" "}

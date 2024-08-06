@@ -350,7 +350,7 @@ export default function CreatorCirclePage({
                   href="https://docs.superfluid.finance/superfluid/developers/super-tokens"
                   target="_blank"
                   prefetch={false}
-                  className="underline text-base text-lg"
+                  className="underline"
                 >
                   Super Token
                 </Link>{" "}

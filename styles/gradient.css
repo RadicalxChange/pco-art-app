@@ -1,22 +1,22 @@
-@property --myColor1 {
+@property --color1 {
   syntax: "<color>";
   initial-value: #05ff00;
   inherits: false;
 }
 
-@property --myColor2 {
+@property --color2 {
   syntax: "<color>";
   initial-value: #07f4c6;
   inherits: false;
 }
 
-@property --myColor3 {
+@property --color3 {
   syntax: "<color>";
   initial-value: #004dff;
   inherits: false;
 }
 
-@property --myColor4 {
+@property --color4 {
   syntax: "<color>";
   initial-value: #990fff;
   inherits: false;
@@ -25,18 +25,18 @@
 .gradient-action-btn {
   background: linear-gradient(
     to right,
-    var(--myColor1),
-    var(--myColor2),
-    var(--myColor3),
-    var(--myColor4)
+    var(--color1),
+    var(--color2),
+    var(--color3),
+    var(--color4)
   );
-  transition: --myColor1 500ms, --myColor2 500ms, --myColor3 500ms,
-    --myColor4 500ms;
+  transition: --color1 500ms, --color2 500ms, --color3 500ms,
+    --color4 500ms;
 }
 
 .gradient-action-btn:hover {
-  --myColor1: #fa01f6;
-  --myColor2: #fe012e;
-  --myColor3: #ede401;
-  --myColor4: #84ff00;
+  --color1: #fa01f6;
+  --color2: #fe012e;
+  --color3: #ede401;
+  --color4: #84ff00;
 }
