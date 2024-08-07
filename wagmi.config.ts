@@ -25,7 +25,6 @@ export default defineConfig({
       name: "ethX",
       abi: erc20ABI,
       address: {
-        100: "0x59988e47A3503AaFaA0368b9deF095c818Fdca01",
         11155420: "0x0043d7c85C8b96a49A72A92C0B48CdC4720437d7",
       },
     },
@@ -44,7 +43,6 @@ export default defineConfig({
       // @ts-ignore
       abi: AllowlistFacetABI,
       address: {
-        100: "0xe8393C4ea1Bd9D5fB81E17dA4D035D3Db714Ef96",
         11155420: "0xf7800284309faA8BF0D4b1fa10B0192c2a1336ff",
       },
     },
@@ -53,8 +51,7 @@ export default defineConfig({
       // @ts-ignore
       abi: EnglishPeriodicAuctionFacet,
       address: {
-        100: "0xeA45b8aE461c840c1B2965ffeDA5C2a11594E1c1",
-        11155420: "0xD0c22495c5C39faf0061d92Aa1D467303E715147",
+        11155420: "0xEB3Cf7984A793c2F7a3d50E1ebA3d9586F8f14eD",
       },
     },
     {
@@ -62,7 +59,6 @@ export default defineConfig({
       // @ts-ignore
       abi: IDABeneficiaryFacet,
       address: {
-        100: "0x59aEeFC8421D59f260a5E5b959BFcc86B59C8415",
         11155420: "0x01D300492Ed14BF0965ceD7Ad5de1F48Bc5DC17A",
       },
     },
@@ -71,8 +67,7 @@ export default defineConfig({
       // @ts-ignore
       abi: NativeStewardLicenseFacet,
       address: {
-        100: "0x3A62C85a8629f81124E2dBA3FaBE63880533D5D7",
-        11155420: "0x679C23c0E16DCDf2111256689078Ec50121f2A0F",
+        11155420: "0x103d07c490ea1B466FdcE499fb1318116989643B",
       },
     },
     {
@@ -80,8 +75,7 @@ export default defineConfig({
       // @ts-ignore
       abi: PeriodicPCOParamsFacet,
       address: {
-        100: "0xFfbd1FF3cEc7B5Ae502f1E62c7E1291C3110Da8C",
-        11155420: "0x53e0115b48E25FCd18a756Fe4FAf3d083e91eF33",
+        11155420: "0xa8bC8735c7339a9C254C51C7D24763c8f52c8459",
       },
     },
     {
@@ -89,8 +83,7 @@ export default defineConfig({
       // @ts-ignore
       abi: WrappedERC721StewardLicenseFacet,
       address: {
-        100: "0x3e5D445B6C0F095121EBc91D55C386f195Ff1Af4",
-        11155420: "0x8f0fF28Ce206C12248bBa64D7f72Fc6959a2717e",
+        11155420: "0x5615659B54358AC394CC890a11b2a7f8a277CaaB",
       },
     },
     {
@@ -98,8 +91,7 @@ export default defineConfig({
       // @ts-ignore
       abi: WrappedERC1155StewardLicenseFacet,
       address: {
-        100: "0xc749Ac2EA598D55D43A2FfEcB1D0753D7a9Ec560",
-        11155420: "0x2B24b289dD3A8FD13a2E88d09E92a8a027f96E20",
+        11155420: "0xeaf22CcBCA3b065F152C2CCeEFFC3C38b3CC106b",
       },
     },
     {
@@ -107,7 +99,6 @@ export default defineConfig({
       // @ts-ignore
       abi: AccessControlFacet,
       address: {
-        100: "0xc90eDF9848f8dcf557e83Bc2020B6F7d286321B5",
         11155420: "0xd4EEeDa989CcbE378A1c2863BF6C8395428C2bf4",
       },
     },
@@ -116,7 +107,6 @@ export default defineConfig({
       // @ts-ignore
       abi: SingleCutDiamondFactoryABI,
       address: {
-        100: "0x44FC178BA2361b25f3C6D6FDcAc20F80d0961FB0",
         11155420: "0x5B02B3249D2a135A9Caa6E5E9a911CD5F91057E8",
       },
     },
@@ -125,7 +115,6 @@ export default defineConfig({
       // @ts-ignore
       abi: OwnableDiamondFactoryABI,
       address: {
-        100: "0xd75292Ce17Ed419C6231FBc73E54356F30803e5F",
         11155420: "0x5e713Bf2B84303f004464CC624FCF713cB0c0131",
       },
     },
