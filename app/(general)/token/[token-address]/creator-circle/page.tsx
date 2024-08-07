@@ -7,6 +7,7 @@ import Link from "next/link";
 import { formatEther } from "viem";
 import { Address, useAccount, useContractRead, useNetwork } from "wagmi";
 import { useMediaQuery } from "react-responsive";
+import PlusSignIcon from "@/components/shared/plus-sign-icon";
 
 import { nativeStewardLicenseFacetABI } from "@/lib/blockchain";
 import { useEthersProvider, useEthersSigner } from "@/lib/hooks/use-ethers-js";
@@ -237,143 +238,173 @@ export default function CreatorCirclePage({
 
   return (
     <>
-      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[130px] 2xl:text-[145px] text-center mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
-        Creator Circle
-      </h1>
-      <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
-        <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-sm sm:text-lg">
-          <h3 className="text-xl font-bold">Allocation Table</h3>
-          {isMobile && (
-            <>
-              {creatorCircle?.indexes[0]?.subscriptions.map(
-                (subscription: Subscription, i: number) => (
-                  <div key={i} className="flex flex-col">
-                    <span className="pt-3">Address</span>
-                    <span className="pt-2 border-b border-black font-serif text-xl">
-                      {truncateStr(subscription.subscriber.id, 20)}
-                    </span>
-                    <span className="pt-3">Address</span>
-                    <span className="pt-2 border-b border-black font-serif text-xl">
-                      {subscription.units}
-                    </span>
-                    <span className="pt-3">Percentage</span>
-                    <span className="pt-2 border-b border-black font-serif text-xl">
-                      {parseFloat(
-                        (
-                          (Number(subscription.units) * 100) /
-                          totalUnits
-                        ).toFixed(2)
-                      )}
-                    </span>
-                    <span className="pt-3">Amount</span>
-                    <span className="pt-2 border-b border-black font-serif text-xl">
-                      {amountsReceived[i] ? amountsReceived[i] : "0"}
-                    </span>
-                    {subscription.subscriber.id ===
-                      account.address?.toLowerCase() &&
-                    !subscription.approved ? (
-                      <button
-                        className="bg-neon-green px-2 py-1 font-serif text-xl"
-                        onClick={handleClaim}
-                      >
-                        <span>
-                          {isApproving ? "Approving..." : "Approve Units"}
-                        </span>
-                      </button>
-                    ) : null}
-                  </div>
-                )
-              )}
-            </>
-          )}
-          {!isMobile && (
-            <table className="mt-5 w-full">
-              <thead>
-                <tr>
-                  <th>Address</th>
-                  <th>Units</th>
-                  <th>%</th>
-                  <th className="lg:hidden">Honorarium</th>
-                  <th className="hidden lg:block">To-Date Honorarium</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
+      <div className="flex justify-between w-full mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32 px-4">
+        <div className="flex flex-col justify-between">
+          <PlusSignIcon />
+          <PlusSignIcon />
+        </div>
+        <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[130px] 2xl:text-[145px] text-center">
+          Creator Circle
+        </h1>
+        <div className="flex flex-col justify-between">
+          <PlusSignIcon />
+          <PlusSignIcon />
+        </div>
+      </div>
+      <div className="flex flex-col items-center text-sm sm:text-lg">
+        <div className="flex justify-between items-start w-full mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 px-4">
+          <PlusSignIcon />
+          <div className="flex flex-col w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
+            <div className="flex items-center gap-2 w-full">
+              <PlusSignIcon />{" "}
+              <h3 className="text-xl font-bold">Allocation Table</h3>
+              <span className="ml-auto">
+                <PlusSignIcon />
+              </span>
+            </div>
+            {isMobile && (
+              <>
                 {creatorCircle?.indexes[0]?.subscriptions.map(
                   (subscription: Subscription, i: number) => (
-                    <tr key={i} className="font-serif text-xl">
-                      <td className="pt-3 border-b border-black text-center">
+                    <div key={i} className="flex flex-col">
+                      <span className="pt-3">Address</span>
+                      <span className="pt-2 border-b border-black font-serif text-xl">
                         {truncateStr(subscription.subscriber.id, 20)}
-                      </td>
-                      <td className="pt-3 border-b border-black text-center">
+                      </span>
+                      <span className="pt-3">Address</span>
+                      <span className="pt-2 border-b border-black font-serif text-xl">
                         {subscription.units}
-                      </td>
-                      <td className="pt-3 border-b border-black text-center">
+                      </span>
+                      <span className="pt-3">Percentage</span>
+                      <span className="pt-2 border-b border-black font-serif text-xl">
                         {parseFloat(
                           (
                             (Number(subscription.units) * 100) /
                             totalUnits
                           ).toFixed(2)
                         )}
-                      </td>
-                      <td className="pt-3 border-b border-black text-center">
+                      </span>
+                      <span className="pt-3">Amount</span>
+                      <span className="pt-2 border-b border-black font-serif text-xl">
                         {amountsReceived[i] ? amountsReceived[i] : "0"}
-                      </td>
+                      </span>
                       {subscription.subscriber.id ===
                         account.address?.toLowerCase() &&
                       !subscription.approved ? (
-                        <td className="flex justify-center pt-3">
-                          <button
-                            className="bg-neon-green px-2 py-1"
-                            onClick={handleClaim}
-                          >
-                            <span>
-                              {isApproving ? "Approving..." : "Approve Units"}
-                            </span>
-                          </button>
-                        </td>
+                        <button
+                          className="bg-neon-green px-2 py-1 font-serif text-xl"
+                          onClick={handleClaim}
+                        >
+                          <span>
+                            {isApproving ? "Approving..." : "Approve Units"}
+                          </span>
+                        </button>
                       ) : null}
-                    </tr>
+                    </div>
                   )
                 )}
-              </tbody>
-            </table>
-          )}
-          {account?.address ? (
-            <div className="mt-12 mb-24 2xl:mb-32">
-              <h4 className="text-lg font-bold">Your Available Honorarium</h4>
-              <p className="mt-2 leading-6 text-sm sm:text-base">
-                The Honorariums from all Creator Circles in which you have
-                approved units are collected in the single balance shown below.
-                <br /> You can utilize this{" "}
-                <Link
-                  href="https://docs.superfluid.finance/superfluid/developers/super-tokens"
-                  target="_blank"
-                  prefetch={false}
-                  className="underline"
-                >
-                  Super Token
-                </Link>{" "}
-                balance as is or withdraw to ETH.
-              </p>
-              <h5 className="mt-5 font-serif text-xl">
-                {superTokenBalance
-                  ? formatEther(BigInt(superTokenBalance)).slice(0, 10)
-                  : 0}{" "}
-                ETHx
-              </h5>
-              {superTokenBalance && BigInt(superTokenBalance) > 0 ? (
-                <button
-                  className="mt-3 w-full bg-neon-green py-1 font-serif text-2xl"
-                  onClick={handleWithdraw}
-                >
-                  {isWithdrawing ? "Witdrawing..." : "Withdraw Funds"}
-                </button>
-              ) : null}
-            </div>
-          ) : null}
+              </>
+            )}
+            {!isMobile && (
+              <table className="mt-5 w-full">
+                <thead>
+                  <tr>
+                    <th>Address</th>
+                    <th>Units</th>
+                    <th>%</th>
+                    <th className="lg:hidden">Honorarium</th>
+                    <th className="hidden lg:block">To-Date Honorarium</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {creatorCircle?.indexes[0]?.subscriptions.map(
+                    (subscription: Subscription, i: number) => (
+                      <tr key={i} className="font-serif text-xl">
+                        <td className="pt-3 border-b border-black text-center">
+                          {truncateStr(subscription.subscriber.id, 20)}
+                        </td>
+                        <td className="pt-3 border-b border-black text-center">
+                          {subscription.units}
+                        </td>
+                        <td className="pt-3 border-b border-black text-center">
+                          {parseFloat(
+                            (
+                              (Number(subscription.units) * 100) /
+                              totalUnits
+                            ).toFixed(2)
+                          )}
+                        </td>
+                        <td className="pt-3 border-b border-black text-center">
+                          {amountsReceived[i] ? amountsReceived[i] : "0"}
+                        </td>
+                        {subscription.subscriber.id ===
+                          account.address?.toLowerCase() &&
+                        !subscription.approved ? (
+                          <td className="flex justify-center pt-3">
+                            <button
+                              className="bg-neon-green px-2 py-1"
+                              onClick={handleClaim}
+                            >
+                              <span>
+                                {isApproving ? "Approving..." : "Approve Units"}
+                              </span>
+                            </button>
+                          </td>
+                        ) : null}
+                      </tr>
+                    )
+                  )}
+                </tbody>
+              </table>
+            )}
+          </div>
+          <PlusSignIcon />
         </div>
       </div>
+      {account?.address ? (
+        <div className="flex justify-between items-start w-full mt-12 px-4">
+          <PlusSignIcon />
+          <div className="flex flex-col items-start w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
+            <div className="flex items-center gap-2 w-full">
+              <PlusSignIcon />
+              <h4 className="text-lg font-bold">Your Available Honorarium</h4>
+              <span className="ml-auto">
+                <PlusSignIcon />
+              </span>
+            </div>
+            <p className="mt-2 leading-6 text-sm sm:text-base">
+              The Honorariums from all Creator Circles in which you have
+              approved units are collected in the single balance shown below.
+              <br /> You can utilize this{" "}
+              <Link
+                href="https://docs.superfluid.finance/superfluid/developers/super-tokens"
+                target="_blank"
+                prefetch={false}
+                className="underline"
+              >
+                Super Token
+              </Link>{" "}
+              balance as is or withdraw to ETH.
+            </p>
+            <h5 className="mt-5 font-serif text-xl">
+              {superTokenBalance
+                ? formatEther(BigInt(superTokenBalance)).slice(0, 10)
+                : 0}{" "}
+              ETHx
+            </h5>
+            {superTokenBalance && BigInt(superTokenBalance) > 0 ? (
+              <button
+                className="mt-3 w-full bg-neon-green py-1 font-serif text-2xl"
+                onClick={handleWithdraw}
+              >
+                {isWithdrawing ? "Witdrawing..." : "Withdraw Funds"}
+              </button>
+            ) : null}
+          </div>
+          <PlusSignIcon />
+        </div>
+      ) : null}
     </>
   );
 }

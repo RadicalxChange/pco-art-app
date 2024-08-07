@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
 import { Flowbite, CustomFlowbiteTheme, Modal } from "flowbite-react";
+import PlusSignIcon from "@/components/shared/plus-sign-icon";
 import PlusSignAnimated from "@/components/shared/plus-sign-animated";
 
 const customTheme: CustomFlowbiteTheme = {
@@ -21,14 +22,38 @@ export default function Home() {
   const isMobile = useMediaQuery({ query: "(max-width: 640px)" });
 
   return (
-    <div className="flex flex-center relative h-[calc(100vh-36px)] md:h-[calc(100vh-52px)]">
-      <Image
-        src="/hero.svg"
-        alt="Hero"
-        width={isMobile ? 212 : 650}
-        height={isMobile ? 109 : 325}
-        className="absolute"
-      />
+    <div className="flex justify-between items-center h-[calc(100vh-36px)] md:h-[calc(100vh-56px)]">
+      <div className="flex flex-col justify-between h-full px-4">
+        <span className="opacity-0">
+          <PlusSignIcon />
+        </span>
+        <PlusSignIcon />
+        <PlusSignIcon />
+      </div>
+      <div className="flex justify-between">
+        <div className="flex flex-col justify-between">
+          <PlusSignIcon />
+          <PlusSignIcon />
+        </div>
+        <Image
+          src="/hero.svg"
+          alt="Hero"
+          width={isMobile ? 212 : 650}
+          height={isMobile ? 109 : 325}
+          className="py-[6px]"
+        />
+        <div className="flex flex-col justify-between">
+          <PlusSignIcon />
+          <PlusSignIcon />
+        </div>
+      </div>
+      <div className="flex flex-col justify-between h-full px-4">
+        <span className="opacity-0">
+          <PlusSignIcon />
+        </span>
+        <PlusSignIcon />
+        <PlusSignIcon />
+      </div>
       <Flowbite theme={{ theme: customTheme }}>
         <Modal
           show={openModal}

@@ -7,6 +7,7 @@ import { Address, useAccount, useNetwork } from "wagmi";
 import { useMediaQuery } from "react-responsive";
 import useElementOffset from "@/lib/hooks/use-element-offset";
 
+import PlusSignIcon from "@/components/shared/plus-sign-icon";
 import CreatorCircleAllocationEntry from "@/components/shared/CreatorCircleAllocationEntry";
 import { ethXAddress } from "@/lib/blockchain";
 import { IDABeneficiaryInit } from "@/lib/hooks/use-facet-init";
@@ -96,186 +97,212 @@ export default function ConfigBeneficiaryFacet({
 
   return (
     <>
-      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[130px] 2xl:text-[145px] text-center mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
-        3.
-        <br />
-        Creator Circle
-      </h1>
+      <div className="flex justify-between w-full mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32 px-4">
+        <div className="flex flex-col justify-between">
+          <PlusSignIcon />
+          <PlusSignIcon />
+        </div>
+        <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[130px] 2xl:text-[145px] text-center">
+          3.
+          <br />
+          Creator Circle
+        </h1>
+        <div className="flex flex-col justify-between">
+          <PlusSignIcon />
+          <PlusSignIcon />
+        </div>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto text-sm sm:text-lg">
-          <div
-            ref={formContainerRef}
-            className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24"
-          >
-            <div className="flex">
-              <span className="w-[45%]">Intro</span>
-              <span className="w-[55%]">
-                The Creator Circle is the group of people/organizations that
-                receive a token&apos;s Periodic Honorarium.
-              </span>
-            </div>
-            <div className="flex mt-10">
-              <label htmlFor="cycle" className="w-[45%]">
-                Allocation Table
-              </label>
-              <div className="w-[55%]">
-                <label htmlFor="cycle">
-                  Enter the addresses and allocation units to define your
-                  Creator Circle. Don't forget to include yourself as the
-                  Artist! You can enter a single Ethereum address (e.g. a DAO
-                  treasury) if you have other mechanisms planned for allocation.
-                  <br />
-                  <br />
-                  Note: Always use the smallest number of units required to
-                  achieve your desired Honorarium split.
-                </label>
-                {!isMobile && (
-                  <>
-                    <FormProvider {...methods}>
-                      {watchAllocation?.map((_, index) => (
-                        <CreatorCircleAllocationEntry
-                          key={index}
-                          index={index}
-                          register={register}
-                          totalUnits={totalUnits!}
-                        />
-                      )) ?? (
-                        <CreatorCircleAllocationEntry
-                          index={0}
-                          register={register}
-                          totalUnits={totalUnits!}
-                        />
-                      )}
-                    </FormProvider>
-                    <div className="flex gap-5">
-                      <button
-                        className="w-full flex items-center gap-1 bg-transparent"
-                        onClick={() => {
-                          setValue(
-                            `beneficiary.allocation.${
-                              watchAllocation?.length ?? 0 + 1
-                            }.units`,
-                            0
-                          );
-                        }}
-                      >
-                        <Image
-                          src="/add.svg"
-                          alt="Add"
-                          width={23}
-                          height={23}
-                        />
-                        Add another recipient
-                      </button>
-                      <input
-                        type="number"
-                        id="name"
-                        className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
-                        disabled
-                        value={totalUnits}
-                      />
-                      <input
-                        type="text"
-                        id="name"
-                        className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
-                        disabled
-                        value={`100%`}
-                      />
-                    </div>
-                  </>
-                )}
+        <div className="flex flex-col items-center text-sm sm:text-lg">
+          <div className="flex justify-between items-start w-full mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 px-4">
+            <PlusSignIcon />
+            <div
+              ref={formContainerRef}
+              className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]"
+            >
+              <div className="flex">
+                <div className="flex items-start gap-2 w-[45%]">
+                  <PlusSignIcon />
+                  <span>Intro</span>
+                </div>
+                <div className="flex items-start gap-2 w-[55%]">
+                  <span>
+                    The Creator Circle is the group of people/organizations that
+                    receive a token&apos;s Periodic Honorarium.
+                  </span>
+                  <PlusSignIcon />
+                </div>
               </div>
             </div>
-            {isMobile && (
-              <>
-                <FormProvider {...methods}>
-                  {watchAllocation?.map((_, index) => (
-                    <CreatorCircleAllocationEntry
-                      key={index}
-                      index={index}
-                      register={register}
-                      totalUnits={totalUnits!}
-                    />
-                  )) ?? (
-                    <CreatorCircleAllocationEntry
-                      index={0}
-                      register={register}
-                      totalUnits={totalUnits!}
-                    />
-                  )}
-                </FormProvider>
-                <div className="flex gap-5">
-                  <button
-                    className="w-full flex items-center gap-1 bg-transparent"
-                    onClick={() => {
-                      setValue(
-                        `beneficiary.allocation.${
-                          watchAllocation?.length ?? 0 + 1
-                        }.units`,
-                        0
-                      );
-                    }}
-                  >
-                    <Image src="/add.svg" alt="Add" width={23} height={23} />
-                    Add another recipient
-                  </button>
-                  <input
-                    type="number"
-                    id="name"
-                    className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
-                    disabled
-                    value={totalUnits}
-                  />
-                  <input
-                    type="text"
-                    id="name"
-                    className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
-                    disabled
-                    value={`100%`}
-                  />
+            <PlusSignIcon />
+          </div>
+          <div className="flex justify-between items-start w-full mt-12 px-4">
+            <PlusSignIcon />
+            <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
+              <div className="flex w-full">
+                <div className="flex items-start gap-2 w-[45%]">
+                  <PlusSignIcon />
+                  <label htmlFor="cycle">Allocation Table</label>
                 </div>
-              </>
-            )}
-            <div className="flex items-center mt-20 mb-24 xl:mb-32">
-              <button
-                className="absolute left-0 flex items-center gap-2 sm:gap-3 bg-neon-green px-2 sm:px-4 py-1 font-serif text-2xl"
-                onClick={() => prevStep()}
-              >
-                <Image
-                  src="/back-arrow.svg"
-                  alt="Back"
-                  width={18}
-                  height={18}
-                />
-                Back
-              </button>
-              {formContainerOffset && (
+                <div className="flex items-start gap-2 w-[55%]">
+                  <div>
+                    <label htmlFor="cycle">
+                      Enter the addresses and allocation units to define your
+                      Creator Circle. Don't forget to include yourself as the
+                      Artist! You can enter a single Ethereum address (e.g. a
+                      DAO treasury) if you have other mechanisms planned for
+                      allocation.
+                      <br />
+                      <br />
+                      Note: Always use the smallest number of units required to
+                      achieve your desired Honorarium split.
+                    </label>
+                    {!isMobile && (
+                      <>
+                        <FormProvider {...methods}>
+                          {watchAllocation?.map((_, index) => (
+                            <CreatorCircleAllocationEntry
+                              key={index}
+                              index={index}
+                              register={register}
+                              totalUnits={totalUnits!}
+                            />
+                          )) ?? (
+                            <CreatorCircleAllocationEntry
+                              index={0}
+                              register={register}
+                              totalUnits={totalUnits!}
+                            />
+                          )}
+                        </FormProvider>
+                        <div className="flex gap-5">
+                          <button
+                            className="w-full flex items-center gap-1 bg-transparent"
+                            onClick={() => {
+                              setValue(
+                                `beneficiary.allocation.${
+                                  watchAllocation?.length ?? 0 + 1
+                                }.units`,
+                                0
+                              );
+                            }}
+                          >
+                            <Image
+                              src="/add.svg"
+                              alt="Add"
+                              width={23}
+                              height={23}
+                            />
+                            Add another recipient
+                          </button>
+                          <input
+                            type="number"
+                            id="name"
+                            className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
+                            disabled
+                            value={totalUnits}
+                          />
+                          <input
+                            type="text"
+                            id="name"
+                            className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
+                            disabled
+                            value={`100%`}
+                          />
+                        </div>
+                      </>
+                    )}
+                  </div>
+                  <PlusSignIcon />
+                </div>
+              </div>
+            </div>
+            <PlusSignIcon />
+          </div>
+          {isMobile && (
+            <div className="px-4">
+              <FormProvider {...methods}>
+                {watchAllocation?.map((_, index) => (
+                  <CreatorCircleAllocationEntry
+                    key={index}
+                    index={index}
+                    register={register}
+                    totalUnits={totalUnits!}
+                  />
+                )) ?? (
+                  <CreatorCircleAllocationEntry
+                    index={0}
+                    register={register}
+                    totalUnits={totalUnits!}
+                  />
+                )}
+              </FormProvider>
+              <div className="flex gap-5">
                 <button
-                  type="submit"
-                  className="flex gap-2 items-center sm:gap-3 bg-neon-green px-2 py-1 font-serif text-2xl absolute w-[250px] sm:w-3/4"
-                  style={{
-                    right: isMobile || isTablet ? 0 : "",
-                    left: isMobile || isTablet ? "" : formContainerOffset.left,
-                    width:
-                      isMobile || isTablet
-                        ? ""
-                        : document.documentElement.clientWidth -
-                          formContainerOffset.left,
+                  className="w-full flex items-center gap-1 bg-transparent"
+                  onClick={() => {
+                    setValue(
+                      `beneficiary.allocation.${
+                        watchAllocation?.length ?? 0 + 1
+                      }.units`,
+                      0
+                    );
                   }}
                 >
-                  <Image
-                    src="/forward-arrow.svg"
-                    alt="Forward"
-                    width={18}
-                    height={18}
-                  />
-                  {isMobile
-                    ? "4. English Auction"
-                    : "4. English Auction Configuration"}
+                  <Image src="/add.svg" alt="Add" width={23} height={23} />
+                  Add another recipient
                 </button>
-              )}
+                <input
+                  type="number"
+                  id="name"
+                  className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
+                  disabled
+                  value={totalUnits}
+                />
+                <input
+                  type="text"
+                  id="name"
+                  className="w-4/12 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
+                  disabled
+                  value={`100%`}
+                />
+              </div>
             </div>
-          </div>
+          )}
+        </div>
+        <div className="flex items-center mt-16 sm:mt-24 mb-24 xl:mb-32">
+          <button
+            className="absolute left-0 flex items-center gap-2 sm:gap-3 bg-neon-green px-2 sm:px-4 py-1 font-serif text-2xl"
+            onClick={() => prevStep()}
+          >
+            <Image src="/back-arrow.svg" alt="Back" width={18} height={18} />
+            Back
+          </button>
+          {formContainerOffset && (
+            <button
+              type="submit"
+              className="flex gap-2 items-center sm:gap-3 bg-neon-green px-2 py-1 font-serif text-2xl absolute w-[250px] sm:w-3/4"
+              style={{
+                right: isMobile || isTablet ? 0 : "",
+                left: isMobile || isTablet ? "" : formContainerOffset.left,
+                width:
+                  isMobile || isTablet
+                    ? ""
+                    : document.documentElement.clientWidth -
+                      formContainerOffset.left,
+              }}
+            >
+              <Image
+                src="/forward-arrow.svg"
+                alt="Forward"
+                width={18}
+                height={18}
+              />
+              {isMobile
+                ? "4. English Auction"
+                : "4. English Auction Configuration"}
+            </button>
+          )}
         </div>
       </form>
     </>

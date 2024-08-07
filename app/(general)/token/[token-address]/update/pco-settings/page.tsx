@@ -6,6 +6,7 @@ import { Address, useContractReads } from "wagmi";
 import { waitForTransaction, writeContract } from "wagmi/actions";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 
+import PlusSignIcon from "@/components/shared/plus-sign-icon";
 import ForwardArrowAnimated from "@/components/shared/forward-arrow-animated";
 import { BranchIsWalletConnected } from "@/components/shared/branch-is-wallet-connected";
 import {
@@ -127,78 +128,107 @@ export default function UpdatePCOSettingsPage({
 
   return (
     <>
-      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[130px] 2xl:text-[145px] text-center mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
-        Edit
-        <br />
-        PCO Settings
-      </h1>
+      <div className="flex justify-between w-full mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32 px-4">
+        <div className="flex flex-col justify-between">
+          <PlusSignIcon />
+          <PlusSignIcon />
+        </div>
+        <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[130px] 2xl:text-[145px] text-center">
+          Edit
+          <br />
+          PCO Settings
+        </h1>
+        <div className="flex flex-col justify-between">
+          <PlusSignIcon />
+          <PlusSignIcon />
+        </div>
+      </div>
       <form onSubmit={handleSubmit(handleSave)} className="relative">
-        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
-          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 textm sm:text-lg">
-            <div className="flex">
-              <label htmlFor="cycle" className="w-[45%]">
-                Stewardship Cycle
-              </label>
-              <div className="flex flex-col w-[55%]">
-                <label htmlFor="cycle">
-                  The duration between Stewardship Inaugurations. Weeks, months,
-                  and years are converted to seconds based on 7, 30, & 365 days
-                  respectively.
-                </label>
-                <input
-                  {...register("pco-settings.cycle")}
-                  type="number"
-                  id="cycle"
-                  required
-                  min={1}
-                  placeholder="365"
-                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] p-1"
-                />
-                <select
-                  {...register("pco-settings.cycle-type")}
-                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl text-[#ADADAD] p-1"
-                  defaultValue="days"
-                >
-                  <option value="minutes">Minutes</option>
-                  <option value="hours">Hours</option>
-                  <option value="days">Days</option>
-                  <option value="weeks">Weeks</option>
-                  <option value="years">Years</option>
-                </select>
-              </div>
-            </div>
-            <div className="flex mt-10">
-              <label htmlFor="rate" className="w-[45%]">
-                Honorarium Rate
-              </label>
-              <div className="flex flex-col w-[55%]">
-                <label htmlFor="rate">
-                  The percent of a winning Stewardship Inauguration bid that is
-                  contributed to the Creator Circle in each Stewardship Cycle.
-                </label>
-                <input
-                  {...register("pco-settings.rate")}
-                  type="number"
-                  id="rate"
-                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] p-1"
-                  placeholder="%"
-                  required
-                  min={0.01}
-                  step={0.01}
-                />
-                <div className="bg-transparent border-solid border-0 border-b border-black p-0 font-serif text-xl text-[#ADADAD] p-1">
-                  = an Annualized Rate of{" "}
-                  {annualizedRate
-                    ? `${parseFloat(annualizedRate.toFixed(2))}%`
-                    : 0}
+        <div className="flex flex-col items-center text-sm sm:text-lg">
+          <div className="flex justify-between items-start w-full mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 px-4">
+            <PlusSignIcon />
+            <div className="flex w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
+              <div className="flex w-full">
+                <div className="flex items-start gap-2 w-[45%]">
+                  <PlusSignIcon />
+                  <label htmlFor="cycle">Stewardship Cycle</label>
+                </div>
+                <div className="flex items-start gap-2 w-[55%]">
+                  <div className="flex flex-col w-full">
+                    <label htmlFor="cycle">
+                      The duration between Stewardship Inaugurations. Weeks,
+                      months, and years are converted to seconds based on 7, 30,
+                      & 365 days respectively.
+                    </label>
+                    <input
+                      {...register("pco-settings.cycle")}
+                      type="number"
+                      id="cycle"
+                      required
+                      min={1}
+                      placeholder="365"
+                      className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] p-1"
+                    />
+                    <select
+                      {...register("pco-settings.cycle-type")}
+                      className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl text-[#ADADAD] p-1"
+                      defaultValue="days"
+                    >
+                      <option value="minutes">Minutes</option>
+                      <option value="hours">Hours</option>
+                      <option value="days">Days</option>
+                      <option value="weeks">Weeks</option>
+                      <option value="years">Years</option>
+                    </select>
+                  </div>
+                  <PlusSignIcon />
                 </div>
               </div>
             </div>
+            <PlusSignIcon />
           </div>
+        </div>
+        <div className="flex justify-between items-start w-full mt-12 px-4">
+          <PlusSignIcon />
+          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
+            <div className="flex w-full">
+              <div className="flex items-start gap-2 w-[45%]">
+                <PlusSignIcon />
+                <label htmlFor="rate">Honorarium Rate</label>
+              </div>
+              <div className="flex items-start gap-2 w-[55%]">
+                <div className="flex flex-col w-full">
+                  <label htmlFor="rate">
+                    The percent of a winning Stewardship Inauguration bid that
+                    is contributed to the Creator Circle in each Stewardship
+                    Cycle.
+                  </label>
+                  <input
+                    {...register("pco-settings.rate")}
+                    type="number"
+                    id="rate"
+                    className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] p-1"
+                    placeholder="%"
+                    required
+                    min={0.01}
+                    step={0.01}
+                  />
+                  <div className="bg-transparent border-solid border-0 border-b border-black p-0 font-serif text-xl text-[#ADADAD] p-1">
+                    = an Annualized Rate of{" "}
+                    {annualizedRate
+                      ? `${parseFloat(annualizedRate.toFixed(2))}%`
+                      : 0}
+                  </div>
+                </div>
+                <PlusSignIcon />
+              </div>
+            </div>
+          </div>
+          <PlusSignIcon />
         </div>
         <BranchIsWalletConnected>
           <button
-            className="w-full mt-10 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
+            className="w-full mt-12 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
             disabled={isSaving}
           >
             <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
@@ -208,7 +238,7 @@ export default function UpdatePCOSettingsPage({
             </div>
           </button>
           <button
-            className="w-full mt-10 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
+            className="w-full mt-12 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
             onClick={(e) => {
               e.preventDefault();
 

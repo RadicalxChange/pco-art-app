@@ -8,6 +8,7 @@ import { Address, useAccount, useContractReads } from "wagmi";
 import { waitForTransaction, writeContract } from "wagmi/actions";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 
+import PlusSignIcon from "@/components/shared/plus-sign-icon";
 import { BranchIsWalletConnected } from "@/components/shared/branch-is-wallet-connected";
 import ForwardArrowAnimated from "@/components/shared/forward-arrow-animated";
 import {
@@ -281,74 +282,106 @@ export default function UpdatePCOSettingsPage({
 
   return (
     <>
-      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[130px] 2xl:text-[145px] text-center mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
-        Edit
-        <br />
-        Permissions
-      </h1>
+      <div className="flex justify-between w-full mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32 px-4">
+        <div className="flex flex-col justify-between">
+          <PlusSignIcon />
+          <PlusSignIcon />
+        </div>
+        <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[130px] 2xl:text-[145px] text-center">
+          Edit
+          <br />
+          Permissions
+        </h1>
+        <div className="flex flex-col justify-between">
+          <PlusSignIcon />
+          <PlusSignIcon />
+        </div>
+      </div>
       <form onSubmit={handleSubmit(handleSave)}>
-        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
-          <div className="w-[320px] sm:w-[600px] xl:w-[800px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-sm sm:text-lg">
-            <div className="flex">
-              <span className="w-[45%]">Intro</span>
-              <span className="w-[55%]">
-                Certain aspects of your Stewardship License can be configured to
-                allow for updates. Carefully consider the expectations of your
-                future Stewards & Creator Circle. There are social and security
-                trade-offs with upgradability vs. immutability. You can forgo,
-                maintain, or allocate these permissions. We&apos;ve set
-                suggested defaults. Make sure secure access to the selected
-                addresses can be maintained. We cannot change these values for
-                you.
-              </span>
-            </div>
-            <div className="flex mt-10">
-              <label htmlFor="owner" className="w-[45%]">
-                Token Admin
-              </label>
-              <div className="flex flex-col w-[55%]">
-                <label htmlFor="owner">
-                  This role mimics the permissions that you are exercising now
-                  at minting (with technical limitations around backward
-                  compatibility). This address can change a token&apos;s PCO
-                  settings, implementation/configuration of core components, and
-                  reassign the roles below. Set to 0x0 if/when you don&apos;t
-                  want an admin.
-                </label>
-                <div className="flex flex-col">
-                  <input
-                    {...register(`owner`)}
-                    type="text"
-                    className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
-                    placeholder="0x"
-                    required
-                    pattern="^(0x)?[0-9a-fA-F]{40}$"
-                    style={{
-                      pointerEvents:
-                        account.address === collectionOwner ? "auto" : "none",
-                      opacity: account.address === collectionOwner ? 1 : 0.4,
-                    }}
-                  />
-                </div>
-                {isTransferPending && nomineeOwner === account.address ? (
-                  <button
-                    className="w-full bg-neon-green font-serif text-xl py-1"
-                    onClick={handleTransferAcceptance}
-                  >
-                    <span className="font-bold">
-                      {isAcceptingOwnership
-                        ? "Accepting..."
-                        : "Accept Ownership"}
-                    </span>
-                  </button>
-                ) : isTransferPending ? (
-                  <span className="pt-1">Pending Acceptance</span>
-                ) : null}
+        <div className="flex flex-col items-center text-sm sm:text-lg">
+          <div className="flex justify-between items-start w-full mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 px-4">
+            <PlusSignIcon />
+            <div className="flex w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
+              <div className="flex items-start gap-2 w-[45%]">
+                <PlusSignIcon />
+                <span>Intro</span>
+              </div>
+              <div className="flex items-start gap-2 w-[55%]">
+                <span>
+                  Certain aspects of your Stewardship License can be configured
+                  to allow for updates. Carefully consider the expectations of
+                  your future Stewards & Creator Circle. There are social and
+                  security trade-offs with upgradability vs. immutability. You
+                  can forgo, maintain, or allocate these permissions. We&apos;ve
+                  set suggested defaults. Make sure secure access to the
+                  selected addresses can be maintained. We cannot change these
+                  values for you.
+                </span>
+                <PlusSignIcon />
               </div>
             </div>
-            <div className="flex mt-10">
-              <label className="w-[45%]">Component Configuration</label>
-              <div className="flex flex-col w-[55%]">
+            <PlusSignIcon />
+          </div>
+          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] text-sm sm:text-lg">
+            <div className="flex mt-12">
+              <div className="flex items-start gap-2 w-[45%]">
+                <PlusSignIcon />
+                <label htmlFor="owner">Token Admin</label>
+              </div>
+              <div className="flex items-start gap-2 w-[55%]">
+                <div className="flex flex-col">
+                  <label htmlFor="owner">
+                    This role mimics the permissions that you are exercising now
+                    at minting (with technical limitations around backward
+                    compatibility). This address can change a token&apos;s PCO
+                    settings, implementation/configuration of core components,
+                    and reassign the roles below. Set to 0x0 if/when you
+                    don&apos;t want an admin.
+                  </label>
+                  <div className="flex flex-col">
+                    <input
+                      {...register(`owner`)}
+                      type="text"
+                      className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
+                      placeholder="0x"
+                      required
+                      pattern="^(0x)?[0-9a-fA-F]{40}$"
+                      style={{
+                        pointerEvents:
+                          account.address === collectionOwner ? "auto" : "none",
+                        opacity: account.address === collectionOwner ? 1 : 0.4,
+                      }}
+                    />
+                  </div>
+                  {isTransferPending && nomineeOwner === account.address ? (
+                    <button
+                      className="w-full bg-neon-green font-serif text-xl py-1"
+                      onClick={handleTransferAcceptance}
+                    >
+                      <span className="font-bold">
+                        {isAcceptingOwnership
+                          ? "Accepting..."
+                          : "Accept Ownership"}
+                      </span>
+                    </button>
+                  ) : isTransferPending ? (
+                    <span className="pt-1">Pending Acceptance</span>
+                  ) : null}
+                </div>
+                <PlusSignIcon />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="flex justify-between items-start w-full mt-12 px-4">
+          <PlusSignIcon />
+          <div className="flex items-start w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
+            <div className="flex items-start gap-2 w-[45%]">
+              <PlusSignIcon />
+              <label>Component Configuration</label>
+            </div>
+            <div className="flex items-start gap-2 w-[55%]">
+              <div className="flex flex-col">
                 <label>
                   Assign the ability to configure the details of each core
                   component. Token Admins can reassign these roles at any time.
@@ -447,12 +480,14 @@ export default function UpdatePCOSettingsPage({
                   }}
                 />
               </div>
+              <PlusSignIcon />
             </div>
           </div>
+          <PlusSignIcon />
         </div>
         <BranchIsWalletConnected>
           <button
-            className="w-full mt-10 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
+            className="w-full mt-12 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
             disabled={isSaving || actions.length === 0}
           >
             <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
@@ -468,7 +503,7 @@ export default function UpdatePCOSettingsPage({
             </div>
           </button>
           <button
-            className="w-full mt-10 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
+            className="w-full mt-12 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
             onClick={(e) => {
               e.preventDefault();
 

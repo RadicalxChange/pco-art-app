@@ -9,6 +9,7 @@ import { Address, useAccount, useContractRead, useContractReads } from "wagmi";
 import { readContract, waitForTransaction, writeContract } from "wagmi/actions";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 
+import PlusSignIcon from "@/components/shared/plus-sign-icon";
 import { BranchIsWalletConnected } from "@/components/shared/branch-is-wallet-connected";
 import {
   Dialog,
@@ -567,58 +568,125 @@ export default function TokenPage({
 
   return (
     <>
-      <h1 className="font-mono text-6xl sm:text-[75px] xl:text-[130px] 2xl:text-[145px] text-center mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
-        {tokenInfo?.name}
-      </h1>
-      <h2 className="font-mono text-3xl text-center leading-none">
-        TESTNET COLLECTION - For testing purposes only
-      </h2>
-      <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
-        <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] mt-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-sm sm:text-lg">
-          <div className="flex flex-col justify-start gap-5 lg:flex-row mb-16 sm:mb-24 sm:pl-3">
-            <div>
-              <img
-                src={
-                  tokenInfo?.image
-                    ? `https://w3s.link/ipfs/${tokenInfo.image.replace(
-                        "ipfs://",
-                        ""
-                      )}`
-                    : "/placeholder-image.png"
-                }
-                alt="Token Image"
-                className="w-full lg:w-[400px] xl:w-[500px] 2xl:w-[700px] lg:h-[400px] xl:h-[500px] 2xl:h-[700px] object-contain object-right-top"
-              />
+      <div className="flex flex justify-between w-full mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
+        <div className="flex flex-col justify-between px-4">
+          <PlusSignIcon />
+          <PlusSignIcon />
+        </div>
+        <div>
+          <h1 className="font-mono text-6xl sm:text-[75px] xl:text-[130px] 2xl:text-[145px] text-center">
+            {tokenInfo?.name}
+          </h1>
+          <h2 className="font-mono text-3xl text-center leading-none">
+            TESTNET COLLECTION - For testing purposes only
+          </h2>
+        </div>
+        <div className="flex flex-col justify-between px-4">
+          <PlusSignIcon />
+          <PlusSignIcon />
+        </div>
+      </div>
+      <div className="flex justify-between w-full mt-10 sm:mt-16 xl:mt-20 2xl:mt-24">
+        <div className="flex flex-col justify-between sm:px-4">
+          <PlusSignIcon />
+          <PlusSignIcon />
+        </div>
+        <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] text-sm sm:text-lg">
+          <div className="flex flex-col justify-start gap-3 lg:flex-row sm:pl-3">
+            <div className="flex sm:gap-x-2">
+              <div className="flex flex-col justify-between">
+                <PlusSignIcon />
+                <PlusSignIcon />
+              </div>
+              <div className="w-full py-1.5">
+                <img
+                  src={
+                    tokenInfo?.image
+                      ? `https://w3s.link/ipfs/${tokenInfo.image.replace(
+                          "ipfs://",
+                          ""
+                        )}`
+                      : "/placeholder-image.png"
+                  }
+                  alt="Token Image"
+                  className="w-full lg:w-[400px] xl:w-[500px] 2xl:w-[700px] lg:h-[400px] xl:h-[500px] 2xl:h-[700px] object-contain object-right-top"
+                />
+              </div>
             </div>
             <div className="flex flex-col w-full lg:w-1/3">
-              <span>Artist</span>
-              <span className="font-serif text-xl">
-                {artist ? truncateStr(artist, 12) : "N/A"}
-              </span>
-              <span className="mt-6">Current Steward</span>
-              <span className="font-serif text-xl">
-                {currentSteward ? truncateStr(currentSteward, 12) : "N/A"}
-              </span>
-              <Link
-                href={`/token/${tokenAddress}/creator-circle`}
-                className="mt-6 underline"
-              >
-                Creator Circle
-              </Link>
-              <span className="mt-6 font-serif text-xl">
-                {tokenInfo?.description}
+              <div className="flex items-start">
+                <PlusSignIcon />
+                <div className="flex flex-col sm:mx-2">
+                  <span>Artist</span>
+                  <span className="font-serif text-xl">
+                    {artist ? truncateStr(artist, 12) : "N/A"}
+                  </span>
+                </div>
+                <span className="ml-auto">
+                  <PlusSignIcon />
+                </span>
+              </div>
+              <div className="flex items-start mt-6">
+                <PlusSignIcon />
+                <div className="flex flex-col sm:mx-2">
+                  <span>Current Steward</span>
+                  <span className="font-serif text-xl">
+                    {currentSteward ? truncateStr(currentSteward, 12) : "N/A"}
+                  </span>
+                </div>
+                <span className="ml-auto">
+                  <PlusSignIcon />
+                </span>
+              </div>
+              <div className="flex items-start mt-6">
+                <PlusSignIcon />
+                <div className="flex flex-col sm:mx-2">
+                  <Link
+                    href={`/token/${tokenAddress}/creator-circle`}
+                    className="underline"
+                  >
+                    Creator Circle
+                  </Link>
+                </div>
+                <span className="ml-auto">
+                  <PlusSignIcon />
+                </span>
+              </div>
+              <div className="flex items-start mt-10">
+                <PlusSignIcon />
+                <div className="w-full flex flex-col sm:mx-2">
+                  <span className="font-serif text-xl">
+                    {tokenInfo?.description}
+                  </span>
+                </div>
+                <span className="ml-auto">
+                  <PlusSignIcon />
+                </span>
+              </div>
+              <span className="flex justify-between mt-auto">
+                <PlusSignIcon />
+                <PlusSignIcon />
               </span>
             </div>
           </div>
-          {account?.address === currentSteward &&
-          (!isAuctionStarted || isAuctionFinished) &&
-          !isAuctionPeriod ? (
-            <>
-              <div className="flex flex-col sm:flex-row mb-10">
-                <span className="sm:w-[45%] sm:pl-3">
-                  TokenID in Collection
-                </span>
-                <div className="flex flex-col sm:w-[55%] sm:pl-3">
+        </div>
+        <div className="flex flex-col justify-between sm:px-4">
+          <PlusSignIcon />
+          <PlusSignIcon />
+        </div>
+      </div>
+      <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] mt-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-sm sm:text-lg mx-auto">
+        {account?.address === currentSteward &&
+        (!isAuctionStarted || isAuctionFinished) &&
+        !isAuctionPeriod ? (
+          <>
+            <div className="flex flex-col sm:flex-row mb-10">
+              <div className="flex items-start gap-2 sm:w-[45%] sm:pl-3">
+                <PlusSignIcon />
+                TokenID in Collection
+              </div>
+              <div className="flex items-start gap-2 sm:w-[55%] sm:pl-3">
+                <div className="flex flex-col w-full">
                   <span className="font-serif text-xl border-b border-black">
                     {tokenId.toString()}
                   </span>
@@ -667,15 +735,19 @@ export default function TokenPage({
                     </DialogContent>
                   </Dialog>
                 </div>
+                <PlusSignIcon />
               </div>
-            </>
-          ) : null}
-          <div className="flex flex-col">
-            <div className="flex flex-col sm:flex-row justify-center">
-              <span className="sm:w-[45%] mb-2 sm:mb-0 sm:pl-3">
-                Stewardship Details
-              </span>
-              <div className="sm:w-[55%] sm:pl-3">
+            </div>
+          </>
+        ) : null}
+        <div className="flex flex-col">
+          <div className="flex flex-col sm:flex-row justify-center">
+            <div className="flex items-start gap-2 sm:w-[45%] sm:pl-3">
+              <PlusSignIcon />
+              <span className="mb-2 sm:mb-0">Stewardship Details</span>
+            </div>
+            <div className="flex items-start gap-2 sm:w-[55%] sm:pl-3">
+              <div className="w-full">
                 <div>
                   <span>Last Valuation: </span>
                   <span className="font-serif text-xl">
@@ -727,17 +799,21 @@ export default function TokenPage({
                   </Link>
                 ) : null}
               </div>
+              <PlusSignIcon />
             </div>
-            {(!isAuctionPeriod && hasPcoParamsRole) ||
-            hasBeneficiaryRole ||
-            hasAuctionRole ||
-            hasAllowlistRole ||
-            hasAddTokenToCollectionRole ? (
-              <div className="flex flex-col sm:flex-row mt-10">
-                <span className="sm:w-[45%] mb-4 sm:mb-0 sm:pl-3">
-                  Token Configuration
-                </span>
-                <div className="flex flex-col gap-2 sm:w-[55%] sm:pl-3">
+          </div>
+          {(!isAuctionPeriod && hasPcoParamsRole) ||
+          hasBeneficiaryRole ||
+          hasAuctionRole ||
+          hasAllowlistRole ||
+          hasAddTokenToCollectionRole ? (
+            <div className="flex flex-col sm:flex-row mt-10">
+              <div className="flex items-start gap-2 sm:w-[45%] sm:pl-3">
+                <PlusSignIcon />
+                <span className="mb-4 sm:mb-0">Token Configuration</span>
+              </div>
+              <div className="flex items-start gap-2 sm:w-[55%] sm:pl-3">
+                <div className="flex flex-col gap-2 w-full">
                   {hasPcoParamsRole ? (
                     <Link href={`/token/${tokenAddress}/update/pco-settings`}>
                       <button className="flex item-center gap-3 w-full bg-neon-green text-start px-2 py-1 font-serif text-xl">
@@ -815,9 +891,10 @@ export default function TokenPage({
                     </button>
                   </Link>
                 </div>
+                <PlusSignIcon />
               </div>
-            ) : null}
-          </div>
+            </div>
+          ) : null}
         </div>
       </div>
       <div className="flex flex-col mt-12 mb-24 xl:mb-32">
@@ -825,14 +902,16 @@ export default function TokenPage({
           <>
             <div className="w-full bg-neon-green py-1 text-sm sm:text-lg">
               <div className="flex flex-col sm:flex-row items-center w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto">
-                <span className="sm:w-[45%] pl-1 sm:pl-3">
-                  Stewardship Inauguration
-                </span>
-                <span className="font-serif text-xl sm:w-[55%] pl-1 sm:pl-3">
+                <div className="flex items-center gap-2 sm:w-[45%] pl-1 sm:pl-3">
+                  <PlusSignIcon />
+                  <span>STEWARDSHIP INAUGURATION</span>
+                </div>
+                <div className="flex justify-between items-center gap-2 font-serif text-xl sm:w-[55%] pl-1 sm:pl-3">
                   {calculateTimeString(
                     Number(auctionEndTime) * 1000 - Date.now()
                   )}
-                </span>
+                  <PlusSignIcon />
+                </div>
               </div>
             </div>
             <div className="flex w-full items-center sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto">
@@ -895,33 +974,37 @@ export default function TokenPage({
           <>
             <div className="w-full bg-neon-green py-1 text-sm sm:text-lg">
               <div className="flex flex-col sm:flex-row items-center w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto">
-                <span className="sm:w-[45%] pl-1 sm:pl-3">
-                  Stewardship Inauguration
-                </span>
-                <div className="flex items-center gap-2 sm:w-[55%]">
-                  <span className="pl-1 sm:pl-3 font-serif text-xl">
-                    {auctionCountdown}
-                  </span>
-                  {bidExtensionWindowLengthSeconds && bidExtensionSeconds ? (
-                    <Tooltip delayDuration={200}>
-                      <TooltipTrigger>
-                        <Image
-                          src="/info.svg"
-                          alt="Info"
-                          width={20}
-                          height={20}
-                        />
-                      </TooltipTrigger>
-                      <TooltipContent className="max-w-[200px] text-center">
-                        <span className="">
-                          Bids placed in the final{" "}
-                          {Number(bidExtensionWindowLengthSeconds) / 60} minutes
-                          will extend the auction{" "}
-                          {Number(bidExtensionSeconds) / 60} minutes.
-                        </span>
-                      </TooltipContent>
-                    </Tooltip>
-                  ) : null}
+                <div className="flex items-center gap-2 sm:w-[45%] pl-1 sm:pl-3">
+                  <PlusSignIcon />
+                  <span>STEWARDSHIP INAUGURATION</span>
+                </div>
+                <div className="flex justify-between gap-2 sm:w-[55%]">
+                  <div className="flex items-center gap-2">
+                    <span className="pl-1 sm:pl-3 font-serif text-xl">
+                      {auctionCountdown}
+                    </span>
+                    {bidExtensionWindowLengthSeconds && bidExtensionSeconds ? (
+                      <Tooltip delayDuration={200}>
+                        <TooltipTrigger>
+                          <Image
+                            src="/info.svg"
+                            alt="Info"
+                            width={20}
+                            height={20}
+                          />
+                        </TooltipTrigger>
+                        <TooltipContent className="max-w-[200px] text-center">
+                          <span className="">
+                            Bids placed in the final{" "}
+                            {Number(bidExtensionWindowLengthSeconds) / 60}{" "}
+                            minutes will extend the auction{" "}
+                            {Number(bidExtensionSeconds) / 60} minutes.
+                          </span>
+                        </TooltipContent>
+                      </Tooltip>
+                    ) : null}
+                  </div>
+                  <PlusSignIcon />
                 </div>
               </div>
             </div>
@@ -1098,36 +1181,40 @@ export default function TokenPage({
           </>
         ) : (
           <div className="flex flex-col sm:flex-row items-center sm:items-start w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-sm sm:text-lg">
-            <span className="sm:w-[45%] sm:pl-3">
-              Next Stewardship Inauguration
-            </span>
-            <div className="flex flex-col items-center sm:items-start sm:w-[55%]">
-              <span>English Auction [Extending]</span>
-              <div className="mt-1 px-3 sm:px-0">
-                Start:{" "}
-                <span className="font-serif text-xl">
-                  {formatDate(Number(auctionStartTime) * 1000)}
-                </span>
+            <div className="flex items-center gap-2 sm:w-[45%] pl-1 sm:pl-3">
+              <PlusSignIcon />
+              <span>Next Stewardship Inauguration</span>
+            </div>
+            <div className="flex items-start gap-2 sm:w-[55%]">
+              <div className="flex flex-col items-center sm:items-start w-full">
+                <span>English Auction [Extending]</span>
+                <div className="mt-1 px-3 sm:px-0">
+                  Start:{" "}
+                  <span className="font-serif text-xl">
+                    {formatDate(Number(auctionStartTime) * 1000)}
+                  </span>
+                </div>
+                <div className="mt-1 px-3 sm:px-0">
+                  Close:{" "}
+                  <span className="font-serif text-xl">
+                    {formatDate(Number(auctionEndTime) * 1000)}
+                  </span>
+                </div>
+                <div className="mt-6 flex flex-col">
+                  {(availableCollateral && availableCollateral > 0) ||
+                  (lockedCollateral && lockedCollateral > 0) ? (
+                    <div className="pb-3 border-b border-black">
+                      {userCollateralView}
+                    </div>
+                  ) : null}
+                  {lockedCollateral && lockedCollateral > 0
+                    ? cancelBidButton
+                    : availableCollateral && availableCollateral > 0
+                    ? withdrawCollateralButton
+                    : null}
+                </div>
               </div>
-              <div className="mt-1 px-3 sm:px-0">
-                Close:{" "}
-                <span className="font-serif text-xl">
-                  {formatDate(Number(auctionEndTime) * 1000)}
-                </span>
-              </div>
-              <div className="mt-6 flex flex-col">
-                {(availableCollateral && availableCollateral > 0) ||
-                (lockedCollateral && lockedCollateral > 0) ? (
-                  <div className="pb-3 border-b border-black">
-                    {userCollateralView}
-                  </div>
-                ) : null}
-                {lockedCollateral && lockedCollateral > 0
-                  ? cancelBidButton
-                  : availableCollateral && availableCollateral > 0
-                  ? withdrawCollateralButton
-                  : null}
-              </div>
+              <PlusSignIcon />
             </div>
           </div>
         )}

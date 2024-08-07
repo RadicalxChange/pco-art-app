@@ -8,6 +8,7 @@ import { Address, useContractReads } from "wagmi";
 import { waitForTransaction, writeContract } from "wagmi/actions";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 
+import PlusSignIcon from "@/components/shared/plus-sign-icon";
 import ForwardArrowAnimated from "@/components/shared/forward-arrow-animated";
 import { BranchIsWalletConnected } from "@/components/shared/branch-is-wallet-connected";
 import {
@@ -168,89 +169,118 @@ export default function UpdateEligibilityPage({
 
   return (
     <>
-      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[130px] 2xl:text-[145px] text-center mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
-        Edit
-        <br />
-        Inauguration Eligibility
-      </h1>
+      <div className="flex justify-between w-full mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32 px-4">
+        <div className="flex flex-col justify-between">
+          <PlusSignIcon />
+          <PlusSignIcon />
+        </div>
+        <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[130px] 2xl:text-[145px] text-center">
+          Edit
+          <br />
+          Inauguration Eligibility
+        </h1>
+        <div className="flex flex-col justify-between">
+          <PlusSignIcon />
+          <PlusSignIcon />
+        </div>
+      </div>
       <form onSubmit={handleSubmit(handleSave)}>
-        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
-          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-sm sm:text-lg">
-            <div className="flex">
-              <label htmlFor="allowlist.allow-any" className="w-[45%]">
-                Criteria
-              </label>
-              <div className="flex flex-col w-[55%]">
-                <label htmlFor="allowlist.allow-any">
-                  Set who can participate in this token&apos;s Stewardship
-                  Inaugurations.
-                </label>
-                <select
-                  {...register("allowlist.allow-any")}
-                  className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
-                >
-                  <option value="true">Open Participation</option>
-                  <option value="false">Allowlist</option>
-                </select>
+        <div className="flex flex-col items-center text-sm sm:text-lg">
+          <div className="flex justify-between items-start w-full mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 px-4">
+            <PlusSignIcon />
+            <div className="flex w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
+              <div className="flex w-full">
+                <div className="flex items-start gap-2 w-[45%]">
+                  <PlusSignIcon />
+                  <label htmlFor="allowlist.allow-any">Criteria</label>
+                </div>
+                <div className="flex items-start gap-2 w-[55%]">
+                  <div className="flex flex-col">
+                    <label htmlFor="allowlist.allow-any">
+                      Set who can participate in this token&apos;s Stewardship
+                      Inaugurations.
+                    </label>
+                    <select
+                      {...register("allowlist.allow-any")}
+                      className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
+                    >
+                      <option value="true">Open Participation</option>
+                      <option value="false">Allowlist</option>
+                    </select>
+                  </div>
+                  <PlusSignIcon />
+                </div>
               </div>
             </div>
+            <PlusSignIcon />
+          </div>
+          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] text-sm sm:text-lg">
             {watchAllowAny === "false" && (
-              <div className="flex mt-10">
-                <label htmlFor="allowlist.addresses" className="w-[45%]">
-                  Allowlist
-                </label>
-                <div className="flex flex-col w-[55%]">
-                  <label htmlFor="allowlist.addresses">
-                    Provide the eligibile Ethereum addresses.
-                  </label>
-                  {watchAddresses?.map((_: any, index: number) => (
-                    <div key={index} className="flex">
-                      {index > 0 && (
-                        <button
-                          className="bg-transparent mt-1 mr-1"
-                          onClick={() => {
-                            // Remove item from watchAddresses
-                            setValue(
-                              `allowlist.addresses`,
-                              watchAddresses?.toSpliced(index, 1)
-                            );
-                          }}
-                        >
-                          <Image
-                            src="/cancel.svg"
-                            alt="Cancel"
-                            width={24}
-                            height={24}
-                          />
-                        </button>
-                      )}
-                      <input
-                        {...register(`allowlist.addresses.${index}`)}
-                        type="string"
-                        id={`allowlist.addresses.${index}`}
-                        className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mb-2"
-                        placeholder="0x"
-                        required
-                        pattern="^(0x)?[0-9a-fA-F]{40}$"
-                      />
+              <div className="flex w-full mt-12">
+                <div className="flex items-start gap-2 w-[45%]">
+                  <PlusSignIcon />
+                  <label htmlFor="allowlist.addresses">Allowlist</label>
+                </div>
+                <div className="flex items-start gap-2 w-[55%]">
+                  <div className="flex flex-col w-full">
+                    <label htmlFor="allowlist.addresses">
+                      Provide the eligibile Ethereum addresses.
+                    </label>
+                    {watchAddresses?.map((_: any, index: number) => (
+                      <div key={index} className="flex">
+                        {index > 0 && (
+                          <button
+                            className="bg-transparent mt-1 mr-1"
+                            onClick={() => {
+                              // Remove item from watchAddresses
+                              setValue(
+                                `allowlist.addresses`,
+                                watchAddresses?.toSpliced(index, 1)
+                              );
+                            }}
+                          >
+                            <Image
+                              src="/cancel.svg"
+                              alt="Cancel"
+                              width={24}
+                              height={24}
+                            />
+                          </button>
+                        )}
+                        <input
+                          {...register(`allowlist.addresses.${index}`)}
+                          type="string"
+                          id={`allowlist.addresses.${index}`}
+                          className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mb-2"
+                          placeholder="0x"
+                          required
+                          pattern="^(0x)?[0-9a-fA-F]{40}$"
+                        />
+                      </div>
+                    ))}
+                    <div className="flex mt-2">
+                      <button
+                        className="w-full flex items-center gap-1 bg-transparent"
+                        onClick={() => {
+                          setValue(
+                            `allowlist.addresses.${
+                              watchAddresses?.length ?? 0 + 1
+                            }`,
+                            ""
+                          );
+                        }}
+                      >
+                        <Image
+                          src="/add.svg"
+                          alt="Add"
+                          width={23}
+                          height={23}
+                        />
+                        Add another address
+                      </button>
                     </div>
-                  ))}
-                  <div className="flex mt-2">
-                    <button
-                      className="w-full flex items-center gap-1 bg-transparent"
-                      onClick={() => {
-                        setValue(
-                          `allowlist.addresses.${
-                            watchAddresses?.length ?? 0 + 1
-                          }`,
-                          ""
-                        );
-                      }}
-                    >
-                      <Image src="/add.svg" alt="Add" width={23} height={23} />
-                      Add another address
-                    </button>
                   </div>
+                  <PlusSignIcon />
                 </div>
               </div>
             )}
@@ -258,7 +288,7 @@ export default function UpdateEligibilityPage({
         </div>
         <BranchIsWalletConnected>
           <button
-            className="w-full mt-10 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
+            className="w-full mt-12 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
             disabled={isSaving}
           >
             <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
@@ -268,7 +298,7 @@ export default function UpdateEligibilityPage({
             </div>
           </button>
           <button
-            className="w-full mt-10 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
+            className="w-full mt-12 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
             onClick={(e) => {
               e.preventDefault();
 

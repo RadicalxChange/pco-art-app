@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { Address, useAccount } from "wagmi";
 import { useMediaQuery } from "react-responsive";
 
+import PlusSignIcon from "@/components/shared/plus-sign-icon";
 import useElementOffset from "@/lib/hooks/use-element-offset";
 import { EnglishPeriodicAuctionInit } from "@/lib/hooks/use-facet-init";
 import { fromUnitsToSeconds } from "@/lib/utils";
@@ -91,141 +92,178 @@ export default function ConfigAuctionFacet({
 
   return (
     <>
-      <h1 className="font-mono text-5xl sm:text-[75px] xl:text-[130px] 2xl:text-[145px] text-center mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32">
-        4.
-        <br />
-        English Auction Configuration
-      </h1>
+      <div className="flex justify-between w-full mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 min-[2000px]:mt-32 px-4">
+        <div className="flex flex-col justify-between">
+          <PlusSignIcon />
+          <PlusSignIcon />
+        </div>
+        <h1 className="max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] font-mono text-5xl sm:text-[75px] xl:text-[130px] 2xl:text-[145px] text-center">
+          4.
+          <br />
+          English Auction Configuration
+        </h1>
+        <div className="flex flex-col justify-between">
+          <PlusSignIcon />
+          <PlusSignIcon />
+        </div>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col items-center max-w-[320px] sm:max-w-[750px] xl:max-w-[1100px] 2xl:max-w-[1500px] m-auto">
-          <div
-            ref={formContainerRef}
-            className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] my-10 sm:mt-16 xl:mt-20 2xl:mt-24 text-sm sm:text-lg"
-          >
-            <div className="flex">
-              <span className="w-[45%]">Intro</span>
-              <span className="w-[55%]">
-                This auction starts at a low/zero initial price and accepts
-                ascending bids until close. You can configure an auction
-                extension window to disincentivize last-second bids.
-              </span>
+        <div className="flex flex-col items-center text-sm sm:text-lg">
+          <div className="flex justify-between items-start w-full mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 px-4">
+            <PlusSignIcon />
+            <div
+              ref={formContainerRef}
+              className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]"
+            >
+              <div className="flex">
+                <div className="flex items-start gap-2 w-[45%]">
+                  <PlusSignIcon />
+                  <span>Intro</span>
+                </div>
+                <div className="flex items-start gap-2 w-[55%]">
+                  <span>
+                    This auction starts at a low/zero initial price and accepts
+                    ascending bids until close. You can configure an auction
+                    extension window to disincentivize last-second bids.
+                  </span>
+                  <PlusSignIcon />
+                </div>
+              </div>
             </div>
-            <div className="flex mt-10">
-              <label htmlFor="auction.initial-start-time" className="w-[45%]">
-                Initial Auction
-              </label>
-              <div className="flex flex-col w-[55%]">
+            <PlusSignIcon />
+          </div>
+          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
+            <div className="flex mt-12">
+              <div className="flex items-start gap-2 w-[45%]">
+                <PlusSignIcon />
                 <label htmlFor="auction.initial-start-time">
-                  Set when the first on-chain Stewardship Inauguration starts.
-                  Subsequent auctions will automatically be triggered at the end
-                  of each Stewardship Cycle. You can set this date one cycle
-                  into the future and run an offline auction if you choose.
+                  Initial Auction
                 </label>
-                <div className="flex mt-2">
-                  <input
-                    {...register("auction.initial-start-date")}
-                    id="auction.initial-start-date"
-                    type="date"
-                    required
-                    className="w-2/4 bg-transparent border-solid border-0 border-b border-black focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mr-5 p-0 py-1"
-                  />
-                  <div className="flex w-2/4 border-solid border-0 border-b border-black">
+              </div>
+              <div className="flex items-start gap-2 w-[55%]">
+                <div className="flex flex-col w-full">
+                  <label htmlFor="auction.initial-start-time">
+                    Set when the first on-chain Stewardship Inauguration starts.
+                    Subsequent auctions will automatically be triggered at the
+                    end of each Stewardship Cycle. You can set this date one
+                    cycle into the future and run an offline auction if you
+                    choose.
+                  </label>
+                  <div className="flex mt-2">
                     <input
-                      {...register("auction.initial-start-time")}
-                      id="auction.initial-start-time"
-                      type="time"
+                      {...register("auction.initial-start-date")}
+                      id="auction.initial-start-date"
+                      type="date"
                       required
-                      className="bg-transparent border-0 p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] p-0 py-1"
+                      className="w-2/4 bg-transparent border-solid border-0 border-b border-black focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mr-5 p-0 py-1"
                     />
-                    {!isMobile && (
-                      <span className="flex items-center font-serif text-xl pl-2">
-                        {
-                          new Date()
-                            .toLocaleTimeString("default", {
-                              timeZoneName: "short",
-                            })
-                            .split(" ")[2]
-                        }
-                      </span>
-                    )}
+                    <div className="flex w-2/4 border-solid border-0 border-b border-black">
+                      <input
+                        {...register("auction.initial-start-time")}
+                        id="auction.initial-start-time"
+                        type="time"
+                        required
+                        className="bg-transparent border-0 p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] p-0 py-1"
+                      />
+                      {!isMobile && (
+                        <span className="flex items-center font-serif text-xl pl-2">
+                          {
+                            new Date()
+                              .toLocaleTimeString("default", {
+                                timeZoneName: "short",
+                              })
+                              .split(" ")[2]
+                          }
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
+                <PlusSignIcon />
               </div>
             </div>
-            <div className="flex mt-10">
-              <label
-                htmlFor="auction.initial-start-time-offset"
-                className="w-[45%]"
-              >
-                Collection Offset
-              </label>
-              <div className="flex flex-col w-[55%]">
+            <div className="flex mt-12">
+              <div className="flex items-start gap-2 w-[45%]">
+                <PlusSignIcon />
                 <label htmlFor="auction.initial-start-time-offset">
-                  Stagger the first auction for each token in your collection
-                  sequentially by fixed amount. 0 means the auctions will all
-                  start at the same time.
+                  Collection Offset
                 </label>
-                <div className="flex gap-5 mt-2">
-                  <input
-                    {...register("auction.initial-start-time-offset")}
-                    type="number"
-                    id="auction.initial-start-time-offset"
-                    required
-                    min={0}
-                    placeholder="0"
-                    className="w-2/4 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
-                  />
-                  <select
-                    {...register("auction.initial-start-time-offset-type")}
-                    defaultValue="hours"
-                    className="w-2/4 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
-                  >
-                    <option value="minutes">Minutes</option>
-                    <option value="hours">Hours</option>
-                    <option value="days">Days</option>
-                    <option value="weeks">Weeks</option>
-                  </select>
+              </div>
+              <div className="flex items-start gap-2 w-[55%]">
+                <div className="flex flex-col">
+                  <label htmlFor="auction.initial-start-time-offset">
+                    Stagger the first auction for each token in your collection
+                    sequentially by fixed amount. 0 means the auctions will all
+                    start at the same time.
+                  </label>
+                  <div className="flex gap-5 mt-2">
+                    <input
+                      {...register("auction.initial-start-time-offset")}
+                      type="number"
+                      id="auction.initial-start-time-offset"
+                      required
+                      min={0}
+                      placeholder="0"
+                      className="w-2/4 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
+                    />
+                    <select
+                      {...register("auction.initial-start-time-offset-type")}
+                      defaultValue="hours"
+                      className="w-2/4 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
+                    >
+                      <option value="minutes">Minutes</option>
+                      <option value="hours">Hours</option>
+                      <option value="days">Days</option>
+                      <option value="weeks">Weeks</option>
+                    </select>
+                  </div>
                 </div>
+                <PlusSignIcon />
               </div>
             </div>
-            <div className="flex mt-10">
-              <label htmlFor="auction.duration" className="w-[45%]">
-                Duration
-              </label>
-              <div className="flex flex-col w-[55%]">
-                <label htmlFor="auction.duration">
-                  Set the standard length of your auction. The start time of
-                  your auction can shift each stewardship cycle, so don&apos;t
-                  over-optimize for tight timezone windows.
-                </label>
-                <div className="flex mt-2 gap-5">
-                  <input
-                    {...register("auction.duration")}
-                    type="number"
-                    id="auction.duration"
-                    required
-                    min={1}
-                    placeholder={"24"}
-                    className="w-2/4 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
-                  />
-                  <select
-                    {...register("auction.duration-type")}
-                    defaultValue="hours"
-                    className="w-2/4 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
-                  >
-                    <option value="minutes">Minutes</option>
-                    <option value="hours">Hours</option>
-                    <option value="days">Days</option>
-                    <option value="weeks">Weeks</option>
-                  </select>
+            <div className="flex mt-12">
+              <div className="flex items-start gap-2 w-[45%]">
+                <PlusSignIcon />
+                <label htmlFor="auction.duration">Duration</label>
+              </div>
+              <div className="flex items-start gap-2 w-[55%]">
+                <div className="flex flex-col">
+                  <label htmlFor="auction.duration">
+                    Set the standard length of your auction. The start time of
+                    your auction can shift each stewardship cycle, so don&apos;t
+                    over-optimize for tight timezone windows.
+                  </label>
+                  <div className="flex mt-2 gap-5">
+                    <input
+                      {...register("auction.duration")}
+                      type="number"
+                      id="auction.duration"
+                      required
+                      min={1}
+                      placeholder={"24"}
+                      className="w-2/4 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
+                    />
+                    <select
+                      {...register("auction.duration-type")}
+                      defaultValue="hours"
+                      className="w-2/4 bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
+                    >
+                      <option value="minutes">Minutes</option>
+                      <option value="hours">Hours</option>
+                      <option value="days">Days</option>
+                      <option value="weeks">Weeks</option>
+                    </select>
+                  </div>
                 </div>
+                <PlusSignIcon />
               </div>
             </div>
-            <div className="flex items-center mt-10">
-              <label htmlFor="auction.starting-bid" className="w-[45%]">
-                Starting Bid
-              </label>
-              <div className="flex w-[55%]">
+            <div className="flex items-center mt-12">
+              <div className="flex items-start gap-2 w-[45%]">
+                <PlusSignIcon />
+                <label htmlFor="auction.starting-bid">Starting Bid</label>
+              </div>
+              <div className="flex items-start gap-2 w-[55%]">
                 <input
                   {...register("auction.starting-bid")}
                   type="number"
@@ -236,17 +274,21 @@ export default function ConfigAuctionFacet({
                   placeholder={"0 ETH"}
                   className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
                 />
+                <PlusSignIcon />
               </div>
             </div>
-            <div className="flex mt-10">
-              <label htmlFor="auction.min-bid-increase" className="w-[45%]">
-                Minimum Bid Increase
-              </label>
-              <div className="flex flex-col w-[55%]">
+            <div className="flex mt-12">
+              <div className="flex items-start gap-2 w-[45%]">
+                <PlusSignIcon />
                 <label htmlFor="auction.min-bid-increase">
-                  Avoid infinitesimal increase bidding wars.
+                  Minimum Bid Increase
                 </label>
-                <div className="flex">
+              </div>
+              <div className="flex items-start gap-2 w-[55%]">
+                <div className="flex flex-col w-full">
+                  <label htmlFor="auction.min-bid-increase">
+                    Avoid infinitesimal increase bidding wars.
+                  </label>
                   <input
                     {...register("auction.min-bid-increase")}
                     type="number"
@@ -258,90 +300,105 @@ export default function ConfigAuctionFacet({
                     className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
                   />
                 </div>
+                <PlusSignIcon />
               </div>
             </div>
-            <div className="flex mt-10">
-              <label htmlFor="auction.extension-window" className="w-[45%]">
-                Extension Window
-              </label>
-              <div className="flex flex-col w-[55%]">
+            <div className="flex mt-12">
+              <div className="flex items-start gap-2 w-[45%]">
+                <PlusSignIcon />
                 <label htmlFor="auction.extension-window">
-                  Bids placed during this window at the end of the auction will
-                  extend it. Set this to 0 if you want auction extensions.
+                  Extension Window
                 </label>
-                <div className="flex">
-                  <input
-                    {...register("auction.extension-window")}
-                    type="number"
-                    id="auction.extension-window"
-                    required
-                    min={0}
-                    placeholder={"15 Minutes"}
-                    className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
-                  />
-                </div>
               </div>
-            </div>
-            <div className="flex mt-10">
-              <label htmlFor="auction.extension-length" className="w-[45%]">
-                Extension Length
-              </label>
-              <div className="flex flex-col w-[55%]">
-                <label htmlFor="auction.extension-length">
-                  How long each bid during the extension window will extend the
-                  auction.
-                </label>
-                <div className="flex">
-                  <input
-                    {...register("auction.extension-length")}
-                    type="number"
-                    id="auction.extension-length"
-                    required
-                    placeholder={"15 Minutes"}
-                    min={0}
-                    className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
-                  />
+              <div className="flex items-start gap-2 w-[55%]">
+                <div className="flex flex-col w-full">
+                  <label htmlFor="auction.extension-window">
+                    Bids placed during this window at the end of the auction
+                    will extend it. Set this to 0 if you want auction
+                    extensions.
+                  </label>
+                  <div className="flex">
+                    <input
+                      {...register("auction.extension-window")}
+                      type="number"
+                      id="auction.extension-window"
+                      required
+                      min={0}
+                      placeholder={"15 Minutes"}
+                      className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
+                    />
+                  </div>
                 </div>
+                <PlusSignIcon />
               </div>
-            </div>
-            <div className="flex items-center mt-20 mb-24 xl:mb-32">
-              <button
-                className="absolute left-0 flex items-center gap-2 sm:gap-3 bg-neon-green px-2 sm:px-4 py-1 font-serif text-2xl"
-                onClick={() => prevStep()}
-              >
-                <Image
-                  src="/back-arrow.svg"
-                  alt="Back"
-                  width={18}
-                  height={18}
-                />
-                Back
-              </button>
-              {formContainerOffset && (
-                <button
-                  type="submit"
-                  className="flex gap-2 items-center sm:gap-3 bg-neon-green px-2 py-1 font-serif text-2xl absolute w-[250px] sm:w-3/4"
-                  style={{
-                    right: isMobile || isTablet ? 0 : "",
-                    left: isMobile || isTablet ? "" : formContainerOffset.left,
-                    width:
-                      isMobile || isTablet
-                        ? ""
-                        : document.documentElement.clientWidth -
-                          formContainerOffset.left,
-                  }}
-                >
-                  <Image
-                    src="/forward-arrow.svg"
-                    alt="Forward"
-                    width={18}
-                    height={18}
-                  />
-                  5. Auction Eligibility
-                </button>
-              )}
             </div>
           </div>
+        </div>
+        <div className="flex justify-between items-start w-full mt-12 sm:mb-24 px-4">
+          <PlusSignIcon />
+          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
+            <div className="flex w-full">
+              <div className="flex items-start gap-2 w-[45%]">
+                <PlusSignIcon />
+                <label htmlFor="auction.extension-length">
+                  Extension Length
+                </label>
+              </div>
+              <div className="flex items-start gap-2 w-[55%]">
+                <div className="flex flex-col">
+                  <label htmlFor="auction.extension-length">
+                    How long each bid during the extension window will extend
+                    the auction.
+                  </label>
+                  <div className="flex">
+                    <input
+                      {...register("auction.extension-length")}
+                      type="number"
+                      id="auction.extension-length"
+                      required
+                      placeholder={"15 Minutes"}
+                      min={0}
+                      className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
+                    />
+                  </div>
+                </div>
+                <PlusSignIcon />
+              </div>
+            </div>
+          </div>
+          <PlusSignIcon />
+        </div>
+        <div className="flex items-center mt-20 mb-24 xl:mb-32">
+          <button
+            className="absolute left-0 flex items-center gap-2 sm:gap-3 bg-neon-green px-2 sm:px-4 py-1 font-serif text-2xl"
+            onClick={() => prevStep()}
+          >
+            <Image src="/back-arrow.svg" alt="Back" width={18} height={18} />
+            Back
+          </button>
+          {formContainerOffset && (
+            <button
+              type="submit"
+              className="flex gap-2 items-center sm:gap-3 bg-neon-green px-2 py-1 font-serif text-2xl absolute w-[250px] sm:w-3/4"
+              style={{
+                right: isMobile || isTablet ? 0 : "",
+                left: isMobile || isTablet ? "" : formContainerOffset.left,
+                width:
+                  isMobile || isTablet
+                    ? ""
+                    : document.documentElement.clientWidth -
+                      formContainerOffset.left,
+              }}
+            >
+              <Image
+                src="/forward-arrow.svg"
+                alt="Forward"
+                width={18}
+                height={18}
+              />
+              5. Auction Eligibility
+            </button>
+          )}
         </div>
       </form>
     </>
