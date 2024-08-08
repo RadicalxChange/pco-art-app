@@ -199,7 +199,7 @@ export default function ConfigStewardLicenseFacet({
                       these instructions
                     </Link>
                     , upload it to a decentralized storage provider, & add the
-                    resulting URI here. You can use
+                    resulting URI here. You can use{" "}
                     <span className="break-all">
                       ipfs://Qmd4KHEUWdWWRJnceqk3vGfML84cUQ1ezYFjZvs5eHX8sa
                     </span>{" "}
@@ -232,7 +232,7 @@ export default function ConfigStewardLicenseFacet({
         <div className="flex justify-between items-start w-full mt-12 px-4">
           <PlusSignIcon />
           <div className="flex items-start w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
-            <div className="flex items-center w-full pt-3 text-sm sm:text-lg">
+            <div className="flex items-center w-full text-sm sm:text-lg">
               <div className="flex items-start gap-2 w-[45%]">
                 <PlusSignIcon />
                 <label htmlFor="should-mint">Mint Tokens at Creation</label>

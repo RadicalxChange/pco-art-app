@@ -138,7 +138,7 @@ export default function AddToCollection({
                         this
                       </a>{" "}
                       JSON template , define your token metadata, upload it to
-                      NFT.Storage, & add the resulting CID here
+                      NFT.Storage, & add the resulting CID here.
                     </span>
                   </div>
                   <PlusSignIcon />
