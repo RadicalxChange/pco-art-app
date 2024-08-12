@@ -19,7 +19,7 @@ export default function About() {
           <PlusSignIcon />
         </div>
       </div>
-      <div className="flex justify-between items-start w-full mt-10 sm:mt-16 xl:mt-20 2xl:mt-24 px-4">
+      <div className="flex justify-between items-start w-full mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 px-4">
         <PlusSignIcon />
         <div className="flex w-[350px] sm:w-[600px] xl:w-[800px] 2xl:w-[1100px]">
           <div className="flex items-start gap-2 w-[45%]">
@@ -40,7 +40,7 @@ export default function About() {
       </div>
       <div className="flex flex-col items-center">
         <div className="w-[350px] sm:w-[600px] xl:w-[800px] 2xl:w-[1100px] text-sm sm:text-lg">
-          <div className="flex mt-10">
+          <div className="flex mt-12">
             <div className="flex items-start gap-2 w-[45%]">
               <PlusSignIcon />
               Collaborators
@@ -76,7 +76,7 @@ export default function About() {
               <PlusSignIcon />
             </div>
           </div>
-          <div className="flex mt-10">
+          <div className="flex mt-12">
             <div className="flex items-start gap-2 w-[45%]">
               <PlusSignIcon />
               Team
@@ -119,18 +119,121 @@ export default function About() {
               <PlusSignIcon />
             </div>
           </div>
+          <div className="flex mt-12">
+            <div className="flex items-start gap-2 w-[45%] mt-1">
+              <PlusSignIcon />
+              Contact Us
+            </div>
+            <div className="flex justify-between gap-2 w-[55%]">
+              <div className="flex flex-col text-xl font-serif break-all">
+                fae@serpentinegalleries.org
+              </div>
+              <PlusSignIcon />
+            </div>
+          </div>
         </div>
       </div>
-      <div className="flex justify-between w-full mt-10 mb-24 xl:mb-32 px-4">
+      <div className="flex justify-between items-start w-full mt-12 mb-24 xl:mb-32 px-4 text-sm sm:text-lg">
         <PlusSignIcon />
         <div className="flex w-[350px] sm:w-[600px] xl:w-[800px] 2xl:w-[1100px]">
-          <div className="flex items-start gap-2 w-[45%] mt-1">
+          <div className="flex items-start gap-2 w-[45%]">
             <PlusSignIcon />
-            Contact Us
+            Newsletter
           </div>
-          <div className="flex justify-between gap-2 w-[55%]">
-            <div className="flex flex-col text-xl font-serif break-all">
-              fae@serpentinegalleries.org
+          <div id="mc_embed_shell" className="flex items-start gap-2 w-[55%]">
+            <div id="mc_embed_signup">
+              <form
+                action="https://serpentinegalleries.us7.list-manage.com/subscribe/post?u=1bdbaf8e7f6d414f3521c9eec&amp;id=f623c856e9&amp;v_id=174&amp;f_id=0071c3e1f0"
+                method="post"
+                id="mc-embedded-subscribe-form"
+                name="mc-embedded-subscribe-form"
+                target="_blank"
+                noValidate
+              >
+                <div
+                  id="mc_embed_signup_scroll"
+                  className="flex flex-col w-full"
+                >
+                  <div className="flex flex-col">
+                    <label htmlFor="mce-EMAIL">Email Address *</label>
+                    <input
+                      type="email"
+                      name="EMAIL"
+                      className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
+                      id="mce-EMAIL"
+                      required
+                    />
+                  </div>
+                  <div className="flex flex-col mt-5">
+                    <label htmlFor="mce-FNAME">First Name </label>
+                    <input
+                      type="text"
+                      name="FNAME"
+                      className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
+                      id="mce-FNAME"
+                    />
+                  </div>
+                  <div className="flex flex-col mt-5">
+                    <label htmlFor="mce-LNAME">Last Name </label>
+                    <input
+                      type="text"
+                      name="LNAME"
+                      className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
+                      id="mce-LNAME"
+                    />
+                  </div>
+                  <div id="mergeRow-gdpr" className="mt-5">
+                    <div>
+                      <label>Marketing Permissions</label>
+                      <fieldset
+                        className="flex items-center gap-2 mt-2"
+                        name="interestgroup_field"
+                      >
+                        <input
+                          type="checkbox"
+                          className="rounded-full text-black border-black focus:ring-0 focus:ring-offset-0 focus:outline-none"
+                          id="gdpr_694"
+                          name="gdpr[694]"
+                          value="Y"
+                        />
+                        <label className="font-serif text-xl" htmlFor="gdpr694">
+                          Email
+                        </label>
+                      </fieldset>
+                      <p className="mt-5 text-sm">
+                        You can unsubscribe at any time by clicking the link in
+                        the footer of our emails. For information about our
+                        privacy practices, please visit our website on
+                        https://www.serpentinegalleries.org/privacy-policy
+                      </p>
+                    </div>
+                    <div className="text-sm mt-2">
+                      <p>
+                        We use Mailchimp as our marketing platform. By clicking
+                        below to subscribe, you acknowledge that your
+                        information will be transferred to Mailchimp for
+                        processing.{" "}
+                        <a
+                          href="https://mailchimp.com/legal/terms"
+                          target="_blank"
+                          className="underline"
+                        >
+                          Learn more
+                        </a>{" "}
+                        about Mailchimp's privacy practices.
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="submit"
+                    name="subscribe"
+                    id="mc-embedded-subscribe"
+                    className="bg-neon-green mt-5 py-1 font-serif text-xl"
+                  >
+                    Subscribe
+                  </button>
+                </div>
+              </form>
             </div>
             <PlusSignIcon />
           </div>
