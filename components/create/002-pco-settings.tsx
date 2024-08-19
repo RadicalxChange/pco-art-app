@@ -105,7 +105,7 @@ export default function ConfigPCOSettingsFacet({
             <PlusSignIcon />
             <div
               ref={formContainerRef}
-              className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]"
+              className="w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]"
             >
               <div className="flex text-sm sm:text-lg">
                 <div className="flex items-start gap-2 w-[45%]">
@@ -126,11 +126,11 @@ export default function ConfigPCOSettingsFacet({
                       required
                       min={1}
                       placeholder="365"
-                      className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] p-1"
+                      className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] p-1"
                     />
                     <select
                       {...register("pco-settings.cycle-type")}
-                      className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl p-1"
+                      className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl p-1"
                       defaultValue="days"
                     >
                       <option value="minutes">Minutes</option>
@@ -148,7 +148,7 @@ export default function ConfigPCOSettingsFacet({
           </div>
           <div className="flex justify-between items-start w-full mt-12 px-4">
             <PlusSignIcon />
-            <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
+            <div className="w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
               <div className="flex text-sm sm:text-lg">
                 <div className="flex items-start gap-2 w-[45%]">
                   <PlusSignIcon />
@@ -167,13 +167,13 @@ export default function ConfigPCOSettingsFacet({
                       {...register("pco-settings.rate")}
                       type="number"
                       id="rate"
-                      className="bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] p-1"
+                      className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] p-1"
                       placeholder="%"
                       required
                       min={0.01}
                       step={0.01}
                     />
-                    <div className="bg-transparent border-solid border-0 border-b border-black p-0 font-serif text-xl p-1">
+                    <div className="w-full bg-transparent border-solid border-0 border-b border-black p-0 font-serif text-xl p-1">
                       = an Annualized Rate of{" "}
                       {annualizedRate
                         ? `${parseFloat(annualizedRate.toFixed(2))}%`

@@ -161,7 +161,7 @@ export default function UpdateCreatorCirclePage({
         <div className="flex flex-col items-center text-sm sm:text-lg">
           <div className="flex justify-between items-start w-full mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 px-4">
             <PlusSignIcon />
-            <div className="flex w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
+            <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
               <div className="flex">
                 <div className="flex items-start gap-2 w-[45%]">
                   <PlusSignIcon />
@@ -182,7 +182,7 @@ export default function UpdateCreatorCirclePage({
         <div className="flex flex-col items-center text-sm sm:text-lg mt-12">
           <div className="flex justify-between items-start w-full px-4">
             <PlusSignIcon />
-            <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] text-sm sm:text-lg">
+            <div className="w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] text-sm sm:text-lg">
               <div className="flex">
                 <div className="flex items-start gap-2 w-[45%]">
                   <PlusSignIcon />
@@ -315,17 +315,17 @@ export default function UpdateCreatorCirclePage({
         </div>
         <BranchIsWalletConnected>
           <button
-            className="w-full mt-12 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
+            className="w-full mt-12 mb-24 xl:mb-32 px-4 sm:px-0 font-serif text-2xl gradient-action-btn"
             disabled={isSaving}
           >
-            <div className="flex items-center w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
+            <div className="flex items-center w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
               <ForwardArrowAnimated>
                 <span>{isSaving ? "SAVING..." : "SAVE"}</span>
               </ForwardArrowAnimated>
             </div>
           </button>
           <button
-            className="w-full mt-12 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
+            className="w-full mt-12 mb-24 xl:mb-32 px-4 sm:px-0 font-serif text-2xl gradient-action-btn"
             onClick={(e) => {
               e.preventDefault();
 
@@ -334,7 +334,7 @@ export default function UpdateCreatorCirclePage({
               }
             }}
           >
-            <div className="flex items-center w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
+            <div className="flex items-center w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
               <ForwardArrowAnimated>
                 <span>CONNECT</span>
               </ForwardArrowAnimated>

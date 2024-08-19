@@ -254,7 +254,7 @@ export default function CreatorCirclePage({
       <div className="flex flex-col items-center text-sm sm:text-lg">
         <div className="flex justify-between items-start w-full mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 px-4">
           <PlusSignIcon />
-          <div className="flex flex-col w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
+          <div className="flex flex-col w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
             <div className="flex items-center gap-2 w-full">
               <PlusSignIcon />{" "}
               <h3 className="text-xl font-bold">Allocation Table</h3>
@@ -365,7 +365,7 @@ export default function CreatorCirclePage({
       {account?.address ? (
         <div className="flex justify-between items-start w-full mt-12 px-4">
           <PlusSignIcon />
-          <div className="flex flex-col items-start w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
+          <div className="flex flex-col items-start w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
             <div className="flex items-center gap-2 w-full">
               <PlusSignIcon />
               <h4 className="text-lg font-bold">Your Available Honorarium</h4>

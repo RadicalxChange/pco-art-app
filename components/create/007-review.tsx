@@ -185,7 +185,7 @@ export default function ConfigReview({
             <PlusSignIcon />
             <div
               ref={formContainerRef}
-              className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]"
+              className="w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]"
             >
               <div className="flex flex-col sm:flex-row">
                 <div className="flex items-start gap-2 w-full sm:w-[45%]">
@@ -272,171 +272,188 @@ export default function ConfigReview({
             </div>
             <PlusSignIcon />
           </div>
-          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
-            <div className="flex flex-col sm:flex-row mt-12">
-              <div className="flex items-start gap-2 w-full sm:w-[45%]">
-                <PlusSignIcon />
-                <div className="flex items-center self-start">
-                  PCO Settings [
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setStep(2);
-                    }}
-                  >
-                    <Image src="/edit.svg" alt="Edit" width={16} height={16} />
-                  </button>
-                  ]
-                </div>
-              </div>
-              <div className="flex items-start gap-2 w-full sm:w-[55%]">
-                <div className="flex flex-col w-full">
-                  <div className="flex items-center gap-1">
-                    <span className="mt-1">Stewardship Cycle: </span>
-                    <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
-                      {`${(state as any).pcoSettingsInput?.cycle} ${
-                        (state as any).pcoSettingsInput?.["cycle-type"]
-                      }`}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <span className="mt-1">Honorarium Rate: </span>
-                    <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
-                      {`${(state as any).pcoSettingsInput?.rate}`}%
-                    </p>
-                  </div>
-                </div>
-                <PlusSignIcon />
-              </div>
-            </div>
-            <div className="flex flex-col sm:flex-row mt-12">
-              <div className="flex items-start gap-2 w-full sm:w-[45%]">
-                <PlusSignIcon />
-                <div className="flex items-center]">
-                  Creator Circle [
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setStep(3);
-                    }}
-                  >
-                    <Image src="/edit.svg" alt="Edit" width={16} height={16} />
-                  </button>
-                  ]
-                </div>
-              </div>
-              <div className="flex items-start gap-2 w-full sm:w-[55%]">
-                <div className="flex flex-col w-full">
-                  <div className="flex items-center gap-1">
-                    <span className="mt-1">Type: </span>
-                    <p
-                      className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap underline decoration-2 cursor-pointer"
-                      onClick={() => setStep(3)}
+          <div className="flex sm:justify-center w-full px-4 sm:px-0">
+            <div className="w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
+              <div className="flex flex-col sm:flex-row mt-12">
+                <div className="flex items-start gap-2 w-full sm:w-[45%]">
+                  <PlusSignIcon />
+                  <div className="flex items-center self-start">
+                    PCO Settings [
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setStep(2);
+                      }}
                     >
-                      Allocation Table
-                    </p>
+                      <Image
+                        src="/edit.svg"
+                        alt="Edit"
+                        width={16}
+                        height={16}
+                      />
+                    </button>
+                    ]
                   </div>
                 </div>
-                <PlusSignIcon />
+                <div className="flex items-start gap-2 w-full sm:w-[55%]">
+                  <div className="flex flex-col w-full">
+                    <div className="flex items-center gap-1">
+                      <span className="mt-1">Stewardship Cycle: </span>
+                      <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
+                        {`${(state as any).pcoSettingsInput?.cycle} ${
+                          (state as any).pcoSettingsInput?.["cycle-type"]
+                        }`}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span className="mt-1">Honorarium Rate: </span>
+                      <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
+                        {`${(state as any).pcoSettingsInput?.rate}`}%
+                      </p>
+                    </div>
+                  </div>
+                  <PlusSignIcon />
+                </div>
               </div>
-            </div>
-            <div className="flex flex-col sm:flex-row mt-12">
-              <div className="flex items-start gap-2 w-full sm:w-[45%]">
-                <PlusSignIcon />
-                <div className="flex items-center self-start">
-                  English Auction [
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setStep(4);
-                    }}
-                  >
-                    <Image src="/edit.svg" alt="Edit" width={16} height={16} />
-                  </button>
-                  ]
+              <div className="flex flex-col sm:flex-row mt-12">
+                <div className="flex items-start gap-2 w-full sm:w-[45%]">
+                  <PlusSignIcon />
+                  <div className="flex items-center]">
+                    Creator Circle [
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setStep(3);
+                      }}
+                    >
+                      <Image
+                        src="/edit.svg"
+                        alt="Edit"
+                        width={16}
+                        height={16}
+                      />
+                    </button>
+                    ]
+                  </div>
+                </div>
+                <div className="flex items-start gap-2 w-full sm:w-[55%]">
+                  <div className="flex flex-col w-full">
+                    <div className="flex items-center gap-1">
+                      <span className="mt-1">Type: </span>
+                      <p
+                        className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap underline decoration-2 cursor-pointer"
+                        onClick={() => setStep(3)}
+                      >
+                        Allocation Table
+                      </p>
+                    </div>
+                  </div>
+                  <PlusSignIcon />
                 </div>
               </div>
-              <div className="flex items-start gap-2 w-full sm:w-[55%]">
-                <div className="flex flex-col w-full">
-                  <div className="flex items-center gap-1">
-                    <span className="mt-1">Initial Auction: </span>
-                    <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
-                      {new Date(
-                        (state as any).auctionInitData?.initialPeriodStartTime *
-                          1000
-                      ).toLocaleString()}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <span className="mt-1">Offset: </span>
-                    <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
-                      {Number(
-                        (state as any).auctionInput?.[
-                          "initial-start-time-offset"
-                        ]
-                      ) > 0
-                        ? `${
-                            (state as any).auctionInput?.[
-                              "initial-start-time-offset"
-                            ]
-                          } ${
-                            (state as any).auctionInput?.[
-                              "initial-start-time-offset-type"
-                            ]
-                          }`
-                        : 0}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <span className="mt-1">Duration: </span>
-                    <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
-                      {`${(state as any).auctionInput?.["duration"]} ${
-                        (state as any).auctionInput?.["duration-type"]
-                      }`}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <span className="mt-1">Starting Bid: </span>
-                    <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
-                      {(state as any).auctionInput?.["starting-bid"]} ETH
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <span className="mt-1">Minimum Bid Increase: </span>
-                    <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
-                      {(state as any).auctionInput?.["min-bid-increase"]} ETH
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <span className="mt-1">Extension Window: </span>
-                    <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
-                      {(state as any).auctionInput?.["extension-window"]}{" "}
-                      minutes
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <span className="mt-1">Extension Length: </span>
-                    <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
-                      {(state as any).auctionInput?.["extension-length"]}{" "}
-                      minutes
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <span className="mt-1">Eligibility: </span>
-                    <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
-                      {(state as any).allowlistInput?.["allow-any"] === "true"
-                        ? "Open"
-                        : "Allowlist"}
-                    </p>
+              <div className="flex flex-col sm:flex-row mt-12">
+                <div className="flex items-start gap-2 w-full sm:w-[45%]">
+                  <PlusSignIcon />
+                  <div className="flex items-center self-start">
+                    English Auction [
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setStep(4);
+                      }}
+                    >
+                      <Image
+                        src="/edit.svg"
+                        alt="Edit"
+                        width={16}
+                        height={16}
+                      />
+                    </button>
+                    ]
                   </div>
                 </div>
-                <PlusSignIcon />
+                <div className="flex items-start gap-2 w-full sm:w-[55%]">
+                  <div className="flex flex-col w-full">
+                    <div className="flex items-center gap-1">
+                      <span className="mt-1">Initial Auction: </span>
+                      <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
+                        {new Date(
+                          (state as any).auctionInitData
+                            ?.initialPeriodStartTime * 1000
+                        ).toLocaleString()}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span className="mt-1">Offset: </span>
+                      <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
+                        {Number(
+                          (state as any).auctionInput?.[
+                            "initial-start-time-offset"
+                          ]
+                        ) > 0
+                          ? `${
+                              (state as any).auctionInput?.[
+                                "initial-start-time-offset"
+                              ]
+                            } ${
+                              (state as any).auctionInput?.[
+                                "initial-start-time-offset-type"
+                              ]
+                            }`
+                          : 0}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span className="mt-1">Duration: </span>
+                      <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
+                        {`${(state as any).auctionInput?.["duration"]} ${
+                          (state as any).auctionInput?.["duration-type"]
+                        }`}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span className="mt-1">Starting Bid: </span>
+                      <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
+                        {(state as any).auctionInput?.["starting-bid"]} ETH
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span className="mt-1">Minimum Bid Increase: </span>
+                      <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
+                        {(state as any).auctionInput?.["min-bid-increase"]} ETH
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span className="mt-1">Extension Window: </span>
+                      <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
+                        {(state as any).auctionInput?.["extension-window"]}{" "}
+                        minutes
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span className="mt-1">Extension Length: </span>
+                      <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
+                        {(state as any).auctionInput?.["extension-length"]}{" "}
+                        minutes
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span className="mt-1">Eligibility: </span>
+                      <p className="font-serif text-xl text-ellipsis overflow-hidden whitespace-nowrap">
+                        {(state as any).allowlistInput?.["allow-any"] === "true"
+                          ? "Open"
+                          : "Allowlist"}
+                      </p>
+                    </div>
+                  </div>
+                  <PlusSignIcon />
+                </div>
               </div>
             </div>
           </div>
           <div className="flex justify-between items-start w-full mt-12 px-4">
             <PlusSignIcon />
-            <div className="flex items-start w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
+            <div className="flex items-start w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
               <div className="flex flex-col sm:flex-row w-full">
                 <div className="flex items-start gap-2 w-full sm:w-[45%]">
                   <PlusSignIcon />

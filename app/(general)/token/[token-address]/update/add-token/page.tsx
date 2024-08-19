@@ -110,7 +110,7 @@ export default function AddToCollection({
         <div className="flex flex-col items-center">
           <div className="flex justify-between items-start w-full mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 px-4">
             <PlusSignIcon />
-            <div className="flex w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
+            <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
               <div className="flex">
                 <div className="flex items-start gap-2 w-[45%]">
                   <PlusSignIcon />
@@ -147,88 +147,91 @@ export default function AddToCollection({
             </div>
             <PlusSignIcon />
           </div>
-          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] text-sm sm:text-lg">
-            <div className="flex items-center mt-12">
-              <div className="flex items-start gap-2 w-[45%]">
-                <PlusSignIcon />
-                <label htmlFor="media">Number of Tokens</label>
+          <div className="flex sm:justify-center w-full px-4 sm:px-0">
+            <div className="w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] text-sm sm:text-lg">
+              <div className="flex items-center mt-12">
+                <div className="flex items-start gap-2 w-[45%]">
+                  <PlusSignIcon />
+                  <label htmlFor="media">Number of Tokens</label>
+                </div>
+                <div className="flex items-start gap-2 w-[55%]">
+                  <input
+                    {...register("token-count")}
+                    type="number"
+                    id="max-token-count"
+                    className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
+                    placeholder="12"
+                    required
+                    min={1}
+                  />
+                  <PlusSignIcon />
+                </div>
               </div>
-              <div className="flex items-start gap-2 w-[55%]">
-                <input
-                  {...register("token-count")}
-                  type="number"
-                  id="max-token-count"
-                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
-                  placeholder="12"
-                  required
-                  min={1}
-                />
-                <PlusSignIcon />
-              </div>
-            </div>
-            <div className="flex items-center mt-12 pt-3">
-              <div className="flex items-start gap-2 w-[45%]">
-                <PlusSignIcon />
-                <label htmlFor="should-mint">Mint Tokens at Creation</label>
-              </div>
-              <div className="flex items-start gap-2 w-[55%]">
-                <input
-                  {...register("should-mint")}
-                  type="checkbox"
-                  className="rounded-full text-black border-black focus:ring-0 focus:ring-offset-0 focus:outline-none"
-                  id="should-mint"
-                />
-              </div>
-              <PlusSignIcon />
-            </div>
-            <div className="flex mt-12">
-              <div className="flex items-start gap-2 w-[45%]">
-                <PlusSignIcon />
-                <label htmlFor="initial-start-time">Initial Auction</label>
-              </div>
-              <div className="flex items-start gap-2 w-[55%]">
-                <div className="flex flex-col w-full">
-                  <label htmlFor="initial-start-time">
-                    Set when the first on-chain Stewardship Inauguration starts.
-                  </label>
-                  <div className="flex mt-2">
-                    <input
-                      {...register("initial-start-date")}
-                      id="initial-start-date"
-                      type="date"
-                      required
-                      className="w-2/4 bg-transparent border-solid border-0 border-b border-black focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mr-5 p-0 py-1"
-                    />
-                    <div className="flex w-2/4 border-solid border-0 border-b border-black">
-                      <input
-                        {...register("initial-start-time")}
-                        id="initial-start-time"
-                        type="time"
-                        required
-                        className="bg-transparent border-0 p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] p-0 py-1"
-                      />
-                      {!isMobile && (
-                        <span className="flex items-center font-serif text-xl pl-2">
-                          {
-                            new Date()
-                              .toLocaleTimeString("default", {
-                                timeZoneName: "short",
-                              })
-                              .split(" ")[2]
-                          }
-                        </span>
-                      )}
-                    </div>
-                  </div>
+              <div className="flex items-center mt-12 pt-3">
+                <div className="flex items-start gap-2 w-[45%]">
+                  <PlusSignIcon />
+                  <label htmlFor="should-mint">Mint Tokens at Creation</label>
+                </div>
+                <div className="flex items-start gap-2 w-[55%]">
+                  <input
+                    {...register("should-mint")}
+                    type="checkbox"
+                    className="rounded-full text-black border-black focus:ring-0 focus:ring-offset-0 focus:outline-none"
+                    id="should-mint"
+                  />
                 </div>
                 <PlusSignIcon />
+              </div>
+              <div className="flex mt-12">
+                <div className="flex items-start gap-2 w-[45%]">
+                  <PlusSignIcon />
+                  <label htmlFor="initial-start-time">Initial Auction</label>
+                </div>
+                <div className="flex items-start gap-2 w-[55%]">
+                  <div className="flex flex-col w-full">
+                    <label htmlFor="initial-start-time">
+                      Set when the first on-chain Stewardship Inauguration
+                      starts.
+                    </label>
+                    <div className="flex flex-col sm:flex-row mt-2">
+                      <input
+                        {...register("initial-start-date")}
+                        id="initial-start-date"
+                        type="date"
+                        required
+                        className="w-full sm:w-2/4 bg-transparent border-solid border-0 border-b border-black focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mr-5 p-0 py-1"
+                      />
+                      <div className="flex w-full sm:w-2/4 border-solid border-0 border-b border-black">
+                        <input
+                          {...register("initial-start-time")}
+                          id="initial-start-time"
+                          type="time"
+                          required
+                          className="bg-transparent border-0 p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] p-0 py-1"
+                        />
+                        {!isMobile && (
+                          <span className="flex items-center font-serif text-xl pl-2">
+                            {
+                              new Date()
+                                .toLocaleTimeString("default", {
+                                  timeZoneName: "short",
+                                })
+                                .split(" ")[2]
+                            }
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <PlusSignIcon />
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div className="flex justify-between items-start w-full mt-12 px-4">
           <PlusSignIcon />
-          <div className="flex items-start w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
+          <div className="flex items-start w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
             <div className="flex">
               <div className="flex items-start gap-2 w-[45%]">
                 <PlusSignIcon />
@@ -273,10 +276,10 @@ export default function AddToCollection({
         </div>
         <BranchIsWalletConnected>
           <button
-            className="w-full mt-12 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
+            className="w-full mt-12 mb-24 xl:mb-32 px-4 sm:px-0 font-serif text-2xl gradient-action-btn"
             disabled={isLoading || isFetching || isTxnLoading}
           >
-            <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[950px] m-auto">
+            <div className="w-full sm:w-[600px] xl:w-[750px] 2xl:w-[950px] m-auto">
               <ForwardArrowAnimated>
                 <span>
                   {isLoading || isFetching || isTxnLoading
@@ -287,7 +290,7 @@ export default function AddToCollection({
             </div>
           </button>
           <button
-            className="w-full mt-12 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
+            className="w-full mt-12 mb-24 xl:mb-32 px-4 sm:px-0 font-serif text-2xl gradient-action-btn"
             onClick={(e) => {
               e.preventDefault();
 
@@ -296,7 +299,7 @@ export default function AddToCollection({
               }
             }}
           >
-            <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
+            <div className="w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
               <ForwardArrowAnimated>
                 <span>CONNECT</span>
               </ForwardArrowAnimated>

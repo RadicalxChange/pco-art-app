@@ -188,7 +188,7 @@ export default function UpdateEligibilityPage({
         <div className="flex flex-col items-center text-sm sm:text-lg">
           <div className="flex justify-between items-start w-full mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 px-4">
             <PlusSignIcon />
-            <div className="flex w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
+            <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
               <div className="flex w-full">
                 <div className="flex items-start gap-2 w-[45%]">
                   <PlusSignIcon />
@@ -214,91 +214,93 @@ export default function UpdateEligibilityPage({
             </div>
             <PlusSignIcon />
           </div>
-          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] text-sm sm:text-lg">
-            {watchAllowAny === "false" && (
-              <div className="flex w-full mt-12">
-                <div className="flex items-start gap-2 w-[45%]">
-                  <PlusSignIcon />
-                  <label htmlFor="allowlist.addresses">Allowlist</label>
-                </div>
-                <div className="flex items-start gap-2 w-[55%]">
-                  <div className="flex flex-col w-full">
-                    <label htmlFor="allowlist.addresses">
-                      Provide the eligibile Ethereum addresses.
-                    </label>
-                    {watchAddresses?.map((_: any, index: number) => (
-                      <div key={index} className="flex">
-                        {index > 0 && (
-                          <button
-                            className="bg-transparent mt-1 mr-1"
-                            onClick={() => {
-                              // Remove item from watchAddresses
-                              setValue(
-                                `allowlist.addresses`,
-                                watchAddresses?.toSpliced(index, 1)
-                              );
-                            }}
-                          >
-                            <Image
-                              src="/cancel.svg"
-                              alt="Cancel"
-                              width={24}
-                              height={24}
-                            />
-                          </button>
-                        )}
-                        <input
-                          {...register(`allowlist.addresses.${index}`)}
-                          type="string"
-                          id={`allowlist.addresses.${index}`}
-                          className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mb-2"
-                          placeholder="0x"
-                          required
-                          pattern="^(0x)?[0-9a-fA-F]{40}$"
-                        />
-                      </div>
-                    ))}
-                    <div className="flex mt-2">
-                      <button
-                        className="w-full flex items-center gap-1 bg-transparent"
-                        onClick={() => {
-                          setValue(
-                            `allowlist.addresses.${
-                              watchAddresses?.length ?? 0 + 1
-                            }`,
-                            ""
-                          );
-                        }}
-                      >
-                        <Image
-                          src="/add.svg"
-                          alt="Add"
-                          width={23}
-                          height={23}
-                        />
-                        Add another address
-                      </button>
-                    </div>
+          <div className="flex sm:justify-center w-full px-4 sm:px-0">
+            <div className="w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] text-sm sm:text-lg">
+              {watchAllowAny === "false" && (
+                <div className="flex w-full mt-12">
+                  <div className="flex items-start gap-2 w-[45%]">
+                    <PlusSignIcon />
+                    <label htmlFor="allowlist.addresses">Allowlist</label>
                   </div>
-                  <PlusSignIcon />
+                  <div className="flex items-start gap-2 w-[55%]">
+                    <div className="flex flex-col w-full">
+                      <label htmlFor="allowlist.addresses">
+                        Provide the eligibile Ethereum addresses.
+                      </label>
+                      {watchAddresses?.map((_: any, index: number) => (
+                        <div key={index} className="flex">
+                          {index > 0 && (
+                            <button
+                              className="bg-transparent mt-1 mr-1"
+                              onClick={() => {
+                                // Remove item from watchAddresses
+                                setValue(
+                                  `allowlist.addresses`,
+                                  watchAddresses?.toSpliced(index, 1)
+                                );
+                              }}
+                            >
+                              <Image
+                                src="/cancel.svg"
+                                alt="Cancel"
+                                width={24}
+                                height={24}
+                              />
+                            </button>
+                          )}
+                          <input
+                            {...register(`allowlist.addresses.${index}`)}
+                            type="string"
+                            id={`allowlist.addresses.${index}`}
+                            className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mb-2"
+                            placeholder="0x"
+                            required
+                            pattern="^(0x)?[0-9a-fA-F]{40}$"
+                          />
+                        </div>
+                      ))}
+                      <div className="flex mt-2">
+                        <button
+                          className="w-full flex items-center gap-1 bg-transparent"
+                          onClick={() => {
+                            setValue(
+                              `allowlist.addresses.${
+                                watchAddresses?.length ?? 0 + 1
+                              }`,
+                              ""
+                            );
+                          }}
+                        >
+                          <Image
+                            src="/add.svg"
+                            alt="Add"
+                            width={23}
+                            height={23}
+                          />
+                          Add another address
+                        </button>
+                      </div>
+                    </div>
+                    <PlusSignIcon />
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
         <BranchIsWalletConnected>
           <button
-            className="w-full mt-12 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
+            className="w-full mt-12 mb-24 xl:mb-32 px-4 sm:px-0 font-serif text-2xl gradient-action-btn"
             disabled={isSaving}
           >
-            <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
+            <div className="w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
               <ForwardArrowAnimated>
                 <span>{isSaving ? "SAVING..." : "SAVE"}</span>
               </ForwardArrowAnimated>
             </div>
           </button>
           <button
-            className="w-full mt-12 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn"
+            className="w-full mt-12 mb-24 xl:mb-32 px-4 sm:px-0 font-serif text-2xl gradient-action-btn"
             onClick={(e) => {
               e.preventDefault();
 
@@ -307,7 +309,7 @@ export default function UpdateEligibilityPage({
               }
             }}
           >
-            <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
+            <div className="w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
               <ForwardArrowAnimated>
                 <span>CONNECT</span>
               </ForwardArrowAnimated>

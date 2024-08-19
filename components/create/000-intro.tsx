@@ -26,7 +26,7 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
       <div className="flex flex-col items-center text-sm sm:text-lg">
         <div className="flex justify-between items-start w-full mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 px-4">
           <PlusSignIcon />
-          <div className="flex w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
+          <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
             <div className="flex text-sm sm:text-lg">
               <div className="flex items-start gap-2 w-[45%]">
                 <PlusSignIcon />
@@ -51,45 +51,47 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
           </div>
           <PlusSignIcon />
         </div>
-        <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
-          <div className="flex mt-10 text-sm sm:text-lg">
-            <div className="flex items-start gap-2 w-[45%]">
-              <PlusSignIcon />
-              <p>Testnet</p>
-            </div>
-            <div className="flex items-start gap-2 w-[55%]">
-              <p>
-                PCOArt is currently available for testing on the OP Sepolia
-                testnet. If you need testnet tokens, we recommend using the{" "}
-                <Link
-                  href="https://console.optimism.io/faucet"
-                  target="_blank"
-                  className="underline"
-                >
-                  Superchain Faucet
-                </Link>
-                .
-                <br />
-                <br />
-                If you are interested in using the full system or want to speak
-                to us about developing your project using PCOArt,{" "}
-                <Link
-                  href="mailto:fae@serpentinegalleries.org"
-                  target="_blank"
-                  className="underline"
-                >
-                  please get in touch
-                </Link>
-                .
-              </p>
-              <PlusSignIcon />
+        <div className="flex sm:justify-center w-full px-4 sm:px-0">
+          <div className="w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
+            <div className="flex mt-10 text-sm sm:text-lg">
+              <div className="flex items-start gap-2 w-[45%]">
+                <PlusSignIcon />
+                <p>Testnet</p>
+              </div>
+              <div className="flex items-start gap-2 w-[55%]">
+                <p>
+                  PCOArt is currently available for testing on the OP Sepolia
+                  testnet. If you need testnet tokens, we recommend using the{" "}
+                  <Link
+                    href="https://console.optimism.io/faucet"
+                    target="_blank"
+                    className="underline"
+                  >
+                    Superchain Faucet
+                  </Link>
+                  .
+                  <br />
+                  <br />
+                  If you are interested in using the full system or want to
+                  speak to us about developing your project using PCOArt,{" "}
+                  <Link
+                    href="mailto:fae@serpentinegalleries.org"
+                    target="_blank"
+                    className="underline"
+                  >
+                    please get in touch
+                  </Link>
+                  .
+                </p>
+                <PlusSignIcon />
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div className="flex justify-between items-start w-full mt-12 px-4">
         <PlusSignIcon />
-        <div className="flex items-start w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
+        <div className="flex items-start w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
           <div className="flex w-full text-sm sm:text-lg">
             <div className="flex items-start gap-2 w-[45%]">
               <PlusSignIcon />
@@ -118,10 +120,10 @@ export default function Intro({ nextStep }: { nextStep: () => void }) {
         <PlusSignIcon />
       </div>
       <button
-        className="w-full mt-12 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn px-2"
+        className="w-full mt-12 mb-24 xl:mb-32 font-serif text-2xl gradient-action-btn px-4 sm:px-2"
         onClick={address ? nextStep : openConnectModal}
       >
-        <div className="flex items-center w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
+        <div className="flex items-center w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px] m-auto">
           <ForwardArrowAnimated>
             <span>{address ? "GET STARTED" : "CONNECT"}</span>
           </ForwardArrowAnimated>

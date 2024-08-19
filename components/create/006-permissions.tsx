@@ -157,7 +157,7 @@ export default function ConfigPermissions({
             <PlusSignIcon />
             <div
               ref={formContainerRef}
-              className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]"
+              className="w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]"
             >
               <div className="flex">
                 <div className="flex items-start gap-2 w-[45%]">
@@ -181,39 +181,41 @@ export default function ConfigPermissions({
             </div>
             <PlusSignIcon />
           </div>
-          <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
-            <div className="flex mt-12">
-              <div className="flex items-start gap-2 w-[45%]">
-                <PlusSignIcon />
-                <label htmlFor="permissions.token-admin">Token Admin</label>
-              </div>
-              <div className="flex items-start gap-2 w-[55%]">
-                <div className="flex flex-col w-full">
-                  <label htmlFor="permissions.token-admin">
-                    This role mimics the permissions that you are exercising now
-                    at minting (with technical limitations around backward
-                    compatibility). This address can change a token&apos;s PCO
-                    settings, implementation/configuration of core components,
-                    and reassign the roles below. Set to 0x0 if/when you
-                    don&apos;t want an admin.
-                  </label>
-                  <input
-                    {...register(`permissions.token-admin`)}
-                    type="string"
-                    id={`permissions.token-admin`}
-                    className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
-                    placeholder="0x"
-                    required
-                    pattern="^(0x)?[0-9a-fA-F]{40}$"
-                  />
+          <div className="flex sm:justify-center w-full px-4 sm:px-0">
+            <div className="w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
+              <div className="flex mt-12">
+                <div className="flex items-start gap-2 w-[45%]">
+                  <PlusSignIcon />
+                  <label htmlFor="permissions.token-admin">Token Admin</label>
                 </div>
-                <PlusSignIcon />
+                <div className="flex items-start gap-2 w-[55%]">
+                  <div className="flex flex-col w-full">
+                    <label htmlFor="permissions.token-admin">
+                      This role mimics the permissions that you are exercising
+                      now at minting (with technical limitations around backward
+                      compatibility). This address can change a token&apos;s PCO
+                      settings, implementation/configuration of core components,
+                      and reassign the roles below. Set to 0x0 if/when you
+                      don&apos;t want an admin.
+                    </label>
+                    <input
+                      {...register(`permissions.token-admin`)}
+                      type="string"
+                      id={`permissions.token-admin`}
+                      className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD] mt-2"
+                      placeholder="0x"
+                      required
+                      pattern="^(0x)?[0-9a-fA-F]{40}$"
+                    />
+                  </div>
+                  <PlusSignIcon />
+                </div>
               </div>
             </div>
           </div>
           <div className="flex justify-between items-start w-full mt-12 px-4">
             <PlusSignIcon />
-            <div className="flex items-start w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
+            <div className="flex items-start w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
               <div className="flex w-full">
                 <div className="flex items-start gap-2 w-[45%]">
                   <PlusSignIcon />

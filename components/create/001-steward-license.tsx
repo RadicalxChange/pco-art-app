@@ -98,7 +98,7 @@ export default function ConfigStewardLicenseFacet({
             <PlusSignIcon />
             <div
               ref={formContainerRef}
-              className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]"
+              className="w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]"
             >
               <div className="flex w-full text-sm sm:text-lg">
                 <div className="flex items-start gap-2 w-[45%]">
@@ -125,113 +125,116 @@ export default function ConfigStewardLicenseFacet({
             </div>
             <PlusSignIcon />
           </div>
-          <div
-            ref={formContainerRef}
-            className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]"
-          >
-            <div className="flex items-center mt-12 text-sm sm:text-lg">
-              <div className="flex items-start gap-2 w-[45%]">
-                <PlusSignIcon />
-                <label htmlFor="name">Name</label>
-              </div>
-              <div className="flex items-start gap-2 w-[55%]">
-                <input
-                  {...register("steward-license.name")}
-                  type="text"
-                  id="name"
-                  placeholder="Name your token"
-                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
-                  required
-                  maxLength={32}
-                />
-                <PlusSignIcon />
-              </div>
-            </div>
-            <div className="flex items-center mt-12 text-sm sm:text-lg">
-              <div className="flex items-start gap-2 w-[45%]">
-                <PlusSignIcon />
-                <label htmlFor="symbol">Symbol</label>
-              </div>
-              <div className="flex items-start gap-2 w-[55%]">
-                <input
-                  {...register("steward-license.symbol")}
-                  type="text"
-                  id="symbol"
-                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
-                  placeholder="An abbreviation for your token"
-                  required
-                  maxLength={10}
-                />
-                <PlusSignIcon />
-              </div>
-            </div>
-            <div className="flex items-start mt-12 text-sm sm:text-lg">
-              <div className="flex items-start gap-2 w-[45%]">
-                <PlusSignIcon />
-                <label htmlFor="media">URI (Metadata)</label>
-              </div>
-              <div className="flex items-start gap-2 w-[55%]">
-                <div className="w-full">
-                  <input
-                    {...register("steward-license.media-uri")}
-                    type="text"
-                    id="media"
-                    className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
-                    placeholder="ipfs://"
-                    required
-                  />
-                  <div className="mt-2 text-xs sm:text-sm">
-                    Download{" "}
-                    <a
-                      href="https://gateway.pinata.cloud/ipfs/QmPPTSewMyDBaaGuFrzBeh2Kny64S7REFiw9C22Ap8QFfP/?filename=metadata.zip"
-                      download
-                      className="underline"
-                      target="_blank"
-                    >
-                      this JSON template
-                    </a>
-                    , define your token metadata according to{" "}
-                    <Link
-                      href="https://docs.pco.art/for-artists/instantiating-your-art/#metadata"
-                      className="underline"
-                      target="_blank"
-                    >
-                      these instructions
-                    </Link>
-                    , upload it to a decentralized storage provider, & add the
-                    resulting URI here. You can use{" "}
-                    <span className="break-all">
-                      ipfs://Qmd4KHEUWdWWRJnceqk3vGfML84cUQ1ezYFjZvs5eHX8sa
-                    </span>{" "}
-                    to test mint a collection of 3 tokens with our sample data.
-                  </div>
+          <div className="flex sm:justify-center w-full px-4 sm:px-0">
+            <div
+              ref={formContainerRef}
+              className="w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]"
+            >
+              <div className="flex items-center mt-12 text-sm sm:text-lg">
+                <div className="flex items-start gap-2 w-[45%]">
+                  <PlusSignIcon />
+                  <label htmlFor="name">Name</label>
                 </div>
-                <PlusSignIcon />
+                <div className="flex items-start gap-2 w-[55%]">
+                  <input
+                    {...register("steward-license.name")}
+                    type="text"
+                    id="name"
+                    placeholder="Name your token"
+                    className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
+                    required
+                    maxLength={32}
+                  />
+                  <PlusSignIcon />
+                </div>
               </div>
-            </div>
-            <div className="flex items-center mt-12 text-sm sm:text-lg">
-              <div className="flex items-start gap-2 w-[45%]">
-                <PlusSignIcon />
-                <label htmlFor="media">Number of Tokens</label>
+              <div className="flex items-center mt-12 text-sm sm:text-lg">
+                <div className="flex items-start gap-2 w-[45%]">
+                  <PlusSignIcon />
+                  <label htmlFor="symbol">Symbol</label>
+                </div>
+                <div className="flex items-start gap-2 w-[55%]">
+                  <input
+                    {...register("steward-license.symbol")}
+                    type="text"
+                    id="symbol"
+                    className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
+                    placeholder="An abbreviation for your token"
+                    required
+                    maxLength={10}
+                  />
+                  <PlusSignIcon />
+                </div>
               </div>
-              <div className="flex items-start gap-2 w-[55%]">
-                <input
-                  {...register("steward-license.max-token-count")}
-                  type="number"
-                  id="max-token-count"
-                  className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
-                  placeholder="12"
-                  required
-                  min={1}
-                />
-                <PlusSignIcon />
+              <div className="flex items-start mt-12 text-sm sm:text-lg">
+                <div className="flex items-start gap-2 w-[45%]">
+                  <PlusSignIcon />
+                  <label htmlFor="media">URI (Metadata)</label>
+                </div>
+                <div className="flex items-start gap-2 w-[55%]">
+                  <div className="w-full">
+                    <input
+                      {...register("steward-license.media-uri")}
+                      type="text"
+                      id="media"
+                      className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
+                      placeholder="ipfs://"
+                      required
+                    />
+                    <div className="mt-2 text-xs sm:text-sm">
+                      Download{" "}
+                      <a
+                        href="https://gateway.pinata.cloud/ipfs/QmPPTSewMyDBaaGuFrzBeh2Kny64S7REFiw9C22Ap8QFfP/?filename=metadata.zip"
+                        download
+                        className="underline"
+                        target="_blank"
+                      >
+                        this JSON template
+                      </a>
+                      , define your token metadata according to{" "}
+                      <Link
+                        href="https://docs.pco.art/for-artists/instantiating-your-art/#metadata"
+                        className="underline"
+                        target="_blank"
+                      >
+                        these instructions
+                      </Link>
+                      , upload it to a decentralized storage provider, & add the
+                      resulting URI here. You can use{" "}
+                      <span className="break-all">
+                        ipfs://Qmd4KHEUWdWWRJnceqk3vGfML84cUQ1ezYFjZvs5eHX8sa
+                      </span>{" "}
+                      to test mint a collection of 3 tokens with our sample
+                      data.
+                    </div>
+                  </div>
+                  <PlusSignIcon />
+                </div>
+              </div>
+              <div className="flex items-center mt-12 text-sm sm:text-lg">
+                <div className="flex items-start gap-2 w-[45%]">
+                  <PlusSignIcon />
+                  <label htmlFor="media">Number of Tokens</label>
+                </div>
+                <div className="flex items-start gap-2 w-[55%]">
+                  <input
+                    {...register("steward-license.max-token-count")}
+                    type="number"
+                    id="max-token-count"
+                    className="w-full bg-transparent border-solid border-0 border-b border-black p-0 focus:outline-none focus:ring-0 focus:border-black font-serif text-xl placeholder-[#ADADAD]"
+                    placeholder="12"
+                    required
+                    min={1}
+                  />
+                  <PlusSignIcon />
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div className="flex justify-between items-start w-full mt-12 px-4">
           <PlusSignIcon />
-          <div className="flex items-start w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
+          <div className="flex items-start w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
             <div className="flex items-center w-full text-sm sm:text-lg">
               <div className="flex items-start gap-2 w-[45%]">
                 <PlusSignIcon />

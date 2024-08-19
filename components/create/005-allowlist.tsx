@@ -96,7 +96,7 @@ export default function ConfigAllowlistFacet({
             <PlusSignIcon />
             <div
               ref={formContainerRef}
-              className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]"
+              className="w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]"
             >
               <div className="flex">
                 <div className="flex items-start gap-2 w-[45%]">
@@ -126,7 +126,7 @@ export default function ConfigAllowlistFacet({
           {watchAllowAny === "false" && (
             <div className="flex justify-between items-start w-full mt-12 px-4">
               <PlusSignIcon />
-              <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
+              <div className="w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1100px]">
                 <div className="flex">
                   <div className="flex items-start gap-2 w-[45%]">
                     <PlusSignIcon />
