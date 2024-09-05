@@ -79,8 +79,8 @@ export default function Home() {
             </div>
             <p className="text-lg mt-4">
               PCO is currently only available to test using a testnet
-              blockchain. To find out more about using the testnet and the
-              claiming test tokens{" "}
+              blockchain. To find out more about using the testnet and claiming
+              test tokens{" "}
               <Link
                 href="https://docs.optimism.io/builders/tools/build/faucets"
                 target="_blank"
