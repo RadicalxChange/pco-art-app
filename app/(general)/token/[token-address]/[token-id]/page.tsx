@@ -458,7 +458,7 @@ export default function TokenPage({
   };
 
   const bidInfoView = (
-    <div className="flex grow gap-3 bg-[#d9d9d9] p-3">
+    <div className="flex grow gap-3 bg-[#d9d9d9] p-3 text-sm sm:text-lg">
       <div className="flex flex-col w-2/4">
         <span>{isAuctionFinished ? "Winning Bid" : "Top Bid"}</span>
         {highestBid && highestBid.bidAmount > 0 ? (
@@ -505,7 +505,7 @@ export default function TokenPage({
   );
 
   const userCollateralView = (
-    <>
+    <div className="text-sm sm:text-lg">
       <div className="mt-2 p-3 sm:p-0">
         <p>Locked Collateral</p>
         <p className="font-serif text-xl">
@@ -524,7 +524,7 @@ export default function TokenPage({
           ETH
         </p>
       </div>
-    </>
+    </div>
   );
 
   const cancelBidButton = (
@@ -592,9 +592,9 @@ export default function TokenPage({
           <PlusSignIcon />
         </div>
         <div className="w-[320px] sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] text-sm sm:text-lg">
-          <div className="flex flex-col justify-start gap-3 lg:flex-row sm:pl-3">
+          <div className="flex flex-col justify-start gap-3 lg:flex-row">
             <div className="flex sm:gap-x-2">
-              <div className="flex flex-col justify-between">
+              <div className="relative right-[8px] flex flex-col justify-between">
                 <PlusSignIcon />
                 <PlusSignIcon />
               </div>
@@ -614,7 +614,7 @@ export default function TokenPage({
               </div>
             </div>
             <div className="flex flex-col w-full lg:w-1/3">
-              <div className="flex items-start">
+              <div className="relative left-[8px] flex items-start">
                 <PlusSignIcon />
                 <div className="flex flex-col sm:mx-2">
                   <span>Artist</span>
@@ -626,7 +626,7 @@ export default function TokenPage({
                   <PlusSignIcon />
                 </span>
               </div>
-              <div className="flex items-start mt-6">
+              <div className="relative left-[8px] flex items-start mt-6">
                 <PlusSignIcon />
                 <div className="flex flex-col sm:mx-2">
                   <span>Current Steward</span>
@@ -638,7 +638,7 @@ export default function TokenPage({
                   <PlusSignIcon />
                 </span>
               </div>
-              <div className="flex items-start mt-6">
+              <div className="relative left-[8px] flex items-start mt-6">
                 <PlusSignIcon />
                 <div className="flex flex-col sm:mx-2">
                   <Link
@@ -652,20 +652,20 @@ export default function TokenPage({
                   <PlusSignIcon />
                 </span>
               </div>
-              <div className="flex items-start mt-10">
+              <div className="relative left-[8px] flex items-start mt-10">
                 <PlusSignIcon />
                 <div className="w-full flex flex-col sm:mx-2">
                   <span className="font-serif text-xl">
                     {tokenInfo?.description}
                   </span>
                 </div>
-                <span className="ml-auto">
-                  <PlusSignIcon />
-                </span>
+                <PlusSignIcon />
               </div>
               <span className="flex justify-between mt-auto">
                 <PlusSignIcon />
-                <PlusSignIcon />
+                <div className="relative left-[8px] flex items-center">
+                  <PlusSignIcon />
+                </div>
               </span>
             </div>
           </div>
@@ -681,7 +681,7 @@ export default function TokenPage({
         !isAuctionPeriod ? (
           <>
             <div className="flex flex-col sm:flex-row mb-10">
-              <div className="flex items-start gap-2 sm:w-[45%] sm:pl-3">
+              <div className="relative right-[8px] flex items-start gap-2 sm:w-[45%]">
                 <PlusSignIcon />
                 TokenID in Collection
               </div>
@@ -735,14 +735,16 @@ export default function TokenPage({
                     </DialogContent>
                   </Dialog>
                 </div>
-                <PlusSignIcon />
+                <div className="flex items-center relative left-[8px] shrink-0">
+                  <PlusSignIcon />
+                </div>
               </div>
             </div>
           </>
         ) : null}
         <div className="flex flex-col">
           <div className="flex flex-col sm:flex-row justify-center">
-            <div className="flex items-start gap-2 sm:w-[45%] sm:pl-3">
+            <div className="relative right-[8px] flex items-start gap-2 sm:w-[45%]">
               <PlusSignIcon />
               <span className="mb-2 sm:mb-0">Stewardship Details</span>
             </div>
@@ -799,7 +801,9 @@ export default function TokenPage({
                   </Link>
                 ) : null}
               </div>
-              <PlusSignIcon />
+              <div className="flex items-center relative left-[8px] shrink-0">
+                <PlusSignIcon />
+              </div>
             </div>
           </div>
           {(!isAuctionPeriod && hasPcoParamsRole) ||
@@ -808,7 +812,7 @@ export default function TokenPage({
           hasAllowlistRole ||
           hasAddTokenToCollectionRole ? (
             <div className="flex flex-col sm:flex-row mt-10">
-              <div className="flex items-start gap-2 sm:w-[45%] sm:pl-3">
+              <div className="relative right-[8px] flex items-start gap-2 sm:w-[45%]">
                 <PlusSignIcon />
                 <span className="mb-4 sm:mb-0">Token Configuration</span>
               </div>
@@ -822,6 +826,7 @@ export default function TokenPage({
                           alt="Forward"
                           width={15}
                           height={15}
+                          className="my-auto"
                         />
                         PCO Settings
                       </button>
@@ -835,6 +840,7 @@ export default function TokenPage({
                           alt="Forward"
                           width={15}
                           height={15}
+                          className="my-auto"
                         />
                         Creator Circle
                       </button>
@@ -848,6 +854,7 @@ export default function TokenPage({
                           alt="Forward"
                           width={15}
                           height={15}
+                          className="my-auto"
                         />
                         Stewardship Inauguration
                       </button>
@@ -861,6 +868,7 @@ export default function TokenPage({
                           alt="Forward"
                           width={15}
                           height={15}
+                          className="my-auto"
                         />
                         Eligibility
                       </button>
@@ -874,6 +882,7 @@ export default function TokenPage({
                           alt="Forward"
                           width={15}
                           height={15}
+                          className="my-auto"
                         />
                         Add Tokens
                       </button>
@@ -886,12 +895,15 @@ export default function TokenPage({
                         alt="Forward"
                         width={15}
                         height={15}
+                        className="my-auto"
                       />
                       Permissions
                     </button>
                   </Link>
                 </div>
-                <PlusSignIcon />
+                <div className="flex items-center relative left-[8px] shrink-0">
+                  <PlusSignIcon />
+                </div>
               </div>
             </div>
           ) : null}
@@ -902,7 +914,7 @@ export default function TokenPage({
           <>
             <div className="w-full bg-neon-green py-1 text-sm sm:text-lg">
               <div className="flex flex-col sm:flex-row items-center w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto">
-                <div className="flex items-center gap-2 sm:w-[45%] pl-1 sm:pl-3">
+                <div className="relative right-[8px] flex items-center gap-2 sm:w-[45%]">
                   <PlusSignIcon />
                   <span>STEWARDSHIP INAUGURATION</span>
                 </div>
@@ -910,7 +922,9 @@ export default function TokenPage({
                   {calculateTimeString(
                     Number(auctionEndTime) * 1000 - Date.now()
                   )}
-                  <PlusSignIcon />
+                  <div className="relative left-[8px]">
+                    <PlusSignIcon />
+                  </div>
                 </div>
               </div>
             </div>
@@ -974,7 +988,7 @@ export default function TokenPage({
           <>
             <div className="w-full bg-neon-green py-1 text-sm sm:text-lg">
               <div className="flex flex-col sm:flex-row items-center w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto">
-                <div className="flex items-center gap-2 sm:w-[45%] pl-1 sm:pl-3">
+                <div className="relative right-[8px] flex items-center gap-2 sm:w-[45%]">
                   <PlusSignIcon />
                   <span>STEWARDSHIP INAUGURATION</span>
                 </div>
@@ -1004,21 +1018,23 @@ export default function TokenPage({
                       </Tooltip>
                     ) : null}
                   </div>
-                  <PlusSignIcon />
+                  <div className="relative left-[8px] flex items-center shrink-0">
+                    <PlusSignIcon />
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-xl">
+            <div className="flex flex-col sm:flex-row w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-lg">
               <>
                 {!account.address ? (
-                  <div className="flex flex-col grow w-full bg-neon-red sm:w-[45%] p-3">
+                  <div className="flex flex-col grow w-full bg-neon-red sm:w-[45%] px-4 py-3">
                     Status
                     <span className="mt-2 font-serif text-4xl text-[48px] ">
                       Connect wallet to bid
                     </span>
                   </div>
                 ) : !isAllowed ? (
-                  <div className="flex flex-col grow w-full bg-neon-red sm:w-[45%] p-3">
+                  <div className="flex flex-col grow w-full bg-neon-red sm:w-[45%] px-4 py-3">
                     Status
                     <span className="mt-2 font-serif text-4xl text-[48px] ">
                       You're not on the auction allowlist
@@ -1028,7 +1044,7 @@ export default function TokenPage({
                   highestBid &&
                   bidOfUser.bidAmount > 0 &&
                   bidOfUser.bidAmount < highestBid.bidAmount ? (
-                  <div className="flex flex-col grow w-full bg-neon-red sm:w-[45%] p-3">
+                  <div className="flex flex-col grow w-full bg-neon-red sm:w-[45%] px-4 py-3">
                     Status
                     <span className="mt-2 font-serif text-[48px]">
                       You've Been Outbid!
@@ -1038,7 +1054,7 @@ export default function TokenPage({
                   highestBid &&
                   bidOfUser.bidder === account.address &&
                   bidOfUser.bidAmount === highestBid.bidAmount ? (
-                  <div className="flex flex-col grow w-full bg-neon-green sm:w-[45%] p-3">
+                  <div className="flex flex-col grow w-full bg-neon-green sm:w-[45%] px-4 py-3">
                     Status
                     <span className="mt-2 font-serif text-[48px]">
                       You're The Top Bidder!
@@ -1052,13 +1068,13 @@ export default function TokenPage({
             </div>
             {(availableCollateral && availableCollateral > 0) ||
             (lockedCollateral && lockedCollateral > 0) ? (
-              <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-xl">
+              <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-lg">
                 <div className="flex flex-col w-full sm:w-[55%] ml-auto p-3">
                   {userCollateralView}
                 </div>
               </div>
             ) : null}
-            <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-xl">
+            <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-lg">
               <div className="flex flex-col w-full sm:w-[55%] bg-[#d9d9d9] ml-auto p-3">
                 <fieldset className="flex flex-col">
                   <label style={{ color: !isAllowed ? "#888888" : "" }}>
@@ -1140,7 +1156,7 @@ export default function TokenPage({
                 </fieldset>
               </div>
             </div>
-            <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-xl">
+            <div className="flex w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-lg">
               <div className="flex flex-col w-full sm:w-[55%] ml-auto">
                 {bidOfUser &&
                 highestBid &&
@@ -1181,11 +1197,11 @@ export default function TokenPage({
           </>
         ) : (
           <div className="flex flex-col sm:flex-row items-center sm:items-start w-full sm:w-[600px] xl:w-[750px] 2xl:w-[1200px] m-auto text-sm sm:text-lg">
-            <div className="flex items-center gap-2 sm:w-[45%] pl-1 sm:pl-3">
+            <div className="relative right-[8px] flex items-start gap-2 sm:w-[45%]">
               <PlusSignIcon />
               <span>Next Stewardship Inauguration</span>
             </div>
-            <div className="flex items-start gap-2 sm:w-[55%]">
+            <div className="flex items-start grow-0 gap-2 sm:w-[55%]">
               <div className="flex flex-col items-center sm:items-start w-full">
                 <span>English Auction [Extending]</span>
                 <div className="mt-1 px-3 sm:px-0">
@@ -1214,7 +1230,9 @@ export default function TokenPage({
                     : null}
                 </div>
               </div>
-              <PlusSignIcon />
+              <div className="relative left-[8px] shrink-0">
+                <PlusSignIcon />
+              </div>
             </div>
           </div>
         )}
