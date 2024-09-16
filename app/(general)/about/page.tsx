@@ -19,7 +19,7 @@ export default function About() {
           <PlusSignIcon />
         </div>
       </div>
-      <div className="flex justify-between items-start w-full mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 px-4">
+      <div className="flex justify-between items-start w-full mt-12 sm:mt-16 xl:mt-20 2xl:mt-24 px-4 text-sm sm:text-lg">
         <PlusSignIcon />
         <div className="flex w-[350px] sm:w-[600px] xl:w-[800px] 2xl:w-[1100px]">
           <div className="flex items-start gap-2 w-[45%]">
