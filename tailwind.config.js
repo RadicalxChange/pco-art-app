@@ -70,6 +70,9 @@ module.exports = {
         "neon-red": "#ff5e5e",
         "neon-pink": "#fa00ff",
         "off-white": "#ececec",
+        "white-pco": "#E8E8E8",
+        "black-pco": "#141514",
+        "green-pco": "#05FF00", 
         gray: {
           100: "#f7fafc",
           200: "#edf2f7",
