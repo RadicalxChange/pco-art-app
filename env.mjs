@@ -6,6 +6,8 @@ export const env = createEnv({
     // Iron session requires a secret of at least 32 characters
     // Comma separated list of Ethereum addresses, accepts optinal whitespace after comma
     SITE_URL: z.string().url().optional(),
+    BREVO_API_KEY: z.string().min(1).optional(),
+    BREVO_LIST_ID: z.string().optional(),
   },
   client: {
     NEXT_PUBLIC_USE_PUBLIC_PROVIDER: z.enum(["true", "false"]).default("true"),
@@ -18,6 +20,8 @@ export const env = createEnv({
   },
   runtimeEnv: {
     SITE_URL: process.env.SITE_URL,
+    BREVO_API_KEY: process.env.BREVO_API_KEY,
+    BREVO_LIST_ID: process.env.BREVO_LIST_ID,
     NEXT_PUBLIC_USE_PUBLIC_PROVIDER:
       process.env.NEXT_PUBLIC_USE_PUBLIC_PROVIDER,
     NEXT_PUBLIC_USE_HARDHAT_PROVIDER:

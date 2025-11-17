@@ -54,7 +54,7 @@ export default function RootLayout({ children }: any) {
       suppressHydrationWarning
       className={`${suisseIntlFont.variable} ${inferiFont.variable} ${injurialFont.variable}`}
     >
-      <body className="min-h-screen bg-off-white font-sans text-black antialiased">
+      <body className="min-h-screen bg-white-pco font-sans text-black-pco antialiased">
         <RootProvider>{children}</RootProvider>
       </body>
     </html>
