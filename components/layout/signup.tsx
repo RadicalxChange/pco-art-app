@@ -122,10 +122,10 @@ export default function SignUp({ isOpen, onClose }: SignUpProps) {
               {/* Fila superior con cruces */}
               <div className="flex flex-col justify-between">
                 <div className="relative">
-                  <img src="/Plus.svg" alt="Plus" className="w-6 h-6" />
+                  <img src="/plus.svg" alt="Plus" className="w-6 h-6" />
                 </div>
                 <div className="relative">
-                  <img src="/Plus.svg" alt="Plus" className="w-6 h-6" />
+                  <img src="/plus.svg" alt="Plus" className="w-6 h-6" />
                 </div>
               </div>
 
@@ -187,14 +187,14 @@ export default function SignUp({ isOpen, onClose }: SignUpProps) {
                     aria-label="Close"
                   >
                     <img
-                      src="/Plus.svg"
+                      src="/plus.svg"
                       alt="Close"
                       className="w-6 h-6 rotate-45 md:rotate-0"
                     />
                   </button>
                 </div>
                 <div className="relative">
-                  <img src="/Plus.svg" alt="Plus" className="w-6 h-6" />
+                  <img src="/plus.svg" alt="Plus" className="w-6 h-6" />
                 </div>
               </div>
             </div>
