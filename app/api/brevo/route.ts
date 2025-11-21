@@ -51,7 +51,9 @@ export async function POST(request: Request) {
     }
 
     const errorMessage =
-      responseBody?.message ?? responseBody?.error ?? "No se pudo registrar el contacto.";
+      responseBody?.message ??
+      responseBody?.error ??
+      "No se pudo registrar el contacto.";
 
     // Brevo devuelve 400 si el contacto ya existe.
     if (
@@ -78,4 +80,3 @@ export async function POST(request: Request) {
     );
   }
 }
-
